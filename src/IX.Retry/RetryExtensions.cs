@@ -1059,52 +1059,52 @@ namespace IX.Retry
             await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4); return Task.FromResult(0); }, retryPolicy, cancellationToken);
         }
 
-        public static async Task WithRetryAsync<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4, T5> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        public static void WithRetry<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4, T5> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5); return Task.FromResult(0); }, retryPolicy, cancellationToken);
+            DoRetry(p => action(arg1, arg2, arg3, arg4, arg5), retryPolicy, cancellationToken);
         }
 
-        public static async Task WithRetryAsync<T1, T2, T3, T4, T5, T6>(this Action<T1, T2, T3, T4, T5, T6> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        public static void WithRetry<T1, T2, T3, T4, T5, T6>(this Action<T1, T2, T3, T4, T5, T6> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6); return Task.FromResult(0); }, retryPolicy, cancellationToken);
+            DoRetry(p => action(arg1, arg2, arg3, arg4, arg5, arg6), retryPolicy, cancellationToken);
         }
 
-        public static async Task WithRetryAsync<T1, T2, T3, T4, T5, T6, T7>(this Action<T1, T2, T3, T4, T5, T6, T7> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        public static void WithRetry<T1, T2, T3, T4, T5, T6, T7>(this Action<T1, T2, T3, T4, T5, T6, T7> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7); return Task.FromResult(0); }, retryPolicy, cancellationToken);
+            DoRetry(p => action(arg1, arg2, arg3, arg4, arg5, arg6, arg7), retryPolicy, cancellationToken);
         }
 
-        public static async Task WithRetryAsync<T1, T2, T3, T4, T5, T6, T7, T8>(this Action<T1, T2, T3, T4, T5, T6, T7, T8> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        public static void WithRetry<T1, T2, T3, T4, T5, T6, T7, T8>(this Action<T1, T2, T3, T4, T5, T6, T7, T8> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8); return Task.FromResult(0); }, retryPolicy, cancellationToken);
+            DoRetry(p => action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8), retryPolicy, cancellationToken);
         }
 
-        public static async Task WithRetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        public static void WithRetry<T1, T2, T3, T4, T5, T6, T7, T8, T9>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9); return Task.FromResult(0); }, retryPolicy, cancellationToken);
+            DoRetry(p => action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9), retryPolicy, cancellationToken);
         }
 
-        public static async Task WithRetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        public static void WithRetry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10); return Task.FromResult(0); }, retryPolicy, cancellationToken);
+            DoRetry(p => action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10), retryPolicy, cancellationToken);
         }
 
         public static void WithRetry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
