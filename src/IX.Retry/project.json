@@ -1,6 +1,6 @@
 ﻿{
   "version": "1.0.0-*",
-  "description": "A library for re-queueing calls that might fail due to recoverable exceptions (such as network connection blips or remote servers too busy).",
+  "description": "A library for re-queuing calls that might fail due to recoverable exceptions (such as network connection blips or remote servers too busy).",
   "authors": [ "Adrian Mos" ],
   "owners": [ "Adrian Mos" ],
   "tags": [ "" ],
@@ -22,6 +22,7 @@
         "System.Runtime": "4.0.20-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816",
         "System.Runtime.Extensions": "4.0.10-beta-22816"
       }
     },
@@ -30,6 +31,7 @@
         "System.Runtime": "4.0.20-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816",
         "System.Runtime.Extensions": "4.0.10-beta-22816"
       }
     },
@@ -38,6 +40,7 @@
         "System.Runtime": "4.0.20-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816",
         "System.Runtime.Extensions": "4.0.10-beta-22816"
       }
     },
@@ -46,6 +49,7 @@
         "System.Runtime": "4.0.20-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816",
         "System.Runtime.Extensions": "4.0.10-beta-22816"
       }
     },
@@ -54,7 +58,7 @@
         "System.Collections": "4.0.10-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
-        "Microsoft.CSharp": "4.0.0-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816",
         "System.Runtime.Extensions": "4.0.10-beta-22816"
       }
     }
