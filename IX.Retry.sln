@@ -12,6 +12,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "IX.Retry", "src\IX.Retry\IX.Retry.xproj", "{EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F179C504-113A-48CB-AE89-A52D72744BCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IX.Retry.UnitTests", "test\IX.Retry.UnitTests\IX.Retry.UnitTests.csproj", "{864BACBF-66A2-405A-86DD-E1F9AFFDF118}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -22,11 +26,16 @@ Global
 		{EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{864BACBF-66A2-405A-86DD-E1F9AFFDF118}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{864BACBF-66A2-405A-86DD-E1F9AFFDF118}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{864BACBF-66A2-405A-86DD-E1F9AFFDF118}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{864BACBF-66A2-405A-86DD-E1F9AFFDF118}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1} = {791531F4-0205-425F-B6CA-AC02A9F1E08B}
+		{864BACBF-66A2-405A-86DD-E1F9AFFDF118} = {F179C504-113A-48CB-AE89-A52D72744BCD}
 	EndGlobalSection
 EndGlobal
