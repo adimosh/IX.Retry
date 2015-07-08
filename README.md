@@ -47,9 +47,18 @@ public int SomeMethod(Func<Type1, Type2, Type3, int> getNumberOfHeadbangsPerMinu
 }
 ```
 
+Installation
+------------
+
+In order to install this package, please either search for "IX.Retry" in the NuGet Package Manager or use the NuGet Package Manager Console:
+
+```
+Install-Package IX.Retry
+```
+
 Credits
 -------
 
 The project is based on a variety of other open-source projects, with no code copied, but adapted.
 
-<TODO: Add list>
+_TODO: Add list_

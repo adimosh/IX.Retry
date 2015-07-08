@@ -1,11 +1,11 @@
 ﻿{
-  "version": "1.0.0-*",
+  "version": "0.1.0-*",
   "description": "A library for re-queuing calls that might fail due to recoverable exceptions (such as network connection blips or remote servers too busy).",
   "authors": [ "Adrian Mos" ],
   "owners": [ "Adrian Mos" ],
   "tags": [ "" ],
-  "projectUrl": "",
-  "licenseUrl": "",
+  "projectUrl": "https://github.com/adimosh/IX.Retry/",
+  "licenseUrl": "https://github.com/adimosh/IX.Retry/blob/master/LICENSE.md",
 
   "dependencies": {
   },
