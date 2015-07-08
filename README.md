@@ -16,9 +16,9 @@ int x = GetNumberOfHeadbangsPerMinuteFromRemoteServer(param1, param2, param3);
 ```
 With retry:
 ```c#
-Func<int> getHeadbangs = GetNumberOfHeadbangsPerMinuteFromRemoteServer;
-int x = getHeadbangs.WithRetry(param1, param2, param3, Policy.TimeBasedPolicy(TimeSpan.FromSeconds(10), new[] { typeof(SomeTransportException) }));
+int x = With.Retry(GetNumberOfHeadbangsPerMinuteFromRemoteServer, param1, param2, param3, Policy.TimeBasedPolicy(TimeSpan.FromSeconds(10), new[] { typeof(SomeTransportException) }));
 ```
+
 Asynchronous operations are also supported.
 
 Original code:
@@ -27,8 +27,24 @@ int x = await GetNumberOfHeadbangsPerMinuteFromRemoteServer(param1, param2, para
 ```
 With retry:
 ```c#
-Func<Task<int>> getHeadbangs = GetNumberOfHeadbangsPerMinuteFromRemoteServer;
-int x = await getHeadbangs.WithRetry(param1, param2, param3, Policy.TimeBasedPolicy(TimeSpan.FromSeconds(10), new[] { typeof(SomeTransportException) }));
+int x = await With.RetryAsync(GetNumberOfHeadbangsPerMinuteFromRemoteServer, param1, param2, param3, Policy.TimeBasedPolicy(TimeSpan.FromSeconds(10), new[] { typeof(SomeTransportException) }));
+```
+
+Extension methods are also available for delegate parameters.
+
+Original code:
+```c#
+public int SomeMethod(Func<Type1, Type2, Type3, int> getNumberOfHeadbangsPerMinuteFromRemoteServer, Type1 param1, Type2 param2, Type3 param3)
+{
+    return getNumberOfHeadbangsPerMinuteFromRemoteServer(param1, param2, param3);
+}
+```
+With retry:
+```c#
+public int SomeMethod(Func<Type1, Type2, Type3, int> getNumberOfHeadbangsPerMinuteFromRemoteServer, Type1 param1, Type2 param2, Type3 param3)
+{
+    return getNumberOfHeadbangsPerMinuteFromRemoteServer.WithRetry(param1, param2, param3, Policy.TimeBasedPolicy(TimeSpan.FromSeconds(10), new[] { typeof(SomeTransportException) }));
+}
 ```
 
 Credits
