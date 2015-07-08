@@ -10,9 +10,19 @@ namespace IX.Retry.UnitTests
         int currentRetry;
         bool hasRetriedCorrectly;
 
-        void RetryTestMethod()
+        void RetryTestMethod<TException>() where TException : Exception, new()
         {
+            if (maxRetries > currentRetry)
+            {
+                currentRetry++;
+                throw new TException();
+            }
+            else if (hasRetriedCorrectly)
+            {
+                Assert.Fail("Another retry should not be performed should the method execute successfully!");
+            }
 
+            hasRetriedCorrectly = true;
         }
 
         [TestInitialize]
@@ -24,6 +34,11 @@ namespace IX.Retry.UnitTests
         [TestMethod]
         public void RetryExtensions_DoRetryAsync_SimpleAction_OneRetry()
         {
+            maxRetries = 1;
+            currentRetry = 0;
+
+            Action x = RetryTestMethod<InvalidOperationException>;
+            x.WithRetry(Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), new[] { typeof(InvalidOperationException) }));
         }
     }
 }

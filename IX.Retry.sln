@@ -15,6 +15,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F179C504-113A-48CB-AE89-A52D72744BCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IX.Retry.UnitTests", "test\IX.Retry.UnitTests\IX.Retry.UnitTests.csproj", "{864BACBF-66A2-405A-86DD-E1F9AFFDF118}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1} = {EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
