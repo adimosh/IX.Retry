@@ -19,7 +19,7 @@ namespace IX.Retry
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync(Func<Task> action, RetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync(Func<Task> action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, cancellationToken);
         }
@@ -33,7 +33,7 @@ namespace IX.Retry
         /// <param name="arg">The first function parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T>(Func<T, Task> action, RetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T>(Func<T, Task> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg, cancellationToken);
         }
@@ -49,7 +49,7 @@ namespace IX.Retry
         /// <param name="arg2">The second function parameter, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2>(Func<T1, T2, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2>(Func<T1, T2, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, cancellationToken);
         }
@@ -67,7 +67,7 @@ namespace IX.Retry
         /// <param name="arg3">The third function parameter, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3>(Func<T1, T2, T3, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, cancellationToken);
         }
@@ -87,7 +87,7 @@ namespace IX.Retry
         /// <param name="arg4">The fourth function parameter, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4>(Func<T1, T2, T3, T4, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, cancellationToken);
         }
@@ -109,7 +109,7 @@ namespace IX.Retry
         /// <param name="arg5">The fifth function parameter, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5>(Func<T1, T2, T3, T4, T5, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, cancellationToken);
         }
@@ -133,7 +133,7 @@ namespace IX.Retry
         /// <param name="arg6">The sixth function parameter, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6>(Func<T1, T2, T3, T4, T5, T6, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
         }
@@ -159,7 +159,7 @@ namespace IX.Retry
         /// <param name="arg7">The seventh function parameter, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7>(Func<T1, T2, T3, T4, T5, T6, T7, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
         }
@@ -187,7 +187,7 @@ namespace IX.Retry
         /// <param name="arg8">The eighth function parameter, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8>(Func<T1, T2, T3, T4, T5, T6, T7, T8, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8>(Func<T1, T2, T3, T4, T5, T6, T7, T8, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
         }
@@ -217,7 +217,7 @@ namespace IX.Retry
         /// <param name="arg9">The ninth function parameter, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
         }
@@ -249,7 +249,7 @@ namespace IX.Retry
         /// <param name="arg10">The tenth function parameter, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
         }
@@ -283,7 +283,7 @@ namespace IX.Retry
         /// <param name="arg11">The eleventh function parameter, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, cancellationToken);
         }
@@ -319,7 +319,7 @@ namespace IX.Retry
         /// <param name="arg12">The twelfth function parameter, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, cancellationToken);
         }
@@ -357,7 +357,7 @@ namespace IX.Retry
         /// <param name="arg13">The thirteenth function parameter, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, cancellationToken);
         }
@@ -397,7 +397,7 @@ namespace IX.Retry
         /// <param name="arg14">The fourteenth function parameter, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, cancellationToken);
         }
@@ -439,7 +439,7 @@ namespace IX.Retry
         /// <param name="arg15">The fifteenth function parameter, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, cancellationToken);
         }
@@ -483,7 +483,7 @@ namespace IX.Retry
         /// <param name="arg16">The sixteenth function parameter, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, Task> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, Task> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
         }
@@ -499,7 +499,7 @@ namespace IX.Retry
         /// <param name="retryPolicy">A retry policy to apply to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync(this Action action, RetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync(this Action action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, cancellationToken);
         }
@@ -513,7 +513,7 @@ namespace IX.Retry
         /// <param name="arg">The first action parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T>(this Action<T> action, RetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T>(this Action<T> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg, cancellationToken);
         }
@@ -529,7 +529,7 @@ namespace IX.Retry
         /// <param name="arg2">The second action parameter, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2>(this Action<T1, T2> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2>(this Action<T1, T2> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, cancellationToken);
         }
@@ -547,7 +547,7 @@ namespace IX.Retry
         /// <param name="arg3">The third action parameter, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3>(this Action<T1, T2, T3> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3>(this Action<T1, T2, T3> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, cancellationToken);
         }
@@ -567,7 +567,7 @@ namespace IX.Retry
         /// <param name="arg4">The fourth action parameter, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4>(this Action<T1, T2, T3, T4> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, cancellationToken);
         }
@@ -589,7 +589,7 @@ namespace IX.Retry
         /// <param name="arg5">The fifth action parameter, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4, T5> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5>(this Action<T1, T2, T3, T4, T5> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, cancellationToken);
         }
@@ -613,7 +613,7 @@ namespace IX.Retry
         /// <param name="arg6">The sixth action parameter, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6>(this Action<T1, T2, T3, T4, T5, T6> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6>(this Action<T1, T2, T3, T4, T5, T6> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
         }
@@ -639,7 +639,7 @@ namespace IX.Retry
         /// <param name="arg7">The seventh action parameter, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7>(this Action<T1, T2, T3, T4, T5, T6, T7> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7>(this Action<T1, T2, T3, T4, T5, T6, T7> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
         }
@@ -667,7 +667,7 @@ namespace IX.Retry
         /// <param name="arg8">The eighth action parameter, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8>(this Action<T1, T2, T3, T4, T5, T6, T7, T8> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8>(this Action<T1, T2, T3, T4, T5, T6, T7, T8> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
         }
@@ -697,7 +697,7 @@ namespace IX.Retry
         /// <param name="arg9">The ninth action parameter, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
         }
@@ -729,7 +729,7 @@ namespace IX.Retry
         /// <param name="arg10">The tenth action parameter, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
         }
@@ -763,7 +763,7 @@ namespace IX.Retry
         /// <param name="arg11">The eleventh action parameter, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, cancellationToken);
         }
@@ -799,7 +799,7 @@ namespace IX.Retry
         /// <param name="arg12">The twelfth action parameter, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, cancellationToken);
         }
@@ -837,7 +837,7 @@ namespace IX.Retry
         /// <param name="arg13">The thirteenth action parameter, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, cancellationToken);
         }
@@ -877,7 +877,7 @@ namespace IX.Retry
         /// <param name="arg14">The fourteenth action parameter, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, cancellationToken);
         }
@@ -919,7 +919,7 @@ namespace IX.Retry
         /// <param name="arg15">The fifteenth action parameter, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, cancellationToken);
         }
@@ -963,7 +963,7 @@ namespace IX.Retry
         /// <param name="arg16">The sixteenth action parameter, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(this Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
         }
@@ -984,7 +984,7 @@ namespace IX.Retry
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<TResult>(Func<TResult> action, RetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<TResult>(Func<TResult> action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, cancellationToken);
         }
@@ -999,7 +999,7 @@ namespace IX.Retry
         /// <param name="arg">The first function parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T, TResult>(Func<T, TResult> action, RetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T, TResult>(Func<T, TResult> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg, cancellationToken);
         }
@@ -1016,7 +1016,7 @@ namespace IX.Retry
         /// <param name="arg2">The second function parameter, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, TResult>(Func<T1, T2, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, TResult>(Func<T1, T2, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, cancellationToken);
         }
@@ -1035,7 +1035,7 @@ namespace IX.Retry
         /// <param name="arg3">The third function parameter, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, cancellationToken);
         }
@@ -1056,7 +1056,7 @@ namespace IX.Retry
         /// <param name="arg4">The fourth function parameter, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, cancellationToken);
         }
@@ -1079,7 +1079,7 @@ namespace IX.Retry
         /// <param name="arg5">The fifth function parameter, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, cancellationToken);
         }
@@ -1104,7 +1104,7 @@ namespace IX.Retry
         /// <param name="arg6">The sixth function parameter, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
         }
@@ -1131,7 +1131,7 @@ namespace IX.Retry
         /// <param name="arg7">The seventh function parameter, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
         }
@@ -1160,7 +1160,7 @@ namespace IX.Retry
         /// <param name="arg8">The eighth function parameter, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
         }
@@ -1191,7 +1191,7 @@ namespace IX.Retry
         /// <param name="arg9">The ninth function parameter, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
         }
@@ -1224,7 +1224,7 @@ namespace IX.Retry
         /// <param name="arg10">The tenth function parameter, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
         }
@@ -1259,7 +1259,7 @@ namespace IX.Retry
         /// <param name="arg11">The eleventh function parameter, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, cancellationToken);
         }
@@ -1296,7 +1296,7 @@ namespace IX.Retry
         /// <param name="arg12">The twelfth function parameter, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, cancellationToken);
         }
@@ -1335,7 +1335,7 @@ namespace IX.Retry
         /// <param name="arg13">The thirteenth function parameter, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, cancellationToken);
         }
@@ -1376,7 +1376,7 @@ namespace IX.Retry
         /// <param name="arg14">The fourteenth function parameter, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, cancellationToken);
         }
@@ -1419,7 +1419,7 @@ namespace IX.Retry
         /// <param name="arg15">The fifteenth function parameter, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, cancellationToken);
         }
@@ -1464,7 +1464,7 @@ namespace IX.Retry
         /// <param name="arg16">The sixteenth function parameter, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
         }
@@ -1481,7 +1481,7 @@ namespace IX.Retry
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<TResult>(Func<Task<TResult>> action, RetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<TResult>(Func<Task<TResult>> action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, cancellationToken);
         }
@@ -1496,7 +1496,7 @@ namespace IX.Retry
         /// <param name="arg">The first function parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T, TResult>(Func<T, Task<TResult>> action, RetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T, TResult>(Func<T, Task<TResult>> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg, cancellationToken);
         }
@@ -1513,7 +1513,7 @@ namespace IX.Retry
         /// <param name="arg2">The second function parameter, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, TResult>(Func<T1, T2, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, TResult>(Func<T1, T2, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, cancellationToken);
         }
@@ -1532,7 +1532,7 @@ namespace IX.Retry
         /// <param name="arg3">The third function parameter, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, TResult>(Func<T1, T2, T3, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, cancellationToken);
         }
@@ -1553,7 +1553,7 @@ namespace IX.Retry
         /// <param name="arg4">The fourth function parameter, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, cancellationToken);
         }
@@ -1576,7 +1576,7 @@ namespace IX.Retry
         /// <param name="arg5">The fifth function parameter, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, cancellationToken);
         }
@@ -1601,7 +1601,7 @@ namespace IX.Retry
         /// <param name="arg6">The sixth function parameter, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
         }
@@ -1628,7 +1628,7 @@ namespace IX.Retry
         /// <param name="arg7">The seventh function parameter, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
         }
@@ -1657,7 +1657,7 @@ namespace IX.Retry
         /// <param name="arg8">The eighth function parameter, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
         }
@@ -1688,7 +1688,7 @@ namespace IX.Retry
         /// <param name="arg9">The ninth function parameter, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
         }
@@ -1721,7 +1721,7 @@ namespace IX.Retry
         /// <param name="arg10">The tenth function parameter, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
         }
@@ -1756,7 +1756,7 @@ namespace IX.Retry
         /// <param name="arg11">The eleventh function parameter, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, cancellationToken);
         }
@@ -1793,7 +1793,7 @@ namespace IX.Retry
         /// <param name="arg12">The twelfth function parameter, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, cancellationToken);
         }
@@ -1832,7 +1832,7 @@ namespace IX.Retry
         /// <param name="arg13">The thirteenth function parameter, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, cancellationToken);
         }
@@ -1873,7 +1873,7 @@ namespace IX.Retry
         /// <param name="arg14">The fourteenth function parameter, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, cancellationToken);
         }
@@ -1916,7 +1916,7 @@ namespace IX.Retry
         /// <param name="arg15">The fifteenth function parameter, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, cancellationToken);
         }
@@ -1961,7 +1961,7 @@ namespace IX.Retry
         /// <param name="arg16">The sixteenth function parameter, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, Task<TResult>> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task<TResult> RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, Task<TResult>> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
         }
@@ -1984,7 +1984,7 @@ namespace IX.Retry
         /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry(Action action, RetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry(Action action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, cancellationToken);
         }
@@ -1997,7 +1997,7 @@ namespace IX.Retry
         /// <param name="retryPolicy">A retry policy to apply to the action.</param>
         /// <param name="arg">The first action parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T>(Action<T> action, RetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T>(Action<T> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg, cancellationToken);
         }
@@ -2012,7 +2012,7 @@ namespace IX.Retry
         /// <param name="arg1">The first action parameter, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg2">The second action parameter, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2>(Action<T1, T2> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2>(Action<T1, T2> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, cancellationToken);
         }
@@ -2029,7 +2029,7 @@ namespace IX.Retry
         /// <param name="arg2">The second action parameter, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg3">The third action parameter, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3>(Action<T1, T2, T3> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3>(Action<T1, T2, T3> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, cancellationToken);
         }
@@ -2048,7 +2048,7 @@ namespace IX.Retry
         /// <param name="arg3">The third action parameter, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg4">The fourth action parameter, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, cancellationToken);
         }
@@ -2069,7 +2069,7 @@ namespace IX.Retry
         /// <param name="arg4">The fourth action parameter, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg5">The fifth action parameter, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, cancellationToken);
         }
@@ -2092,7 +2092,7 @@ namespace IX.Retry
         /// <param name="arg5">The fifth action parameter, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg6">The sixth action parameter, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
         }
@@ -2117,7 +2117,7 @@ namespace IX.Retry
         /// <param name="arg6">The sixth action parameter, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg7">The seventh action parameter, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
         }
@@ -2144,7 +2144,7 @@ namespace IX.Retry
         /// <param name="arg7">The seventh action parameter, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg8">The eighth action parameter, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
         }
@@ -2173,7 +2173,7 @@ namespace IX.Retry
         /// <param name="arg8">The eighth action parameter, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg9">The ninth action parameter, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
         }
@@ -2204,7 +2204,7 @@ namespace IX.Retry
         /// <param name="arg9">The ninth action parameter, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg10">The tenth action parameter, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
         }
@@ -2237,7 +2237,7 @@ namespace IX.Retry
         /// <param name="arg10">The tenth action parameter, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg11">The eleventh action parameter, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, cancellationToken);
         }
@@ -2272,7 +2272,7 @@ namespace IX.Retry
         /// <param name="arg11">The eleventh action parameter, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg12">The twelfth action parameter, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, cancellationToken);
         }
@@ -2309,7 +2309,7 @@ namespace IX.Retry
         /// <param name="arg12">The twelfth action parameter, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg13">The thirteenth action parameter, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, cancellationToken);
         }
@@ -2348,7 +2348,7 @@ namespace IX.Retry
         /// <param name="arg13">The thirteenth action parameter, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg14">The fourteenth action parameter, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, cancellationToken);
         }
@@ -2389,7 +2389,7 @@ namespace IX.Retry
         /// <param name="arg14">The fourteenth action parameter, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg15">The fifteenth action parameter, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, cancellationToken);
         }
@@ -2432,7 +2432,7 @@ namespace IX.Retry
         /// <param name="arg15">The fifteenth action parameter, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="arg16">The sixteenth action parameter, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
         }
@@ -2453,7 +2453,7 @@ namespace IX.Retry
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<TResult>(Func<TResult> action, RetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<TResult>(Func<TResult> action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, cancellationToken);
         }
@@ -2468,7 +2468,7 @@ namespace IX.Retry
         /// <param name="arg">The first function parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T, TResult>(Func<T, TResult> action, RetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T, TResult>(Func<T, TResult> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg, cancellationToken);
         }
@@ -2485,7 +2485,7 @@ namespace IX.Retry
         /// <param name="arg2">The second function parameter, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, TResult>(Func<T1, T2, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, TResult>(Func<T1, T2, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, cancellationToken);
         }
@@ -2504,7 +2504,7 @@ namespace IX.Retry
         /// <param name="arg3">The third function parameter, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, cancellationToken);
         }
@@ -2525,7 +2525,7 @@ namespace IX.Retry
         /// <param name="arg4">The fourth function parameter, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, cancellationToken);
         }
@@ -2548,7 +2548,7 @@ namespace IX.Retry
         /// <param name="arg5">The fifth function parameter, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, cancellationToken);
         }
@@ -2573,7 +2573,7 @@ namespace IX.Retry
         /// <param name="arg6">The sixth function parameter, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
         }
@@ -2600,7 +2600,7 @@ namespace IX.Retry
         /// <param name="arg7">The seventh function parameter, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
         }
@@ -2629,7 +2629,7 @@ namespace IX.Retry
         /// <param name="arg8">The eighth function parameter, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
         }
@@ -2660,7 +2660,7 @@ namespace IX.Retry
         /// <param name="arg9">The ninth function parameter, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
         }
@@ -2693,7 +2693,7 @@ namespace IX.Retry
         /// <param name="arg10">The tenth function parameter, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
         }
@@ -2728,7 +2728,7 @@ namespace IX.Retry
         /// <param name="arg11">The eleventh function parameter, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, cancellationToken);
         }
@@ -2765,7 +2765,7 @@ namespace IX.Retry
         /// <param name="arg12">The twelfth function parameter, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, cancellationToken);
         }
@@ -2804,7 +2804,7 @@ namespace IX.Retry
         /// <param name="arg13">The thirteenth function parameter, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, cancellationToken);
         }
@@ -2845,7 +2845,7 @@ namespace IX.Retry
         /// <param name="arg14">The fourteenth function parameter, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, cancellationToken);
         }
@@ -2888,7 +2888,7 @@ namespace IX.Retry
         /// <param name="arg15">The fifteenth function parameter, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, cancellationToken);
         }
@@ -2933,7 +2933,7 @@ namespace IX.Retry
         /// <param name="arg16">The sixteenth function parameter, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
-        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> action, RetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
         {
             return action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
         }
