@@ -3,8 +3,19 @@ using System.Diagnostics;
 
 namespace IX.Retry
 {
+    /// <summary>
+    /// A set of standard back-off policies for retries.
+    /// </summary>
     public static class StandardBackoffPolicies
     {
+        /// <summary>
+        /// An exponential back-off policy.
+        /// </summary>
+        /// <param name="retryCount">The number of retries until now.</param>
+        /// <param name="minBackoff">The minimum back-off time.</param>
+        /// <param name="maxBackoff">The maximum back-off time.</param>
+        /// <param name="deltaBackoff">The back-off delta between multiple retries.</param>
+        /// <returns>A time-span representing the current back-off time.</returns>
         public static TimeSpan Exponential(int retryCount, TimeSpan minBackoff, TimeSpan maxBackoff, TimeSpan deltaBackoff)
         {
             BackoffPoliciesContractsRequires(retryCount, minBackoff, maxBackoff, deltaBackoff);
@@ -16,6 +27,14 @@ namespace IX.Retry
             return retryInterval;
         }
 
+        /// <summary>
+        /// An exponential back-off policy that introduces a randomness in the time span.
+        /// </summary>
+        /// <param name="retryCount">The number of retries until now.</param>
+        /// <param name="minBackoff">The minimum back-off time.</param>
+        /// <param name="maxBackoff">The maximum back-off time.</param>
+        /// <param name="deltaBackoff">The back-off delta between multiple retries.</param>
+        /// <returns>A time-span representing the current back-off time.</returns>
         public static TimeSpan RandomExponential(int retryCount, TimeSpan minBackoff, TimeSpan maxBackoff, TimeSpan deltaBackoff)
         {
             BackoffPoliciesContractsRequires(retryCount, minBackoff, maxBackoff, deltaBackoff);
@@ -31,6 +50,14 @@ namespace IX.Retry
             return retryInterval;
         }
 
+        /// <summary>
+        /// A linear back-off policy.
+        /// </summary>
+        /// <param name="retryCount">The number of retries until now.</param>
+        /// <param name="minBackoff">The minimum back-off time.</param>
+        /// <param name="maxBackoff">The maximum back-off time.</param>
+        /// <param name="deltaBackoff">The back-off delta between multiple retries.</param>
+        /// <returns>A time-span representing the current back-off time.</returns>
         public static TimeSpan Linear(int retryCount, TimeSpan minBackoff, TimeSpan maxBackoff, TimeSpan deltaBackoff)
         {
             BackoffPoliciesContractsRequires(retryCount, minBackoff, maxBackoff, deltaBackoff);
