@@ -4,61 +4,35 @@ using System.Linq;
 
 namespace IX.Retry
 {
+    /// <summary>
+    /// Various retry policies for use with IX.Retry.
+    /// </summary>
     public static class Policy
     {
+        /// <summary>
+        /// The minimal back-off time between time-based retries.
+        /// </summary>
         public static readonly TimeSpan MinBackoff = TimeSpan.FromSeconds(0.5);
+
+        /// <summary>
+        /// The maximal back-off time between time-based retries.
+        /// </summary>
         public static readonly TimeSpan MaxBackoff = TimeSpan.FromSeconds(15);
+
+        /// <summary>
+        /// The increment used to jump between time-based retries.
+        /// </summary>
         public static readonly TimeSpan BackoffIncrement = TimeSpan.FromSeconds(1);
 
-        public static RetryPolicy TimeBasedRetryPolicy(TimeSpan retryFor, IEnumerable<Type> retryForExceptionTypes)
+        /// <summary>
+        /// A time-based, non-linear retry policy.
+        /// </summary>
+        /// <param name="retryFor">The time span to continue retrying for.</param>
+        /// <param name="retryForExceptionTypes">Retry for certain exception types.</param>
+        /// <returns>A time-based retry policy instance.</returns>
+        public static IRetryPolicy TimeBasedRetryPolicy(TimeSpan retryFor, IEnumerable<Type> retryForExceptionTypes)
         {
-            TimeBasedRetry retry = new TimeBasedRetry(retryFor, retryForExceptionTypes);
-
-            return retry.RetryPolicy();
-        }
-
-        private class TimeBasedRetry
-        {
-            private readonly TimeSpan retryDuration;
-            private readonly IEnumerable<Type> retryForExceptionTypes;
-            private DateTime start;
-
-            public TimeBasedRetry(TimeSpan retryDuration, IEnumerable<Type> retryForExceptionTypes)
-            {
-                this.retryDuration = retryDuration;
-                this.retryForExceptionTypes = retryForExceptionTypes;
-            }
-
-            public RetryPolicy RetryPolicy()
-            {
-                start = DateTime.UtcNow;
-                return () => Retry;
-            }
-
-            private bool DontRetry(out TimeSpan retryInterval)
-            {
-                retryInterval = TimeSpan.Zero;
-                return false;
-            }
-
-            private bool Retry(int retryCount, Exception exception, out TimeSpan retryInterval)
-            {
-                if (retryDuration < DateTime.UtcNow.Subtract(start))
-                {
-                    return DontRetry(out retryInterval);
-                }
-
-                bool found = retryForExceptionTypes.Any(type => exception.GetType() == type);
-
-                if (!found)
-                {
-                    return DontRetry(out retryInterval);
-                }
-
-                retryInterval = StandardBackoffPolicies.RandomExponential(retryCount, MinBackoff, MaxBackoff, BackoffIncrement);
-                return true;
-            }
-
+            return new TimeBasedRetryPolicy(retryFor, retryForExceptionTypes);
         }
     }
 }

@@ -56,6 +56,11 @@ In order to install this package, please either search for "IX.Retry" in the NuG
 Install-Package IX.Retry
 ```
 
+License
+-------
+
+License information can be found [here](https://github.com/adimosh/IX.Retry/blob/master/LICENSE.md).
+
 Credits
 -------
 
