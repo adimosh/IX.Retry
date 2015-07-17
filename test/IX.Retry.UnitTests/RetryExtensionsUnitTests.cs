@@ -40,5 +40,25 @@ namespace IX.Retry.UnitTests
             Action x = RetryTestMethod<InvalidOperationException>;
             x.WithRetry(Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), new[] { typeof(InvalidOperationException) }));
         }
+
+        [TestMethod]
+        public void RetryExtensions_DoRetryAsync_SimpleAction_TwoRetries()
+        {
+            maxRetries = 2;
+            currentRetry = 0;
+
+            Action x = RetryTestMethod<InvalidOperationException>;
+            x.WithRetry(Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), new[] { typeof(InvalidOperationException) }));
+        }
+
+        [TestMethod]
+        public void RetryExtensions_DoRetryAsync_SimpleAction_ThreeRetries()
+        {
+            maxRetries = 3;
+            currentRetry = 0;
+
+            Action x = RetryTestMethod<InvalidOperationException>;
+            x.WithRetry(Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), new[] { typeof(InvalidOperationException) }));
+        }
     }
 }
