@@ -7,6 +7,9 @@
     ".NETFramework,Version=v4.5.2": [],
     ".NETFramework,Version=v4.5.1": [],
     ".NETFramework,Version=v4.5": [],
+    ".NETFramework,Version=v4.0": [
+      "Microsoft.Bcl.Async >= 1.0.168"
+    ],
     "DNX,Version=v4.5.1": [],
     "DNX,Version=v4.5.2": [],
     ".NETCore,Version=v4.6": [
@@ -46,6 +49,555 @@
     ]
   },
   "libraries": {
+    "Microsoft.Bcl/1.1.8": {
+      "serviceable": false,
+      "sha": "gM+PUzd8ONxJpcPJeNppCJPklDhDuPUMVQkxvK4fe0rd9WyqBNPh4+UFx3Uv8zuG4C1Gapu1c25sfotE7TQtig==",
+      "frameworks": {
+        ".NETFramework,Version=v4.6": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETFramework,Version=v4.5.2": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETFramework,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETFramework,Version=v4.5": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/net40/System.IO.dll",
+            "lib/net40/System.Runtime.dll",
+            "lib/net40/System.Threading.Tasks.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net40/System.IO.dll",
+            "lib/net40/System.Runtime.dll",
+            "lib/net40/System.Threading.Tasks.dll"
+          ]
+        },
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        "DNX,Version=v4.5.2": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETCore,Version=v4.6": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETCore,Version=v4.5.2": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETCore,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETCore,Version=v4.5": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "Microsoft.Bcl.Build": "1.0.14"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "License-Stable.rtf",
+        "Microsoft.Bcl.1.1.8.nupkg",
+        "Microsoft.Bcl.1.1.8.nupkg.sha512",
+        "Microsoft.Bcl.nuspec",
+        "content/net45/_._",
+        "content/portable-net45+win8+wp8+wpa81/_._",
+        "content/portable-net45+win8+wpa81/_._",
+        "content/portable-net451+win81/_._",
+        "content/portable-net451+win81+wpa81/_._",
+        "content/portable-win81+wp81+wpa81/_._",
+        "content/sl4/_._",
+        "content/sl5/_._",
+        "content/win8/_._",
+        "content/wp8/_._",
+        "content/wpa81/_._",
+        "lib/net40/ensureRedirect.xml",
+        "lib/net40/System.IO.dll",
+        "lib/net40/System.IO.xml",
+        "lib/net40/System.Runtime.dll",
+        "lib/net40/System.Runtime.xml",
+        "lib/net40/System.Threading.Tasks.dll",
+        "lib/net40/System.Threading.Tasks.xml",
+        "lib/net45/_._",
+        "lib/portable-net40+sl4+win8/ensureRedirect.xml",
+        "lib/portable-net40+sl4+win8/System.IO.dll",
+        "lib/portable-net40+sl4+win8/System.IO.xml",
+        "lib/portable-net40+sl4+win8/System.Runtime.dll",
+        "lib/portable-net40+sl4+win8/System.Runtime.xml",
+        "lib/portable-net40+sl4+win8/System.Threading.Tasks.dll",
+        "lib/portable-net40+sl4+win8/System.Threading.Tasks.xml",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/ensureRedirect.xml",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/System.IO.dll",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/System.IO.xml",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Runtime.dll",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Runtime.xml",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Threading.Tasks.dll",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/System.Threading.Tasks.xml",
+        "lib/portable-net40+sl4+win8+wp8+wpa81/ensureRedirect.xml",
+        "lib/portable-net40+sl4+win8+wp8+wpa81/System.IO.dll",
+        "lib/portable-net40+sl4+win8+wp8+wpa81/System.IO.xml",
+        "lib/portable-net40+sl4+win8+wp8+wpa81/System.Runtime.dll",
+        "lib/portable-net40+sl4+win8+wp8+wpa81/System.Runtime.xml",
+        "lib/portable-net40+sl4+win8+wp8+wpa81/System.Threading.Tasks.dll",
+        "lib/portable-net40+sl4+win8+wp8+wpa81/System.Threading.Tasks.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/ensureRedirect.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/System.IO.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/System.IO.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/System.Runtime.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/System.Runtime.xml",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/System.Threading.Tasks.dll",
+        "lib/portable-net40+sl5+win8+wp8+wpa81/System.Threading.Tasks.xml",
+        "lib/portable-net40+win8/ensureRedirect.xml",
+        "lib/portable-net40+win8/System.IO.dll",
+        "lib/portable-net40+win8/System.IO.xml",
+        "lib/portable-net40+win8/System.Runtime.dll",
+        "lib/portable-net40+win8/System.Runtime.xml",
+        "lib/portable-net40+win8/System.Threading.Tasks.dll",
+        "lib/portable-net40+win8/System.Threading.Tasks.xml",
+        "lib/portable-net40+win8+wp8+wpa81/ensureRedirect.xml",
+        "lib/portable-net40+win8+wp8+wpa81/System.IO.dll",
+        "lib/portable-net40+win8+wp8+wpa81/System.IO.xml",
+        "lib/portable-net40+win8+wp8+wpa81/System.Runtime.dll",
+        "lib/portable-net40+win8+wp8+wpa81/System.Runtime.xml",
+        "lib/portable-net40+win8+wp8+wpa81/System.Threading.Tasks.dll",
+        "lib/portable-net40+win8+wp8+wpa81/System.Threading.Tasks.xml",
+        "lib/portable-net45+win8+wp8+wpa81/_._",
+        "lib/portable-net45+win8+wpa81/_._",
+        "lib/portable-net451+win81/_._",
+        "lib/portable-net451+win81+wpa81/_._",
+        "lib/portable-win81+wp81+wpa81/_._",
+        "lib/sl4/System.IO.dll",
+        "lib/sl4/System.IO.xml",
+        "lib/sl4/System.Runtime.dll",
+        "lib/sl4/System.Runtime.xml",
+        "lib/sl4/System.Threading.Tasks.dll",
+        "lib/sl4/System.Threading.Tasks.xml",
+        "lib/sl4-windowsphone71/ensureRedirect.xml",
+        "lib/sl4-windowsphone71/System.IO.dll",
+        "lib/sl4-windowsphone71/System.IO.xml",
+        "lib/sl4-windowsphone71/System.Runtime.dll",
+        "lib/sl4-windowsphone71/System.Runtime.xml",
+        "lib/sl4-windowsphone71/System.Threading.Tasks.dll",
+        "lib/sl4-windowsphone71/System.Threading.Tasks.xml",
+        "lib/sl5/System.IO.dll",
+        "lib/sl5/System.IO.xml",
+        "lib/sl5/System.Runtime.dll",
+        "lib/sl5/System.Runtime.xml",
+        "lib/sl5/System.Threading.Tasks.dll",
+        "lib/sl5/System.Threading.Tasks.xml",
+        "lib/win8/_._",
+        "lib/wp8/_._",
+        "lib/wpa81/_._"
+      ]
+    },
+    "Microsoft.Bcl.Async/1.0.168": {
+      "serviceable": false,
+      "sha": "tUNC02eBwDKpGre0BcNIvblLv1q0Q3DnS/vtkRHj2FE1sXwt386HAudztyl5C0U88hllrqHDvtlz8bK0Y8cHDA==",
+      "frameworks": {
+        ".NETFramework,Version=v4.6": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [
+            "System.Net"
+          ],
+          "runtimeAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        ".NETFramework,Version=v4.5.2": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [
+            "System.Net"
+          ],
+          "runtimeAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        ".NETFramework,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [
+            "System.Net"
+          ],
+          "runtimeAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        ".NETFramework,Version=v4.5": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [
+            "System.Net"
+          ],
+          "runtimeAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [
+            "System.Net"
+          ],
+          "runtimeAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [
+            "System.Net"
+          ],
+          "runtimeAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        "DNX,Version=v4.5.2": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [
+            "System.Net"
+          ],
+          "runtimeAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/net40/Microsoft.Threading.Tasks.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+            "lib/net40/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        ".NETCore,Version=v4.6": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/win8/Microsoft.Threading.Tasks.dll",
+            "lib/win8/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/win8/Microsoft.Threading.Tasks.dll",
+            "lib/win8/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        ".NETCore,Version=v4.5.2": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/win8/Microsoft.Threading.Tasks.dll",
+            "lib/win8/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/win8/Microsoft.Threading.Tasks.dll",
+            "lib/win8/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        ".NETCore,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/win8/Microsoft.Threading.Tasks.dll",
+            "lib/win8/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/win8/Microsoft.Threading.Tasks.dll",
+            "lib/win8/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        ".NETCore,Version=v4.5": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/win8/Microsoft.Threading.Tasks.dll",
+            "lib/win8/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/win8/Microsoft.Threading.Tasks.dll",
+            "lib/win8/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "Microsoft.Bcl": "1.1.8"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/portable-net45+win8+wp8+wpa81/Microsoft.Threading.Tasks.dll",
+            "lib/portable-net45+win8+wp8+wpa81/Microsoft.Threading.Tasks.Extensions.dll"
+          ],
+          "compileAssemblies": [
+            "lib/portable-net45+win8+wp8+wpa81/Microsoft.Threading.Tasks.dll",
+            "lib/portable-net45+win8+wp8+wpa81/Microsoft.Threading.Tasks.Extensions.dll"
+          ]
+        }
+      },
+      "files": [
+        "License-Stable.rtf",
+        "Microsoft.Bcl.Async.1.0.168.nupkg",
+        "Microsoft.Bcl.Async.1.0.168.nupkg.sha512",
+        "Microsoft.Bcl.Async.nuspec",
+        "lib/net40/Microsoft.Threading.Tasks.dll",
+        "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll",
+        "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.xml",
+        "lib/net40/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/net40/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/net40/Microsoft.Threading.Tasks.xml",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/Microsoft.Threading.Tasks.dll",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/portable-net40+sl4+win8+wp71+wpa81/Microsoft.Threading.Tasks.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Microsoft.Threading.Tasks.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/portable-net45+win8+wp8+wpa81/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/portable-net45+win8+wp8+wpa81/Microsoft.Threading.Tasks.xml",
+        "lib/portable-net45+win8+wpa81/Microsoft.Threading.Tasks.dll",
+        "lib/portable-net45+win8+wpa81/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/portable-net45+win8+wpa81/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/portable-net45+win8+wpa81/Microsoft.Threading.Tasks.xml",
+        "lib/sl4/Microsoft.Threading.Tasks.dll",
+        "lib/sl4/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/sl4/Microsoft.Threading.Tasks.Extensions.Silverlight.dll",
+        "lib/sl4/Microsoft.Threading.Tasks.Extensions.Silverlight.xml",
+        "lib/sl4/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/sl4/Microsoft.Threading.Tasks.xml",
+        "lib/sl4-windowsphone71/Microsoft.Threading.Tasks.dll",
+        "lib/sl4-windowsphone71/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/sl4-windowsphone71/Microsoft.Threading.Tasks.Extensions.Phone.dll",
+        "lib/sl4-windowsphone71/Microsoft.Threading.Tasks.Extensions.Phone.xml",
+        "lib/sl4-windowsphone71/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/sl4-windowsphone71/Microsoft.Threading.Tasks.xml",
+        "lib/win8/Microsoft.Threading.Tasks.dll",
+        "lib/win8/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/win8/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/win8/Microsoft.Threading.Tasks.xml",
+        "lib/wp8/Microsoft.Threading.Tasks.dll",
+        "lib/wp8/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/wp8/Microsoft.Threading.Tasks.Extensions.Phone.dll",
+        "lib/wp8/Microsoft.Threading.Tasks.Extensions.Phone.xml",
+        "lib/wp8/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/wp8/Microsoft.Threading.Tasks.xml",
+        "lib/wpa81/Microsoft.Threading.Tasks.dll",
+        "lib/wpa81/Microsoft.Threading.Tasks.Extensions.dll",
+        "lib/wpa81/Microsoft.Threading.Tasks.Extensions.xml",
+        "lib/wpa81/Microsoft.Threading.Tasks.xml"
+      ]
+    },
+    "Microsoft.Bcl.Build/1.0.14": {
+      "serviceable": false,
+      "sha": "cDLKSvNvRa519hplsbSoYqO69TjdDIhfjtKUM0g20/nVROoWsGav9KCI9HtnGjLmdV1+TcUUDhbotcllibjPEA==",
+      "frameworks": {
+        ".NETFramework,Version=v4.6": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETFramework,Version=v4.5.2": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETFramework,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETFramework,Version=v4.5": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        "DNX,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        "DNX,Version=v4.5.2": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETCore,Version=v4.6": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETCore,Version=v4.5.2": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETCore,Version=v4.5.1": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        ".NETCore,Version=v4.5": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        }
+      },
+      "files": [
+        "License-Stable.rtf",
+        "Microsoft.Bcl.Build.1.0.14.nupkg",
+        "Microsoft.Bcl.Build.1.0.14.nupkg.sha512",
+        "Microsoft.Bcl.Build.nuspec",
+        "content/net40/_._",
+        "content/netcore45/_._",
+        "content/portable-net40+win8+sl4+wp71+wpa81/_._",
+        "content/sl4/_._",
+        "content/sl4-windowsphone71/_._",
+        "tools/Install.ps1",
+        "tools/Microsoft.Bcl.Build.targets",
+        "tools/Microsoft.Bcl.Build.Tasks.dll",
+        "tools/Uninstall.ps1"
+      ]
+    },
     "System.Collections/4.0.10-beta-22816": {
       "serviceable": false,
       "sha": "tkVBx0CH/Xunk18S9LvNzPRqbXdIzsHbcGRtePrZCNZ9EUNuXK0dzzUl5q0KUgsQmeyUCDSw+7mwyG/pDGSpAA==",
@@ -113,6 +665,14 @@
           "compileAssemblies": [
             "lib/net45/System.Collections.dll"
           ]
+        },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {
+            "System.Runtime": "4.0.20-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
         },
         "DNX,Version=v4.5.1": {
           "dependencies": {
@@ -285,6 +845,15 @@
           "compileAssemblies": [
             "lib/net45/System.Linq.dll"
           ]
+        },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {
+            "System.Collections": "4.0.10-beta-22816",
+            "System.Runtime": "4.0.20-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
         },
         "DNX,Version=v4.5.1": {
           "dependencies": {
@@ -459,6 +1028,12 @@
             "lib/net45/System.Runtime.dll"
           ]
         },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {},
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
         "DNX,Version=v4.5.1": {
           "dependencies": {},
           "frameworkAssemblies": [
@@ -614,6 +1189,14 @@
           "compileAssemblies": [
             "lib/net45/System.Runtime.Extensions.dll"
           ]
+        },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {
+            "System.Runtime": "4.0.20-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
         },
         "DNX,Version=v4.5.1": {
           "dependencies": {
@@ -788,6 +1371,15 @@
           "compileAssemblies": [
             "lib/net45/System.Threading.dll"
           ]
+        },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {
+            "System.Runtime": "4.0.20-beta-22816",
+            "System.Threading.Tasks": "4.0.10-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
         },
         "DNX,Version=v4.5.1": {
           "dependencies": {
@@ -964,6 +1556,14 @@
             "lib/net45/System.Threading.Tasks.dll"
           ]
         },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {
+            "System.Runtime": "4.0.20-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
+        },
         "DNX,Version=v4.5.1": {
           "dependencies": {
             "System.Runtime": "4.0.20-beta-22816"
@@ -1125,6 +1725,14 @@
           "compileAssemblies": [
             "lib/net45/System.Threading.Thread.dll"
           ]
+        },
+        ".NETFramework,Version=v4.0": {
+          "dependencies": {
+            "System.Runtime": "4.0.20-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [],
+          "compileAssemblies": []
         },
         "DNX,Version=v4.5.1": {
           "dependencies": {
