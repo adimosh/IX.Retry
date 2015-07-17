@@ -3,7 +3,7 @@ IX.Retry
 
 An operational retry policy framework for any operations that might fail due to recoverable circumstances.
 
-Each failure is handled based on a specific policy which can be customized (note: future rlease).
+Each failure is handled based on a specific policy which can be customized (note: future release).
 
 Usage
 -----
@@ -16,7 +16,7 @@ int x = GetNumberOfHeadbangsPerMinuteFromRemoteServer(param1, param2, param3);
 ```
 With retry:
 ```c#
-int x = With.Retry(GetNumberOfHeadbangsPerMinuteFromRemoteServer, param1, param2, param3, Policy.TimeBasedPolicy(TimeSpan.FromSeconds(10), new[] { typeof(SomeTransportException) }));
+int x = With.Retry(GetNumberOfHeadbangsPerMinuteFromRemoteServer, param1, param2, param3, Policy.TimeBasedRetryPolicy<SomeTransportException>(TimeSpan.FromSeconds(10)));
 ```
 
 Asynchronous operations are also supported.
@@ -27,7 +27,7 @@ int x = await GetNumberOfHeadbangsPerMinuteFromRemoteServer(param1, param2, para
 ```
 With retry:
 ```c#
-int x = await With.RetryAsync(GetNumberOfHeadbangsPerMinuteFromRemoteServer, param1, param2, param3, Policy.TimeBasedPolicy(TimeSpan.FromSeconds(10), new[] { typeof(SomeTransportException) }));
+int x = await With.RetryAsync(GetNumberOfHeadbangsPerMinuteFromRemoteServer, param1, param2, param3, Policy.TimeBasedRetryPolicy<SomeTransportException>(TimeSpan.FromSeconds(10)));
 ```
 
 Extension methods are also available for delegate parameters.
@@ -43,7 +43,7 @@ With retry:
 ```c#
 public int SomeMethod(Func<Type1, Type2, Type3, int> getNumberOfHeadbangsPerMinuteFromRemoteServer, Type1 param1, Type2 param2, Type3 param3)
 {
-    return getNumberOfHeadbangsPerMinuteFromRemoteServer.WithRetry(param1, param2, param3, Policy.TimeBasedPolicy(TimeSpan.FromSeconds(10), new[] { typeof(SomeTransportException) }));
+    return getNumberOfHeadbangsPerMinuteFromRemoteServer.WithRetry(param1, param2, param3, Policy.TimeBasedRetryPolicy<SomeTransportException>(TimeSpan.FromSeconds(10)));
 }
 ```
 

@@ -38,7 +38,7 @@ namespace IX.Retry.UnitTests
             currentRetry = 0;
 
             Action x = RetryTestMethod<InvalidOperationException>;
-            x.WithRetry(Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), new[] { typeof(InvalidOperationException) }));
+            x.WithRetry(Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(1)));
         }
 
         [TestMethod]
@@ -48,7 +48,7 @@ namespace IX.Retry.UnitTests
             currentRetry = 0;
 
             Action x = RetryTestMethod<InvalidOperationException>;
-            x.WithRetry(Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), new[] { typeof(InvalidOperationException) }));
+            x.WithRetry(Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(1)));
         }
 
         [TestMethod]
@@ -58,7 +58,7 @@ namespace IX.Retry.UnitTests
             currentRetry = 0;
 
             Action x = RetryTestMethod<InvalidOperationException>;
-            x.WithRetry(Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), new[] { typeof(InvalidOperationException) }));
+            x.WithRetry(Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(1)));
         }
     }
 }

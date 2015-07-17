@@ -117,4 +117,134 @@ namespace IX.Retry
             : base(retryDuration, new[] { typeof(TException1), typeof(TException2), typeof(TException3) })
         { }
     }
+
+    /// <summary>
+    /// A time-based, non-linear retry policy that retries on a specific set of exceptions.
+    /// </summary>
+    /// <typeparam name="TException1">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException2">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException3">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException4">An exception type to capture and retry on.</typeparam>
+    public class TimeBasedRetryPolicy<TException1, TException2, TException3, TException4> : TimeBasedRetryPolicy
+        where TException1 : Exception
+        where TException2 : Exception
+        where TException3 : Exception
+        where TException4 : Exception
+    {
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="TimeBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
+        public TimeBasedRetryPolicy(TimeSpan retryDuration)
+            : base(retryDuration, new[] { typeof(TException1), typeof(TException2), typeof(TException3), typeof(TException4) })
+        { }
+    }
+
+    /// <summary>
+    /// A time-based, non-linear retry policy that retries on a specific set of exceptions.
+    /// </summary>
+    /// <typeparam name="TException1">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException2">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException3">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException4">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException5">An exception type to capture and retry on.</typeparam>
+    public class TimeBasedRetryPolicy<TException1, TException2, TException3, TException4, TException5> : TimeBasedRetryPolicy
+        where TException1 : Exception
+        where TException2 : Exception
+        where TException3 : Exception
+        where TException4 : Exception
+        where TException5 : Exception
+    {
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="TimeBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
+        public TimeBasedRetryPolicy(TimeSpan retryDuration)
+            : base(retryDuration, new[] { typeof(TException1), typeof(TException2), typeof(TException3), typeof(TException4), typeof(TException5) })
+        { }
+    }
+
+    /// <summary>
+    /// A time-based, non-linear retry policy that retries on a specific set of exceptions.
+    /// </summary>
+    /// <typeparam name="TException1">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException2">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException3">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException4">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException5">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException6">An exception type to capture and retry on.</typeparam>
+    public class TimeBasedRetryPolicy<TException1, TException2, TException3, TException4, TException5, TException6> : TimeBasedRetryPolicy
+        where TException1 : Exception
+        where TException2 : Exception
+        where TException3 : Exception
+        where TException4 : Exception
+        where TException5 : Exception
+        where TException6 : Exception
+    {
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="TimeBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
+        public TimeBasedRetryPolicy(TimeSpan retryDuration)
+            : base(retryDuration, new[] { typeof(TException1), typeof(TException2), typeof(TException3), typeof(TException4), typeof(TException5), typeof(TException6) })
+        { }
+    }
+
+    /// <summary>
+    /// A time-based, non-linear retry policy that retries on a specific set of exceptions.
+    /// </summary>
+    /// <typeparam name="TException1">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException2">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException3">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException4">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException5">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException6">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException7">An exception type to capture and retry on.</typeparam>
+    public class TimeBasedRetryPolicy<TException1, TException2, TException3, TException4, TException5, TException6, TException7> : TimeBasedRetryPolicy
+        where TException1 : Exception
+        where TException2 : Exception
+        where TException3 : Exception
+        where TException4 : Exception
+        where TException5 : Exception
+        where TException6 : Exception
+        where TException7 : Exception
+    {
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="TimeBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
+        public TimeBasedRetryPolicy(TimeSpan retryDuration)
+            : base(retryDuration, new[] { typeof(TException1), typeof(TException2), typeof(TException3), typeof(TException4), typeof(TException5), typeof(TException6), typeof(TException7) })
+        { }
+    }
+
+    /// <summary>
+    /// A time-based, non-linear retry policy that retries on a specific set of exceptions.
+    /// </summary>
+    /// <typeparam name="TException1">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException2">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException3">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException4">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException5">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException6">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException7">An exception type to capture and retry on.</typeparam>
+    /// <typeparam name="TException8">An exception type to capture and retry on.</typeparam>
+    public class TimeBasedRetryPolicy<TException1, TException2, TException3, TException4, TException5, TException6, TException7, TException8> : TimeBasedRetryPolicy
+        where TException1 : Exception
+        where TException2 : Exception
+        where TException3 : Exception
+        where TException4 : Exception
+        where TException5 : Exception
+        where TException6 : Exception
+        where TException7 : Exception
+        where TException8 : Exception
+    {
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="TimeBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
+        public TimeBasedRetryPolicy(TimeSpan retryDuration)
+            : base(retryDuration, new[] { typeof(TException1), typeof(TException2), typeof(TException3), typeof(TException4), typeof(TException5), typeof(TException6), typeof(TException7), typeof(TException8) })
+        { }
+    }
 }
