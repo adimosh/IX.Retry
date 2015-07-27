@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace IX.Retry
+﻿namespace IX.Retry
 {
     /// <summary>
     /// Represents a stateful retry policy that can be used for retry operations.
@@ -13,6 +8,7 @@ namespace IX.Retry
         /// <summary>
         /// A retry policy delegate to be executed.
         /// </summary>
-        RetryPolicy ExecutePolicy { get; }
+        /// <value>A <see cref="RetryPolicy">retry policy delegate</see> that should be used in an operation.</value>
+        RetryPolicy ExecuteRetryPolicy { get; }
     }
 }

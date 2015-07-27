@@ -20,7 +20,7 @@ namespace IX.Retry
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            ShouldRetry shouldRetry = retryPolicy.ExecutePolicy();
+            ShouldRetry shouldRetry = retryPolicy.ExecuteRetryPolicy();
 
             for (int i = 0; ; i++)
             {
@@ -1121,7 +1121,7 @@ namespace IX.Retry
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            ShouldRetry shouldRetry = retryPolicy.ExecutePolicy();
+            ShouldRetry shouldRetry = retryPolicy.ExecuteRetryPolicy();
 
             for (int i = 0; ; i++)
             {
@@ -2363,7 +2363,7 @@ namespace IX.Retry
             if (cancellationToken.IsCancellationRequested)
                 return;
 
-            ShouldRetry shouldRetry = retryPolicy.ExecutePolicy();
+            ShouldRetry shouldRetry = retryPolicy.ExecuteRetryPolicy();
 
             for (int i = 0; ; i++)
             {
@@ -2911,7 +2911,7 @@ namespace IX.Retry
 
             cancellationToken.ThrowIfCancellationRequested();
 
-            ShouldRetry shouldRetry = retryPolicy.ExecutePolicy();
+            ShouldRetry shouldRetry = retryPolicy.ExecuteRetryPolicy();
 
             for (int i = 0; ; i++)
             {

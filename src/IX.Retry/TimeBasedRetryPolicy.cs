@@ -30,7 +30,7 @@ namespace IX.Retry
         /// <summary>
         /// The retry policy to be executed.
         /// </summary>
-        public RetryPolicy ExecutePolicy
+        public RetryPolicy ExecuteRetryPolicy
         {
             get
             {

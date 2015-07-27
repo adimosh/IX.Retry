@@ -1,73 +1,71 @@
 ﻿{
-  "version": "0.1.3-alpha",
-  "description": "A library for re-queuing calls that might fail due to recoverable exceptions (such as network connection blips or remote servers too busy).",
   "authors": [ "Adrian Mos" ],
-  "owners": [ "Adrian Mos" ],
-  "tags": [ "" ],
-  "projectUrl": "https://github.com/adimosh/IX.Retry/",
-  "licenseUrl": "https://github.com/adimosh/IX.Retry/blob/master/LICENSE.md",
   "copyright": "Adrian Mos, 2015",
-  "title": "IX.Retry",
-
   "dependencies": {
   },
-
+  "description": "A library for re-queuing calls that might fail due to recoverable exceptions (such as network connection blips or remote servers too busy).",
   "frameworks": {
-    "net46": { },
-    "net452": { },
-    "net451": { },
-    "net45": { },
+    "dnx451": { },
+    "dnx452": { },
+    "dnxcore50": {
+      "dependencies": {
+        "System.Collections": "4.0.10-beta-22816",
+        "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
+        "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816"
+      }
+    },
     "net40": {
       "dependencies": {
         "Microsoft.Bcl.Async": "1.0.168"
       }
     },
-    "dnx451": { },
-    "dnx452": { },
-    "netcore46": {
+    "net45": { },
+    "net451": { },
+    "net452": { },
+    "net46": { },
+    "netcore45": {
       "dependencies": {
-        "System.Runtime": "4.0.20-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
-        "System.Threading": "4.0.10-beta-22816",
-        "System.Threading.Thread": "4.0.0-beta-22816",
-        "System.Runtime.Extensions": "4.0.10-beta-22816"
-      }
-    },
-    "netcore452": {
-      "dependencies": {
         "System.Runtime": "4.0.20-beta-22816",
-        "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
-        "System.Threading.Thread": "4.0.0-beta-22816",
-        "System.Runtime.Extensions": "4.0.10-beta-22816"
+        "System.Threading.Thread": "4.0.0-beta-22816"
       }
     },
     "netcore451": {
       "dependencies": {
-        "System.Runtime": "4.0.20-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
-        "System.Threading.Thread": "4.0.0-beta-22816",
-        "System.Runtime.Extensions": "4.0.10-beta-22816"
+        "System.Threading.Thread": "4.0.0-beta-22816"
       }
     },
-    "netcore45": {
+    "netcore452": {
       "dependencies": {
-        "System.Runtime": "4.0.20-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
-        "System.Threading.Thread": "4.0.0-beta-22816",
-        "System.Runtime.Extensions": "4.0.10-beta-22816"
+        "System.Threading.Thread": "4.0.0-beta-22816"
       }
     },
-    "dnxcore50": {
+    "netcore46": {
       "dependencies": {
-        "System.Collections": "4.0.10-beta-22816",
         "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
-        "System.Threading.Thread": "4.0.0-beta-22816",
-        "System.Runtime.Extensions": "4.0.10-beta-22816"
+        "System.Threading.Thread": "4.0.0-beta-22816"
       }
     }
-  }
+  },
+  "licenseUrl": "https://github.com/adimosh/IX.Retry/blob/master/LICENSE.md",
+  "owners": [ "Adrian Mos" ],
+  "projectUrl": "https://github.com/adimosh/IX.Retry/",
+  "tags": [ "" ],
+  "title": "IX.Retry",
+  "version": "0.1.3-alpha"
 }
