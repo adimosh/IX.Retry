@@ -28,7 +28,7 @@ namespace IX.Retry.UnitTests
             if (maxRetries > currentRetry)
             {
                 currentRetry++;
-                Exception ex = Activator.CreateInstance(exceptions.Skip(r.Next()).First()) as Exception;
+                Exception ex = Activator.CreateInstance(exceptions.Skip(r.Next(exceptions.Count())).First()) as Exception;
                 throw ex;
             }
             else if (hasRetriedCorrectly)

@@ -43,7 +43,7 @@ namespace IX.Retry.UnitTests
             Delegate testMethodDelegate = wrapper.GetProperTestActionDelegate(exceptionTypes, parameterTypes);
 
             // Create method parameters
-            IRetryPolicy retryPolicy = Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), exceptionTypes);
+            IRetryPolicy retryPolicy = Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(maxRetries), exceptionTypes);
             CancellationToken cancellationToken = default(CancellationToken);
 
             List<object> invokeParameters = new List<object>();
@@ -91,6 +91,12 @@ namespace IX.Retry.UnitTests
                     4,
                     new int[] { r.Next(), r.Next(), r.Next() },
                     new Type[] { typeof(NotImplementedException) }
+                });
+            ret.Add(new object[]
+                {
+                    4,
+                    new int[] { r.Next(), r.Next(), r.Next() },
+                    new Type[] { typeof(NotImplementedException), typeof(InvalidOperationException), typeof(OutOfMemoryException) }
                 });
 
             return ret;
