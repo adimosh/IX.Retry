@@ -1,0 +1,90 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ output extension=".cs" #>
+using System;
+using System.Linq;
+using System.Reflection;
+
+namespace IX.Retry.UnitTests
+{
+    internal partial class RetryTestMethodWrapper
+    {
+<#
+    for (int i = 0; i <= 16; i++)
+	{
+	    for (int j = 1; j <= 8; j++)
+		{
+#>
+        private void RetryTestActionMethod<<#
+            List<string> exceptionStrings = new List<string>();
+            for (int q = 1; q <= j; q++)
+			{
+			    exceptionStrings.Add("TException" + q);
+			}
+			string exceptionsString = string.Join(", ", exceptionStrings.ToArray());
+#><#= exceptionsString #>>(<#
+            List<string> pars = new List<string>();
+            for (int q = 1; q <= i; q++)
+			{
+			    pars.Add("int param" + q);
+			}
+			string paramsString = string.Join(", ", pars.ToArray());
+#><#= paramsString #>)
+<#
+            List<string> exceptionConstraintStrings = new List<string>();
+            for (int q = 1; q <= j; q++)
+			{
+			    exceptionConstraintStrings.Add("where TException" + q + " : Exception, new()");
+			}
+			string exceptionConstraintsString = string.Join("\r\n                ", exceptionConstraintStrings.ToArray());
+#>
+                <#= exceptionConstraintsString #>
+        {
+		    RetryTestMethod(new[] { <#
+            List<string> exceptionTypeofStrings = new List<string>();
+            for (int q = 1; q <= j; q++)
+			{
+			    exceptionTypeofStrings.Add("typeof(TException" + q + ")");
+			}
+			string exceptionTypeofsString = string.Join(", ", exceptionTypeofStrings.ToArray());
+#><#= exceptionTypeofsString #> });
+		}
+
+<#
+        }
+    }
+#>
+        static RetryTestMethodWrapper()
+        {
+<#
+    for (int i = 0; i <= 16; i++)
+	{
+	    string[] paramsList = new string[i+1];
+		for (int q = 0; q <= i; q++)
+		    paramsList[q] = "int";
+
+		string typeparamsString = string.Join(",", paramsList);
+		if (typeparamsString.Length == 3)
+		    typeparamsString = string.Empty;
+		else
+		    typeparamsString = "<" + typeparamsString.Substring(0, typeparamsString.Length - 4) + ">";
+
+	    for (int j = 1; j <= 8; j++)
+		{
+#>
+			
+            delegateInformation.Add(new Tuple<int, int>(<#= j #>, <#= i #>), new Tuple<MethodInfo, Type>(
+			    typeof(RetryTestMethodWrapper).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
+                    .Single(p => p.Name == "RetryTestActionMethod" && p.GetGenericArguments().Length == <#= j #> && p.GetParameters().Length == <#= i #>),
+				typeof(Action<#= typeparamsString #>)
+			));
+<#
+		}
+	}
+#>
+        }        
+    }
+}

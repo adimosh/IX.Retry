@@ -13,7 +13,7 @@ namespace IX.Retry.UnitTests
     {
         [Theory]
         [MemberData(nameof(RetryTheoryDataGenerator))]
-        public void SimpleRetryTheory(int maxRetries, object[] parameters, Type[] exceptionTypes)
+        public void SimpleRetryTheory(int maxRetries, int[] parameters, Type[] exceptionTypes)
         {
             // ARRANGE
             // =======
@@ -39,32 +39,59 @@ namespace IX.Retry.UnitTests
 
             mi = mig.MakeGenericMethod(parameterTypes);
 
+            // Get test method
+            Delegate testMethodDelegate = wrapper.GetProperTestActionDelegate(exceptionTypes, parameterTypes);
+
             // Create method parameters
             IRetryPolicy retryPolicy = Policy.TimeBasedRetryPolicy(TimeSpan.FromSeconds(1), exceptionTypes);
             CancellationToken cancellationToken = default(CancellationToken);
 
             List<object> invokeParameters = new List<object>();
-            // TODO: Add delegate parameter here
+            invokeParameters.Add(testMethodDelegate);
             invokeParameters.Add(retryPolicy);
-            invokeParameters.AddRange(parameters);
+            invokeParameters.AddRange(parameters.Cast<object>());
             invokeParameters.Add(cancellationToken);
 
             // ACT
             // ===
+
             var result = mi.Invoke(null, invokeParameters.ToArray());
 
             // ASSERT
             // ======
+
             Assert.Null(result);
-            //Action x = RetryTestMethod<InvalidOperationException>;
-            //x.WithRetry(Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(1)));
         }
 
         public static IEnumerable<object[]> RetryTheoryDataGenerator()
         {
             List<object[]> ret = new List<object[]>();
+            Random r = new Random();
 
-
+            ret.Add(new object[]
+                {
+                    1,
+                    new int[] { r.Next(), r.Next(), r.Next() },
+                    new Type[] { typeof(NotImplementedException) }
+                });
+            ret.Add(new object[]
+                {
+                    2,
+                    new int[] { r.Next(), r.Next(), r.Next() },
+                    new Type[] { typeof(NotImplementedException) }
+                });
+            ret.Add(new object[]
+                {
+                    3,
+                    new int[] { r.Next(), r.Next(), r.Next() },
+                    new Type[] { typeof(NotImplementedException) }
+                });
+            ret.Add(new object[]
+                {
+                    4,
+                    new int[] { r.Next(), r.Next(), r.Next() },
+                    new Type[] { typeof(NotImplementedException) }
+                });
 
             return ret;
         }
