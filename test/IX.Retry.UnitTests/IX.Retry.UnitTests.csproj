@@ -78,6 +78,11 @@
       <DependentUpon>RetryTestMethodWrapper_DelegateGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="RetryTheories.cs" />
+    <Compile Include="RetryTheories_TestDataGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetryTheories_TestDataGenerator.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -86,6 +91,10 @@
     <Content Include="RetryTestMethodWrapper_DelegateGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RetryTestMethodWrapper_DelegateGenerator.cs</LastGenOutput>
+    </Content>
+    <Content Include="RetryTheories_TestDataGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryTheories_TestDataGenerator.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

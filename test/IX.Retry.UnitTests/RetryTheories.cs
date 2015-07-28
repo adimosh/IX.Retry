@@ -2,14 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace IX.Retry.UnitTests
 {
-    public class RetryTheories
+    public partial class RetryTheories
     {
         [Theory]
         [MemberData(nameof(RetryTheoryDataGenerator))]
@@ -29,15 +27,18 @@ namespace IX.Retry.UnitTests
             Type[] parameterTypes = parameters.Aggregate(new List<Type>(), (list, current) => { list.Add(current.GetType()); return list; }).ToArray();
 
             MethodInfo mig = mis.Single(p =>
-                p.IsGenericMethodDefinition &&
-                p.ContainsGenericParameters &&
                 p.Name == nameof(With.Retry) &&
-                p.GetGenericArguments().Length == parameterTypes.Length &&
-                p.GetParameters()[0].MultiVerify(
-                    q => q.Name == "action",
-                    q => q.ParameterType.GetGenericTypeDefinition().GetGenericArguments().Length == parameterTypes.Length));
+                (
+                    (parameterTypes.Length == 0 && !p.ContainsGenericParameters) ||
+                    (p.IsGenericMethodDefinition &&
+                    p.ContainsGenericParameters &&
+                    p.GetGenericArguments().Length == parameterTypes.Length &&
+                    p.GetParameters()[0].MultiVerify(
+                        q => q.Name == "action",
+                        q => q.ParameterType.GetGenericTypeDefinition().GetGenericArguments().Length == parameterTypes.Length))
+                ));
 
-            mi = mig.MakeGenericMethod(parameterTypes);
+            mi = mig.IsGenericMethodDefinition ? mig.MakeGenericMethod(parameterTypes) : mig;
 
             // Get test method
             Delegate testMethodDelegate = wrapper.GetProperTestActionDelegate(exceptionTypes, parameterTypes);
@@ -65,41 +66,26 @@ namespace IX.Retry.UnitTests
 
         public static IEnumerable<object[]> RetryTheoryDataGenerator()
         {
-            List<object[]> ret = new List<object[]>();
             Random r = new Random();
+            List<Type> exceptionTypes = new List<Type>
+            {
+                typeof(NotImplementedException),
+                typeof(OutOfMemoryException),
+                typeof(ArgumentException),
+                typeof(ArgumentNullException),
+                typeof(ArgumentOutOfRangeException),
+                typeof(ArithmeticException),
+                typeof(DivideByZeroException),
+                typeof(ArrayTypeMismatchException)
+            };
 
-            ret.Add(new object[]
-                {
-                    1,
-                    new int[] { r.Next(), r.Next(), r.Next() },
-                    new Type[] { typeof(NotImplementedException) }
-                });
-            ret.Add(new object[]
-                {
-                    2,
-                    new int[] { r.Next(), r.Next(), r.Next() },
-                    new Type[] { typeof(NotImplementedException) }
-                });
-            ret.Add(new object[]
-                {
-                    3,
-                    new int[] { r.Next(), r.Next(), r.Next() },
-                    new Type[] { typeof(NotImplementedException) }
-                });
-            ret.Add(new object[]
-                {
-                    4,
-                    new int[] { r.Next(), r.Next(), r.Next() },
-                    new Type[] { typeof(NotImplementedException) }
-                });
-            ret.Add(new object[]
-                {
-                    4,
-                    new int[] { r.Next(), r.Next(), r.Next() },
-                    new Type[] { typeof(NotImplementedException), typeof(InvalidOperationException), typeof(OutOfMemoryException) }
-                });
+            List<object[]> ret = new List<object[]>();
+
+            GenerateTestData(ret, r, exceptionTypes);
 
             return ret;
         }
+
+        static partial void GenerateTestData(List<object[]> objects, Random r, List<Type> exceptionTypes);
     }
 }
