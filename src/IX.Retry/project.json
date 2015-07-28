@@ -9,11 +9,11 @@
     "dnx452": { },
     "dnxcore50": {
       "dependencies": {
-        "System.Collections": "4.0.10-beta-22816",
-        "System.Linq": "4.0.0-beta-22816",
-        "System.Runtime.Extensions": "4.0.10-beta-22816",
-        "System.Threading": "4.0.10-beta-22816",
-        "System.Threading.Thread": "4.0.0-beta-22816"
+        "System.Collections": "4.0.10-beta-23127",
+        "System.Linq": "4.0.0-beta-23127",
+        "System.Runtime.Extensions": "4.0.10-beta-23127",
+        "System.Threading": "4.0.10-beta-23127",
+        "System.Threading.Thread": "4.0.0-beta-23127"
       }
     },
     "net40": {
@@ -25,7 +25,7 @@
     "net451": { },
     "net452": { },
     "net46": { },
-    "netcore45": {
+    "win8": {
       "dependencies": {
         "System.Linq": "4.0.0-beta-22816",
         "System.Runtime": "4.0.20-beta-22816",
@@ -34,7 +34,7 @@
         "System.Threading.Thread": "4.0.0-beta-22816"
       }
     },
-    "netcore451": {
+    "win81": {
       "dependencies": {
         "System.Linq": "4.0.0-beta-22816",
         "System.Runtime": "4.0.20-beta-22816",
@@ -59,6 +59,15 @@
         "System.Runtime.Extensions": "4.0.10-beta-22816",
         "System.Threading": "4.0.10-beta-22816",
         "System.Threading.Thread": "4.0.0-beta-22816"
+      }
+    },
+    "dotnet": {
+      "dependencies": {
+        "System.Linq": "4.0.0-beta-23127",
+        "System.Runtime": "4.0.20-beta-23127",
+        "System.Runtime.Extensions": "4.0.10-beta-23127",
+        "System.Threading": "4.0.10-beta-23127",
+        "System.Threading.Thread": "4.0.0-beta-23127"
       }
     }
   },
