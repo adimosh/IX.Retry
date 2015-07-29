@@ -43,6 +43,24 @@
         "System.Threading.Thread": "4.0.0-beta-22816"
       }
     },
+    "wp80": {
+      "dependencies": {
+        "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
+        "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816"
+      }
+    },
+    "wpa81": {
+      "dependencies": {
+        "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
+        "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816"
+      }
+    },
     "netcore452": {
       "dependencies": {
         "System.Linq": "4.0.0-beta-22816",
@@ -76,5 +94,5 @@
   "projectUrl": "https://github.com/adimosh/IX.Retry/",
   "tags": [ "" ],
   "title": "IX.Retry",
-  "version": "0.1.4-alpha"
+  "version": "0.1.5-alpha"
 }
