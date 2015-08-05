@@ -83,9 +83,9 @@ namespace IX.Retry.UnitTests
             Type[] parameterTypes = parameters.Aggregate(new List<Type>(), (list, current) => { list.Add(current.GetType()); return list; }).ToArray();
 
             MethodInfo mig = mis.Single(p =>
-                p.Name == nameof(With.Retry) &&
+                p.Name == nameof(With.RetryAsync) &&
                 (
-                    (parameterTypes.Length == 0 && !p.ContainsGenericParameters && typeof(Task) == p.ReturnType) ||
+                    (parameterTypes.Length == 0 && !p.ContainsGenericParameters && typeof(Task) == p.ReturnType && p.GetParameters()[0].Name == "func") ||
                     (p.IsGenericMethodDefinition &&
                     p.ContainsGenericParameters &&
                     p.GetGenericArguments().Length == parameterTypes.Length &&
@@ -113,12 +113,13 @@ namespace IX.Retry.UnitTests
             // ACT
             // ===
 
-            var result = mi.Invoke(null, invokeParameters.ToArray());
+            var result = mi.Invoke(null, invokeParameters.ToArray()) as Task;
 
             // ASSERT
             // ======
 
-            Assert.Null(result);
+            Assert.NotNull(result);
+            result.Wait();
         }
 
         public static IEnumerable<object[]> RetryTheoryDataGenerator()
