@@ -39,17 +39,40 @@ namespace IX.Retry.UnitTests
             hasRetriedCorrectly = true;
         }
 
-        internal Delegate GetProperTestActionDelegate(IEnumerable<Type> exceptions, IEnumerable<Type> parameters)
+        private Task RetryTestAsyncMethod(IEnumerable<Type> exceptions)
         {
+            if (maxRetries > currentRetry)
+            {
+                currentRetry++;
+                Exception ex = Activator.CreateInstance(exceptions.Skip(r.Next(exceptions.Count())).First()) as Exception;
+                throw ex;
+            }
+            else if (hasRetriedCorrectly)
+            {
+                Assert.Fail("Another retry should not be performed should the method execute successfully!");
+            }
 
+            hasRetriedCorrectly = true;
+
+            return Task.FromResult(0);
+        }
+
+        internal Delegate GetProperTestActionDelegate(string testKey, IEnumerable<Type> exceptions, IEnumerable<Type> parameters)
+        {
             Tuple<MethodInfo, Type> mi;
-            if (delegateInformation.TryGetValue(new Tuple<int, int>(exceptions.Count(), parameters.Count()), out mi))
+            if (delegateInformation.TryGetValue(new Tuple<string, int, int>(testKey, exceptions.Count(), parameters.Count()), out mi))
             {
                 return mi.Item1.MakeGenericMethod(exceptions.ToArray()).CreateDelegate(mi.Item2, this);
             }
             else throw new InvalidOperationException("Test method delegate not found.");
         }
 
-        private static Dictionary<Tuple<int, int>, Tuple<MethodInfo, Type>> delegateInformation = new Dictionary<Tuple<int, int>, Tuple<MethodInfo, Type>>();
+        private static Dictionary<Tuple<string, int, int>, Tuple<MethodInfo, Type>> delegateInformation = new Dictionary<Tuple<string, int, int>, Tuple<MethodInfo, Type>>();
+
+        static RetryTestMethodWrapper()
+        {
+            RetryTestActionMethodMethodGenerator();
+            RetryTestFuncWithTaskMethodGenerator();
+        }
     }
 }

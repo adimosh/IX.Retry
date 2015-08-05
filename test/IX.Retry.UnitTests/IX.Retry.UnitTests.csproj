@@ -72,10 +72,15 @@
     <Compile Include="ObjectTestExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RetryTestMethodWrapper.cs" />
-    <Compile Include="RetryTestMethodWrapper_DelegateGenerator.cs">
+    <Compile Include="RetryTestMethodWrapper_ActionDelegateGenerator.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RetryTestMethodWrapper_DelegateGenerator.tt</DependentUpon>
+      <DependentUpon>RetryTestMethodWrapper_ActionDelegateGenerator.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RetryTestMethodWrapper_FuncWithTaskDelegateGenerator.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetryTestMethodWrapper_FuncWithTaskDelegateGenerator.tt</DependentUpon>
     </Compile>
     <Compile Include="RetryTheories.cs" />
     <Compile Include="RetryTheories_TestDataGenerator.cs">
@@ -88,9 +93,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RetryTestMethodWrapper_DelegateGenerator.tt">
+    <Content Include="RetryTestMethodWrapper_ActionDelegateGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RetryTestMethodWrapper_DelegateGenerator.cs</LastGenOutput>
+      <LastGenOutput>RetryTestMethodWrapper_ActionDelegateGenerator.cs</LastGenOutput>
+    </Content>
+    <Content Include="RetryTestMethodWrapper_FuncWithTaskDelegateGenerator.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryTestMethodWrapper_FuncWithTaskDelegateGenerator.cs</LastGenOutput>
     </Content>
     <Content Include="RetryTheories_TestDataGenerator.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -7,6 +7,7 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace IX.Retry.UnitTests
 {
@@ -18,7 +19,7 @@ namespace IX.Retry.UnitTests
 	    for (int j = 1; j <= 8; j++)
 		{
 #>
-        private void RetryTestActionMethod<<#
+        private Task RetryTestFuncWithTaskMethod<<#
             List<string> exceptionStrings = new List<string>();
             for (int q = 1; q <= j; q++)
 			{
@@ -43,7 +44,7 @@ namespace IX.Retry.UnitTests
 #>
                 <#= exceptionConstraintsString #>
         {
-		    RetryTestMethod(new[] { <#
+		    return RetryTestAsyncMethod(new[] { <#
             List<string> exceptionTypeofStrings = new List<string>();
             for (int q = 1; q <= j; q++)
 			{
@@ -57,7 +58,7 @@ namespace IX.Retry.UnitTests
         }
     }
 #>
-        static RetryTestMethodWrapper()
+        private static void RetryTestFuncWithTaskMethodGenerator()
         {
 <#
     for (int i = 0; i <= 16; i++)
@@ -68,18 +69,18 @@ namespace IX.Retry.UnitTests
 
 		string typeparamsString = string.Join(",", paramsList);
 		if (typeparamsString.Length == 3)
-		    typeparamsString = string.Empty;
+		    typeparamsString = "<Task>";
 		else
-		    typeparamsString = "<" + typeparamsString.Substring(0, typeparamsString.Length - 4) + ">";
+		    typeparamsString = "<" + typeparamsString.Substring(0, typeparamsString.Length - 4) + ", Task>";
 
 	    for (int j = 1; j <= 8; j++)
 		{
 #>
 			
-            delegateInformation.Add(new Tuple<int, int>(<#= j #>, <#= i #>), new Tuple<MethodInfo, Type>(
+            delegateInformation.Add(new Tuple<string, int, int>("functask", <#= j #>, <#= i #>), new Tuple<MethodInfo, Type>(
 			    typeof(RetryTestMethodWrapper).GetMethods(BindingFlags.Instance | BindingFlags.NonPublic)
-                    .Single(p => p.Name == "RetryTestActionMethod" && p.GetGenericArguments().Length == <#= j #> && p.GetParameters().Length == <#= i #>),
-				typeof(Action<#= typeparamsString #>)
+                    .Single(p => p.Name == "RetryTestFuncWithTaskMethod" && p.GetGenericArguments().Length == <#= j #> && p.GetParameters().Length == <#= i #>),
+				typeof(Func<#= typeparamsString #>)
 			));
 <#
 		}
