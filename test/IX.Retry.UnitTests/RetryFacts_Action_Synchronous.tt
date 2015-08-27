@@ -13,7 +13,6 @@ namespace IX.Retry.UnitTests
 	{
 		int retries;
 		int maxRetries;
-
 <#
 for (int t = 1; t <= 3; t++)
 {
@@ -29,14 +28,19 @@ for (int t = 1; t <= 3; t++)
 			parameterValues.Add(string.Format("int param{0} = r.Next();", j));
 		}
 #>
+
         [Fact]
         public void Test_Action_Synchronous_<#=i#>_<#=t#>()
         {
 			maxRetries = <#=t#>;
+			retries = 0;
+
 			Random r = new Random();
 			<#= string.Join("\r\n            ", parameterValues) #>
 
             With.Retry(DelegateMethod_Action_Synchronous_<#=i#>_<#=t#>, Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(<#=t#>))<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
+
+			Assert.True(retries <= maxRetries);
         }
 
         private void DelegateMethod_Action_Synchronous_<#=i#>_<#=t#>(<#= string.Join(", ", parameters) #>)
