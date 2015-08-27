@@ -3,13 +3,14 @@ using Xunit;
 
 namespace IX.Retry.UnitTests
 {
-	public class RetryTest
+
+	public class RetryTest_Action_Synchronous_0_1
 	{
 		int retries;
 		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_0_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -30,9 +31,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_1_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_1_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -53,9 +60,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_2_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_2_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -77,9 +90,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_3_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_3_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -102,9 +121,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_4_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_4_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -128,9 +153,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_5_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_5_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -155,9 +186,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_6_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_6_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -183,9 +220,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_7_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_7_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -212,9 +255,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_8_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_8_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -242,9 +291,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_9_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_9_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -273,9 +328,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_10_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_10_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -305,9 +366,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_11_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_11_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -338,9 +405,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_12_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_12_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -372,9 +445,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_13_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_13_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -407,9 +486,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_14_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_14_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -443,9 +528,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_15_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_15_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -480,9 +571,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_16_1
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_16_1()
+        public void Test()
         {
 			maxRetries = 1;
 			retries = 0;
@@ -518,9 +615,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_0_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_0_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -541,9 +644,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_1_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_1_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -564,9 +673,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_2_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_2_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -588,9 +703,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_3_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_3_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -613,9 +734,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_4_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_4_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -639,9 +766,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_5_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_5_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -666,9 +799,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_6_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_6_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -694,9 +833,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_7_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_7_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -723,9 +868,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_8_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_8_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -753,9 +904,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_9_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_9_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -784,9 +941,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_10_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_10_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -816,9 +979,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_11_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_11_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -849,9 +1018,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_12_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_12_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -883,9 +1058,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_13_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_13_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -918,9 +1099,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_14_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_14_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -954,9 +1141,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_15_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_15_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -991,9 +1184,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_16_2
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_16_2()
+        public void Test()
         {
 			maxRetries = 2;
 			retries = 0;
@@ -1029,9 +1228,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_0_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_0_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1052,9 +1257,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_1_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_1_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1075,9 +1286,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_2_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_2_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1099,9 +1316,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_3_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_3_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1124,9 +1347,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_4_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_4_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1150,9 +1379,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_5_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_5_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1177,9 +1412,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_6_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_6_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1205,9 +1446,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_7_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_7_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1234,9 +1481,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_8_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_8_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1264,9 +1517,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_9_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_9_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1295,9 +1554,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_10_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_10_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1327,9 +1592,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_11_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_11_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1360,9 +1631,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_12_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_12_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1394,9 +1671,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_13_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_13_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1429,9 +1712,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_14_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_14_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1465,9 +1754,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_15_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_15_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;
@@ -1502,9 +1797,15 @@ namespace IX.Retry.UnitTests
                 throw new InvalidOperationException();
             }
         }
+	}
+
+	public class RetryTest_Action_Synchronous_16_3
+	{
+		int retries;
+		int maxRetries;
 
         [Fact]
-        public void Test_Action_Synchronous_16_3()
+        public void Test()
         {
 			maxRetries = 3;
 			retries = 0;

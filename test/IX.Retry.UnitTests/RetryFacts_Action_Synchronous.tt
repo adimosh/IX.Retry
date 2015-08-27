@@ -9,10 +9,6 @@ using Xunit;
 
 namespace IX.Retry.UnitTests
 {
-	public class RetryTest
-	{
-		int retries;
-		int maxRetries;
 <#
 for (int t = 1; t <= 3; t++)
 {
@@ -29,8 +25,13 @@ for (int t = 1; t <= 3; t++)
 		}
 #>
 
+	public class RetryTest_Action_Synchronous_<#=i#>_<#=t#>
+	{
+		int retries;
+		int maxRetries;
+
         [Fact]
-        public void Test_Action_Synchronous_<#=i#>_<#=t#>()
+        public void Test()
         {
 			maxRetries = <#=t#>;
 			retries = 0;
@@ -51,9 +52,9 @@ for (int t = 1; t <= 3; t++)
                 throw new InvalidOperationException();
             }
         }
+	}
 <#
 	}
 }
 #>
-	}
 }
