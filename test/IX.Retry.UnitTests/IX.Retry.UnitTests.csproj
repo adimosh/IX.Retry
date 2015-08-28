@@ -109,6 +109,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RetryFacts_Func_Synchronous.tt</DependentUpon>
     </Compile>
+    <Compile Include="RetryFacts_Miscellaneous.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
