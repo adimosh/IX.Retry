@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\xunit.runner.visualstudio.2.0.1\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.0.1\build\net20\xunit.runner.visualstudio.props')" />
-  <Import Project="..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props')" />
+  <Import Project="..\..\packages\xunit.runner.visualstudio.2.1.0-beta4-build1109\build\net20\xunit.runner.visualstudio.props" Condition="Exists('..\..\packages\xunit.runner.visualstudio.2.1.0-beta4-build1109\build\net20\xunit.runner.visualstudio.props')" />
+  <Import Project="..\..\packages\xunit.core.2.1.0-beta4-build3109\build\portable-net45+netcore45+wp8+wpa81\xunit.core.props" Condition="Exists('..\..\packages\xunit.core.2.1.0-beta4-build3109\build\portable-net45+netcore45+wp8+wpa81\xunit.core.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -38,6 +38,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Test|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Test\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="IX.Retry">
       <HintPath>..\..\artifacts\bin\IX.Retry\Debug\net46\IX.Retry.dll</HintPath>
@@ -47,12 +56,12 @@
       <HintPath>..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.assert, Version=2.0.0.2929, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.assert.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.assert.dll</HintPath>
+    <Reference Include="xunit.assert, Version=2.1.0.3109, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.assert.2.1.0-beta4-build3109\lib\dotnet\xunit.assert.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="xunit.core, Version=2.0.0.2929, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\xunit.extensibility.core.2.0.0\lib\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.dll</HintPath>
+    <Reference Include="xunit.core, Version=2.1.0.3109, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\xunit.extensibility.core.2.1.0-beta4-build3109\lib\dotnet\xunit.core.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
@@ -69,32 +78,68 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ObjectTestExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RetryTestMethodWrapper.cs" />
-    <Compile Include="RetryTestMethodWrapper_DelegateGenerator.cs">
+    <Compile Include="RetryFacts_FuncTaskResult_Aynchronous.cs">
+      <DependentUpon>RetryFacts_FuncTaskResult_Aynchronous.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RetryTestMethodWrapper_DelegateGenerator.tt</DependentUpon>
     </Compile>
-    <Compile Include="RetryTheories.cs" />
-    <Compile Include="RetryTheories_TestDataGenerator.cs">
+    <Compile Include="RetryFacts_FuncTaskNoResult_Asynchronous.cs">
+      <DependentUpon>RetryFacts_FuncTaskNoResult_Asynchronous.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>RetryTheories_TestDataGenerator.tt</DependentUpon>
     </Compile>
+    <Compile Include="RetryFacts_Action_Asynchronous.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetryFacts_Action_Asynchronous.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RetryFacts_Action_Synchronous.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetryFacts_Action_Synchronous.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RetryFacts_FuncResult_Aynchronous.cs">
+      <DependentUpon>RetryFacts_FuncResult_Aynchronous.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="RetryFacts_Func_Synchronous.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetryFacts_Func_Synchronous.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RetryFacts_Miscellaneous.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RetryTestMethodWrapper_DelegateGenerator.tt">
+    <Content Include="RetryFacts_FuncTaskResult_Aynchronous.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RetryTestMethodWrapper_DelegateGenerator.cs</LastGenOutput>
+      <LastGenOutput>RetryFacts_FuncTaskResult_Aynchronous.cs</LastGenOutput>
     </Content>
-    <Content Include="RetryTheories_TestDataGenerator.tt">
+    <Content Include="RetryFacts_FuncTaskNoResult_Asynchronous.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>RetryTheories_TestDataGenerator.cs</LastGenOutput>
+      <LastGenOutput>RetryFacts_FuncTaskNoResult_Asynchronous.cs</LastGenOutput>
+    </Content>
+    <Content Include="RetryFacts_Action_Asynchronous.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryFacts_Action_Asynchronous.cs</LastGenOutput>
+    </Content>
+    <Content Include="RetryFacts_Action_Synchronous.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryFacts_Action_Synchronous.cs</LastGenOutput>
+    </Content>
+    <Content Include="RetryFacts_FuncResult_Aynchronous.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryFacts_FuncResult_Aynchronous.cs</LastGenOutput>
+    </Content>
+    <Content Include="RetryFacts_Func_Synchronous.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryFacts_Func_Synchronous.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -124,8 +169,8 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.0.0\build\portable-net45+win+wpa81+wp80+monotouch+monoandroid+Xamarin.iOS\xunit.core.props'))" />
-    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.0.1\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.0.1\build\net20\xunit.runner.visualstudio.props'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.core.2.1.0-beta4-build3109\build\portable-net45+netcore45+wp8+wpa81\xunit.core.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.core.2.1.0-beta4-build3109\build\portable-net45+netcore45+wp8+wpa81\xunit.core.props'))" />
+    <Error Condition="!Exists('..\..\packages\xunit.runner.visualstudio.2.1.0-beta4-build1109\build\net20\xunit.runner.visualstudio.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\xunit.runner.visualstudio.2.1.0-beta4-build1109\build\net20\xunit.runner.visualstudio.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

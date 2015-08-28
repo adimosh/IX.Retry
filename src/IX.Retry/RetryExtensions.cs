@@ -27,6 +27,7 @@ namespace IX.Retry
                 try
                 {
                     await action(cancellationToken);
+                    return;
                 }
                 catch (Exception ex)
                 {
@@ -2370,6 +2371,7 @@ namespace IX.Retry
                 try
                 {
                     action(cancellationToken);
+                    return;
                 }
                 catch (Exception ex)
                 {
