@@ -42,9 +42,9 @@ for (int t = 1; t <= 3; t++)
 			Random r = new Random();
 			<#= string.Join("\r\n            ", parameterValues) #>
 
-            await With.RetryAsync(new Action<#= i == 0 ? "" : "<" #><#= string.Join(", ", actionParameters) #><#= i == 0 ? "" : ">" #>(DelegateMethod_Action_Asynchronous_<#=i#>_<#=t#>), Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(<#=t#>))<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
+            await With.RetryAsync(new Action<#= i == 0 ? "" : "<" #><#= string.Join(", ", actionParameters) #><#= i == 0 ? "" : ">" #>(DelegateMethod_Action_Asynchronous_<#=i#>_<#=t#>), Policy.CountBasedRetryPolicy<InvalidOperationException>(<#=t#>)<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
 
-			Assert.True(retries <= maxRetries);
+			Assert.True(retries == maxRetries);
         }
 
         private void DelegateMethod_Action_Asynchronous_<#=i#>_<#=t#>(<#= string.Join(", ", parameters) #>)

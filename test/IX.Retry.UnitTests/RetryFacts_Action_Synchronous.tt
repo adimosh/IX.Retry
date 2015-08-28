@@ -39,9 +39,9 @@ for (int t = 1; t <= 3; t++)
 			Random r = new Random();
 			<#= string.Join("\r\n            ", parameterValues) #>
 
-            With.Retry(DelegateMethod_Action_Synchronous_<#=i#>_<#=t#>, Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(<#=t#>))<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
+            With.Retry(DelegateMethod_Action_Synchronous_<#=i#>_<#=t#>, Policy.CountBasedRetryPolicy<InvalidOperationException>(<#=t#>)<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
 
-			Assert.True(retries <= maxRetries);
+			Assert.True(retries == maxRetries);
         }
 
         private void DelegateMethod_Action_Synchronous_<#=i#>_<#=t#>(<#= string.Join(", ", parameters) #>)

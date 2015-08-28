@@ -28,9 +28,9 @@ for (int t = 1; t <= 3; t++)
 			Random r = new Random();
 			int param1 = r.Next();
 
-            int result = With.Retry(DelegateMethod_Func_Synchronous_0_<#=t#>, Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(1)));
+            int result = With.Retry(DelegateMethod_Func_Synchronous_0_<#=t#>, Policy.CountBasedRetryPolicy<InvalidOperationException>(1));
 
-			Assert.True(retries <= maxRetries);
+			Assert.True(retries == maxRetries);
 			Assert.Equal(result, -32768);
         }
 
@@ -73,10 +73,10 @@ for (int t = 1; t <= 3; t++)
 			Random r = new Random();
 			<#= string.Join("\r\n            ", parameterValues) #>
 
-            int result = With.Retry(DelegateMethod_Func_Synchronous_<#=i#>_<#=t#>, Policy.TimeBasedRetryPolicy<InvalidOperationException>(TimeSpan.FromSeconds(<#=t#>))<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
+            int result = With.Retry(DelegateMethod_Func_Synchronous_<#=i#>_<#=t#>, Policy.CountBasedRetryPolicy<InvalidOperationException>(<#=t#>)<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
 			int expectedResult = <#= string.Join(" + ", parameterNames) #>;
 
-			Assert.True(retries <= maxRetries);
+			Assert.True(retries == maxRetries);
 			Assert.Equal(expectedResult, result);
         }
 
