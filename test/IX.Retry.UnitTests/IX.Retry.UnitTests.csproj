@@ -84,6 +84,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RetryFacts_Action_Synchronous.tt</DependentUpon>
     </Compile>
+    <Compile Include="RetryFacts_Func_Synchronous.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetryFacts_Func_Synchronous.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -94,6 +99,10 @@
     <Content Include="RetryFacts_Action_Synchronous.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RetryFacts_Action_Synchronous.cs</LastGenOutput>
+    </Content>
+    <Content Include="RetryFacts_Func_Synchronous.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryFacts_Func_Synchronous.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
