@@ -94,7 +94,7 @@
     "projectUrl": "https://github.com/adimosh/IX.Retry/",
     "tags": [ "" ],
     "title": "IX.Retry",
-    "version": "0.1.5-alpha",
+    "version": "0.1.6",
     "configurations": {
         "Test": { }
     }
