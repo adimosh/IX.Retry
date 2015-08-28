@@ -79,6 +79,16 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RetryFacts_FuncTaskNoResult_Asynchronous.cs">
+      <DependentUpon>RetryFacts_FuncTaskNoResult_Asynchronous.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="RetryFacts_Action_Asynchronous.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RetryFacts_Action_Asynchronous.tt</DependentUpon>
+    </Compile>
     <Compile Include="RetryFacts_Action_Synchronous.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -96,6 +106,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="RetryFacts_FuncTaskNoResult_Asynchronous.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryFacts_FuncTaskNoResult_Asynchronous.cs</LastGenOutput>
+    </Content>
+    <Content Include="RetryFacts_Action_Asynchronous.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RetryFacts_Action_Asynchronous.cs</LastGenOutput>
+    </Content>
     <Content Include="RetryFacts_Action_Synchronous.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>RetryFacts_Action_Synchronous.cs</LastGenOutput>
