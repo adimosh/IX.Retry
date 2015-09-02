@@ -48,8 +48,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IX.Retry">
-      <HintPath>..\..\artifacts\bin\IX.Retry\Debug\net46\IX.Retry.dll</HintPath>
+    <Reference Include="IX.Retry, Version=0.1.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\artifacts\bin\IX.Retry\Debug\dotnet\IX.Retry.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
