@@ -60,7 +60,7 @@
   "tags": [ "" ],
   "releaseNotes": "",
   "title": "IX.Retry",
-  "version": "0.1.7-beta-2",
+  "version": "0.1.7",
   "configurations": {
     "Test": { }
   }
