@@ -8,11 +8,45 @@
         "Microsoft.Bcl.Async": "1.0.168"
       }
     },
+    "win8": {
+      "dependencies": {
+        "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
+        "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816"
+      }
+    },
+    "win81": {
+      "dependencies": {
+        "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
+        "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816"
+      }
+    },
+    "wp80": {
+      "dependencies": {
+        "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
+        "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816"
+      }
+    },
+    "wpa81": {
+      "dependencies": {
+        "System.Linq": "4.0.0-beta-22816",
+        "System.Runtime": "4.0.20-beta-22816",
+        "System.Runtime.Extensions": "4.0.10-beta-22816",
+        "System.Threading": "4.0.10-beta-22816",
+        "System.Threading.Thread": "4.0.0-beta-22816"
+      }
+    },
     "dotnet": {
       "dependencies": {
         "System.Runtime": "4.0.20",
-        "System.Runtime.Extensions": "4.0.10",
-        "System.Resources.ResourceManager": "4.0.0",
         "System.Linq": "4.0.0",
         "System.Threading": "4.0.10",
         "System.Threading.Thread": "4.0.0-beta-23302"
@@ -26,7 +60,7 @@
   "tags": [ "" ],
   "releaseNotes": "",
   "title": "IX.Retry",
-  "version": "0.1.7-beta-1",
+  "version": "0.1.7-beta-2",
   "configurations": {
     "Test": { }
   }
