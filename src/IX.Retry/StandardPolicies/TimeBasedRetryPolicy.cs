@@ -31,6 +31,19 @@ namespace IX.Retry.StandardPolicies
         /// Instantiates a new instance of the <see cref="TimeBasedRetryPolicy"/> class.
         /// </summary>
         /// <param name="retryDuration">The retry duration for this time-based policy.</param>
+        /// <param name="retryForExceptionTypes">An array of exception types for which to retry.</param>
+        /// <remarks>
+        /// <para>The exception types are not checked, meaning that if a collection of types that are not exceptions is given as parameter, then the retry mechanism will do nothing.</para>
+        /// </remarks>
+        public TimeBasedRetryPolicy(TimeSpan retryDuration, params Type[] retryForExceptionTypes)
+            : this(retryDuration, StandardBackoffPolicies.RandomExponential, retryForExceptionTypes)
+        {
+        }
+
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="TimeBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
         /// <param name="backOffPolicy">The back-off policy to use.</param>
         /// <param name="retryForExceptionTypes">A collection of exception types for which to retry.</param>
         /// <remarks>
@@ -41,6 +54,20 @@ namespace IX.Retry.StandardPolicies
             this.retryDuration = retryDuration;
             this.retryForExceptionTypes = retryForExceptionTypes;
             this.backOffPolicy = backOffPolicy;
+        }
+
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="TimeBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
+        /// <param name="backOffPolicy">The back-off policy to use.</param>
+        /// <param name="retryForExceptionTypes">An array of exception types for which to retry.</param>
+        /// <remarks>
+        /// <para>The exception types are not checked, meaning that if a collection of types that are not exceptions is given as parameter, then the retry mechanism will do nothing.</para>
+        /// </remarks>
+        public TimeBasedRetryPolicy(TimeSpan retryDuration, BackOffPolicy backOffPolicy, params Type[] retryForExceptionTypes)
+            : this(retryDuration, backOffPolicy, retryForExceptionTypes as IEnumerable<Type>)
+        {
         }
 
         /// <summary>

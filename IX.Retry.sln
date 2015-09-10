@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IX.Retry.UnitTests", "test\
 		{EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1} = {EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToolingMitigation", "ToolingMitigation", "{45FE1FE8-7EBF-4E7D-ACB9-60F41F492387}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IX.Retry.ToolingMitigation", "IX.Retry.ToolingMitigation\IX.Retry.ToolingMitigation.csproj", "{11BC2719-636E-41EF-8C03-5A96852ABA27}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +39,9 @@ Global
 		{864BACBF-66A2-405A-86DD-E1F9AFFDF118}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{864BACBF-66A2-405A-86DD-E1F9AFFDF118}.Test|Any CPU.ActiveCfg = Test|Any CPU
 		{864BACBF-66A2-405A-86DD-E1F9AFFDF118}.Test|Any CPU.Build.0 = Test|Any CPU
+		{11BC2719-636E-41EF-8C03-5A96852ABA27}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BC2719-636E-41EF-8C03-5A96852ABA27}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BC2719-636E-41EF-8C03-5A96852ABA27}.Test|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,5 +49,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{EF74D2C4-80CB-4ABD-8A04-F6AAA1AA1FF1} = {791531F4-0205-425F-B6CA-AC02A9F1E08B}
 		{864BACBF-66A2-405A-86DD-E1F9AFFDF118} = {F179C504-113A-48CB-AE89-A52D72744BCD}
+		{45FE1FE8-7EBF-4E7D-ACB9-60F41F492387} = {791531F4-0205-425F-B6CA-AC02A9F1E08B}
+		{11BC2719-636E-41EF-8C03-5A96852ABA27} = {45FE1FE8-7EBF-4E7D-ACB9-60F41F492387}
 	EndGlobalSection
 EndGlobal

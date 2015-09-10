@@ -11,6 +11,7 @@ namespace IX.Retry.StandardPolicies
     {
         private readonly int maximumRetries;
         private readonly IEnumerable<Type> retryForExceptionTypes;
+        private readonly BackOffPolicy backOffPolicy;
 
         /// <summary>
         /// Instantiates a new instance of the <see cref="CountBasedRetryPolicy"/> class.
@@ -21,9 +22,51 @@ namespace IX.Retry.StandardPolicies
         /// <para>The exception types are not checked, meaning that if a collection of types that are not exceptions is given as parameter, then the retry mechanism will do nothing.</para>
         /// </remarks>
         public CountBasedRetryPolicy(int maximumRetries, IEnumerable<Type> retryForExceptionTypes)
+            : this(maximumRetries, StandardBackoffPolicies.RandomExponential, retryForExceptionTypes)
+        {
+        }
+
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="CountBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="retryForExceptionTypes">An array of exception types for which to retry.</param>
+        /// <remarks>
+        /// <para>The exception types are not checked, meaning that if a collection of types that are not exceptions is given as parameter, then the retry mechanism will do nothing.</para>
+        /// </remarks>
+        public CountBasedRetryPolicy(int maximumRetries, params Type[] retryForExceptionTypes)
+            : this(maximumRetries, StandardBackoffPolicies.RandomExponential, retryForExceptionTypes)
+        {
+        }
+
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="CountBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="backOffPolicy">The back-off policy to use.</param>
+        /// <param name="retryForExceptionTypes">A collection of exception types for which to retry.</param>
+        /// <remarks>
+        /// <para>The exception types are not checked, meaning that if a collection of types that are not exceptions is given as parameter, then the retry mechanism will do nothing.</para>
+        /// </remarks>
+        public CountBasedRetryPolicy(int maximumRetries, BackOffPolicy backOffPolicy, IEnumerable<Type> retryForExceptionTypes)
         {
             this.maximumRetries = maximumRetries;
             this.retryForExceptionTypes = retryForExceptionTypes;
+            this.backOffPolicy = backOffPolicy;
+        }
+
+        /// <summary>
+        /// Instantiates a new instance of the <see cref="CountBasedRetryPolicy"/> class.
+        /// </summary>
+        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="backOffPolicy">The back-off policy to use.</param>
+        /// <param name="retryForExceptionTypes">An array of exception types for which to retry.</param>
+        /// <remarks>
+        /// <para>The exception types are not checked, meaning that if a collection of types that are not exceptions is given as parameter, then the retry mechanism will do nothing.</para>
+        /// </remarks>
+        public CountBasedRetryPolicy(int maximumRetries, BackOffPolicy backOffPolicy, params Type[] retryForExceptionTypes)
+            : this(maximumRetries, backOffPolicy, retryForExceptionTypes as IEnumerable<Type>)
+        {
         }
 
         /// <summary>
@@ -57,7 +100,7 @@ namespace IX.Retry.StandardPolicies
                 return DontRetry(out retryInterval);
             }
 
-            retryInterval = StandardBackoffPolicies.RandomExponential(retryCount, Policy.MinBackoff, Policy.MaxBackoff, Policy.BackoffIncrement);
+            retryInterval = backOffPolicy(retryCount, Policy.MinBackoff, Policy.MaxBackoff, Policy.BackoffIncrement);
             return true;
         }
     }
