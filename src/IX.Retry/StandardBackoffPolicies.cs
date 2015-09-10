@@ -69,6 +69,11 @@ namespace IX.Retry
             return retryInterval;
         }
 
+        public static TimeSpan Constant(int retryCount, TimeSpan minBackOff, TimeSpan maxBackOff, TimeSpan deltaBackOff)
+        {
+            return TimeSpan.Zero;
+        }
+
         [Conditional("DEBUG")]
         private static void BackoffPoliciesContractsRequires(int retryCount, TimeSpan minBackoff, TimeSpan maxBackoff, TimeSpan deltaBackoff)
         {

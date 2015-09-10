@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace IX.Retry
+namespace IX.Retry.StandardPolicies
 {
     /// <summary>
     /// A time-based, non-linear retry policy.

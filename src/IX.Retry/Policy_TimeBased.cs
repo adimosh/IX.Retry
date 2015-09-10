@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IX.Retry.StandardPolicies;
+using System;
 using System.Collections.Generic;
 
 namespace IX.Retry
