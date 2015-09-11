@@ -21,7 +21,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IX.Retry.UnitTests", "test\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ToolingMitigation", "ToolingMitigation", "{45FE1FE8-7EBF-4E7D-ACB9-60F41F492387}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IX.Retry.ToolingMitigation", "IX.Retry.ToolingMitigation\IX.Retry.ToolingMitigation.csproj", "{11BC2719-636E-41EF-8C03-5A96852ABA27}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IX.Retry.ToolingMitigation", "src\IX.Retry.ToolingMitigation\IX.Retry.ToolingMitigation.csproj", "{11BC2719-636E-41EF-8C03-5A96852ABA27}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

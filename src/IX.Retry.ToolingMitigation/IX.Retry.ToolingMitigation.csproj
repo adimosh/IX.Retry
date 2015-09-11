@@ -41,18 +41,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CountBasedRetryPolicy_GenericClasses.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CountBasedRetryPolicy_GenericClasses.tt</DependentUpon>
+    </Compile>
     <Compile Include="Policy_CountBased.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Policy_CountBased.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TimeBasedRetryPolicy_GenericClasses.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TimeBasedRetryPolicy_GenericClasses.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CountBasedRetryPolicy_GenericClasses.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CountBasedRetryPolicy_GenericClasses.cs</LastGenOutput>
+    </Content>
     <Content Include="Policy_CountBased.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Policy_CountBased.cs</LastGenOutput>
     </Content>
+    <Content Include="TimeBasedRetryPolicy_GenericClasses.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TimeBasedRetryPolicy_GenericClasses.cs</LastGenOutput>
+    </Content>
+    <None Include="Tooling.tt" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
