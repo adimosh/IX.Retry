@@ -14,27 +14,27 @@ namespace IX.Retry
     public static partial class Policy
     {
         /// <summary>
-        /// A count-based, non-linear retry policy.
+        /// A time-based, non-linear retry policy.
         /// </summary>
-        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
         /// <param name="retryForExceptionTypes">Retry for certain exception types.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        public static IRetryPolicy CountBasedRetryPolicy(int maximumRetries, IEnumerable<Type> retryForExceptionTypes)
+        public static IRetryPolicy TimeBasedRetryPolicy(TimeSpan retryDuration, IEnumerable<Type> retryForExceptionTypes)
         {
-            return new CountBasedRetryPolicy(maximumRetries, retryForExceptionTypes);
+            return new TimeBasedRetryPolicy(retryDuration, retryForExceptionTypes);
         }
 
         /// <summary>
-        /// A count-based, non-linear retry policy that retries on a specific exception.
+        /// A time-based, non-linear retry policy that retries on a specific exception.
         /// </summary>
         /// <typeparam name="TException">The exception type to capture and retry on.</typeparam>
-        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        [Obsolete("Use CountBased instead of this, as these methods will be removed in version 1.0.0")]
-        public static IRetryPolicy CountBasedRetryPolicy<TException>(int maximumRetries)
+        [Obsolete("Use TimeBased instead of this, as these methods will be removed in version 1.0.0")]
+        public static IRetryPolicy TimeBasedRetryPolicy<TException>(TimeSpan retryDuration)
             where TException : Exception
         {
-            return new CountBasedRetryPolicy<TException>(maximumRetries);
+            return new TimeBasedRetryPolicy<TException>(retryDuration);
         }
 <#
 for (int i = 2; i <= 16; i++)
@@ -48,7 +48,7 @@ for (int i = 2; i <= 16; i++)
 #>
 
         /// <summary>
-        /// A count-based, non-linear retry policy that retries on a specific set of exceptions.
+        /// A time-based, non-linear retry policy that retries on a specific set of exceptions.
         /// </summary>
 <#
     for (int j = 1; j <= i; j++)
@@ -58,10 +58,10 @@ for (int i = 2; i <= 16; i++)
 <#
     }
 #>
-        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        [Obsolete("Use CountBased instead of this, as these methods will be removed in version 1.0.0")]
-        public static IRetryPolicy CountBasedRetryPolicy<<#=exceptionTypeParams#>>(int maximumRetries)
+        [Obsolete("Use TimeBased instead of this, as these methods will be removed in version 1.0.0")]
+        public static IRetryPolicy TimeBasedRetryPolicy<<#=exceptionTypeParams#>>(TimeSpan retryDuration)
 <#
     for (int j = 1; j <= i; j++)
     {
@@ -71,35 +71,35 @@ for (int i = 2; i <= 16; i++)
     }
 #>
         {
-            return new CountBasedRetryPolicy<<#=exceptionTypeParams#>>(maximumRetries);
+            return new TimeBasedRetryPolicy<<#=exceptionTypeParams#>>(retryDuration);
         }
 <#
 }
 #>
 
         /// <summary>
-        /// A count-based, non-linear retry policy that retries on a specific exception.
+        /// A time-based, non-linear retry policy that retries on a specific exception.
         /// </summary>
         /// <typeparam name="TException">The exception type to capture and retry on.</typeparam>
-        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        public static IRetryPolicy CountBased<TException>(int maximumRetries)
+        public static IRetryPolicy TimeBased<TException>(TimeSpan retryDuration)
             where TException : Exception
         {
-            return new CountBasedRetryPolicy<TException>(maximumRetries);
+            return new TimeBasedRetryPolicy<TException>(retryDuration);
         }
 
         /// <summary>
-        /// A count-based, non-linear retry policy that retries on a specific exception and has a specific back-off policy.
+        /// A time-based, non-linear retry policy that retries on a specific exception and has a specific back-off policy.
         /// </summary>
         /// <typeparam name="TException">The exception type to capture and retry on.</typeparam>
         /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
         /// <param name="backOffPolicy">A back-off policy to apply between attempts. This policy is always time-based.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        public static IRetryPolicy CountBased<TException>(int maximumRetries, BackOffPolicy backOffPolicy)
+        public static IRetryPolicy TimeBased<TException>(TimeSpan retryDuration, BackOffPolicy backOffPolicy)
             where TException : Exception
         {
-            return new CountBasedRetryPolicy(maximumRetries, backOffPolicy, typeof(TException));
+            return new TimeBasedRetryPolicy(retryDuration, backOffPolicy, typeof(TException));
         }
 <#
 for (int i = 2; i <= 16; i++)
@@ -113,7 +113,7 @@ for (int i = 2; i <= 16; i++)
 #>
 
         /// <summary>
-        /// A count-based, non-linear retry policy that retries on a specific set of exceptions and has a specific back-off policy.
+        /// A time-based, non-linear retry policy that retries on a specific set of exceptions and has a specific back-off policy.
         /// </summary>
 <#
     string exceptionTypeParamTypes = string.Join("), typeof(", exceptionTypeParameters);
@@ -124,10 +124,10 @@ for (int i = 2; i <= 16; i++)
 <#
     }
 #>
-        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
         /// <param name="backOffPolicy">A back-off policy to apply between attempts. This policy is always time-based.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        public static IRetryPolicy CountBased<<#=exceptionTypeParams#>>(int maximumRetries, BackOffPolicy backOffPolicy)
+        public static IRetryPolicy TimeBased<<#=exceptionTypeParams#>>(TimeSpan retryDuration, BackOffPolicy backOffPolicy)
 <#
     for (int j = 1; j <= i; j++)
     {
@@ -137,11 +137,11 @@ for (int i = 2; i <= 16; i++)
     }
 #>
         {
-            return new CountBasedRetryPolicy(maximumRetries, backOffPolicy, typeof(<#=exceptionTypeParamTypes#>));
+            return new TimeBasedRetryPolicy(retryDuration, backOffPolicy, typeof(<#=exceptionTypeParamTypes#>));
         }
 
         /// <summary>
-        /// A count-based, non-linear retry policy that retries on a specific set of exceptions and has a specific back-off policy.
+        /// A time-based, non-linear retry policy that retries on a specific set of exceptions and has a specific back-off policy.
         /// </summary>
 <#
     for (int j = 1; j <= i; j++)
@@ -151,9 +151,9 @@ for (int i = 2; i <= 16; i++)
 <#
     }
 #>
-        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        public static IRetryPolicy CountBased<<#=exceptionTypeParams#>>(int maximumRetries)
+        public static IRetryPolicy TimeBased<<#=exceptionTypeParams#>>(TimeSpan retryDuration)
 <#
     for (int j = 1; j <= i; j++)
     {
@@ -163,12 +163,12 @@ for (int i = 2; i <= 16; i++)
     }
 #>
         {
-            return new CountBasedRetryPolicy(maximumRetries, typeof(<#=exceptionTypeParamTypes#>));
+            return new TimeBasedRetryPolicy(retryDuration, typeof(<#=exceptionTypeParamTypes#>));
         }
 <#
 }
 #>
     }
 }<#
-    FlushOutput("Policy_CountBased.cs");
+    FlushOutput("Policy_TimeBased.cs");
 #>
