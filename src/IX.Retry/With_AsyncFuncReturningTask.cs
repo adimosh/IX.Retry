@@ -30,7 +30,7 @@ namespace IX.Retry
         /// <summary>
         /// Invokes a <see cref="System.Func{T, TResult}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T">The first function parameter type.</typeparam>
+        /// <typeparam name="T">The function parameter type.</typeparam>
         /// <param name="func">The function to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
         /// <param name="arg">The function parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the function.</param>

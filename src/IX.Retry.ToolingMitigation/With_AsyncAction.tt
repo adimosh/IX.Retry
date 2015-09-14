@@ -22,29 +22,29 @@ namespace IX.Retry
     public static partial class With
     {
         /// <summary>
-        /// Invokes a <see cref="System.Func{TResult}"/> with a retry policy and a cancellation token.
+        /// Invokes an <see cref="System.Action"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <param name="func">The function to execute with retry.</param>
-        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync(Func<Task> func, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync(Action action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return func.WithRetryAsync(retryPolicy, cancellationToken);
+            return action.WithRetryAsync(retryPolicy, cancellationToken);
         }
 
         /// <summary>
-        /// Invokes a <see cref="System.Func{T, TResult}"/> with a retry policy and a cancellation token.
+        /// Invokes an <see cref="System.Action{T}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T">The function parameter type.</typeparam>
-        /// <param name="func">The function to execute with retry.</param>
-        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg">The function parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <typeparam name="T">The action parameter type.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the action.</param>
+        /// <param name="arg">The action parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<T>(Func<T, Task> func, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<T>(Action<T> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return func.WithRetryAsync(retryPolicy, arg, cancellationToken);
+            return action.WithRetryAsync(retryPolicy, arg, cancellationToken);
         }
 <#
 for (int i = 2; i <= 16; i++)
@@ -64,31 +64,31 @@ for (int i = 2; i <= 16; i++)
 #>
 
         /// <summary>
-        /// Invokes a <see cref="System.Func{<#=exceptionTypeParametersString#>, TResult}"/> with a retry policy and a cancellation token.
+        /// Invokes a <see cref="System.Action{<#=exceptionTypeParametersString#>}"/> with a retry policy and a cancellation token.
         /// </summary>
 <#
     for (int j = 1; j <= i; j++)
     {
 #>
-        /// <typeparam name="T<#=j#>">Function parameter type no. <#=j#>.</typeparam>
+        /// <typeparam name="T<#=j#>">Action parameter type no. <#=j#>.</typeparam>
 <#
     }
 #>
-        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="func">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
 <#
     for (int j = 1; j <= i; j++)
     {
 #>
-        /// <param name="arg<#=j#>">Function parameter no. <#=j#>, of the type specified in <typeparamref name="T<#=j#>"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg<#=j#>">Action parameter no. <#=j#>, of the type specified in <typeparamref name="T<#=j#>"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
 <#
     }
 #>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
-        public static Task RetryAsync<<#=exceptionTypeParametersString#>>(Func<<#=exceptionTypeParametersString#>, Task> func, IRetryPolicy retryPolicy, <#=exceptionParametersString#>, CancellationToken cancellationToken = default(CancellationToken))
+        public static Task RetryAsync<<#=exceptionTypeParametersString#>>(Action<<#=exceptionTypeParametersString#>> action, IRetryPolicy retryPolicy, <#=exceptionParametersString#>, CancellationToken cancellationToken = default(CancellationToken))
         {
-            return func.WithRetryAsync(retryPolicy, <#=exceptionParamsString#>, cancellationToken);
+            return action.WithRetryAsync(retryPolicy, <#=exceptionParamsString#>, cancellationToken);
         }
 <#
 }
@@ -96,5 +96,5 @@ for (int i = 2; i <= 16; i++)
     }
 }
 <#
-    FlushOutput(@"With_AsyncFuncReturningTask.cs");
+    FlushOutput(@"With_AsyncAction.cs");
 #>
