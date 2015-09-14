@@ -197,3 +197,4 @@ FakesAssemblies/
 /src/IX.Retry.ToolingMitigation/Policy_CountBased.cs
 /src/IX.Retry.ToolingMitigation/TimeBasedRetryPolicy_GenericClasses.cs
 /src/IX.Retry.ToolingMitigation/CountBasedRetryPolicy_GenericClasses.cs
+/src/IX.Retry.ToolingMitigation/With_AsyncFunctionReturningTask.cs
