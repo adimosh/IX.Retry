@@ -58,9 +58,8 @@
   "owners": [ "Adrian Mos" ],
   "projectUrl": "https://github.com/adimosh/IX.Retry/",
   "tags": [ "" ],
-  "releaseNotes": "",
   "title": "IX.Retry",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "configurations": {
     "Test": { }
   }
