@@ -203,3 +203,4 @@ FakesAssemblies/
 /src/IX.Retry.ToolingMitigation/With_AsyncFunctionReturningResult.cs
 /src/IX.Retry.ToolingMitigation/With_AsyncFunctionReturningTaskOfResult.cs
 /src/IX.Retry.ToolingMitigation/With_Action.cs
+/src/IX.Retry.ToolingMitigation/With_FunctionReturningResult.cs
