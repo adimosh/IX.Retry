@@ -1,0 +1,13 @@
+﻿<#@ assembly name="System.Core" #>
+<#@ import namespace="System.IO" #>
+<#+
+void FlushOutput(string outputFileName)
+{
+    string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
+    templateDirectory = Path.Combine(templateDirectory, @"..\IX.Retry\");
+    string outputFilePath = Path.Combine(templateDirectory, outputFileName);
+    File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+
+    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+}
+#>
