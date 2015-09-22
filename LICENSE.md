@@ -1,27 +1,11 @@
 LICENSE
 =======
 
-Property and rights
--------------------
+Copyright (c) 2015 Adrian Mos
 
-Property of the package owner, as described in the project files.
 
-All code that may be used is property of its respective owner, and will be subject to the license constraints of that respective package.
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-All rights of ownership go to the package owner.
+ The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-Liability
----------
-
-Owner assumes no liability for any use of the package, or any harm done by or through the present software, directly or through middlemen.
-
-The owner cannot be made responsible in any legal system, and usage of this software implies that the user will use it at its own risk.
-
-No guarantees are implied.
-
-Usage rights
-------------
-
-Anyone can use this software in any way they see fit, and to modify it to suit their purposes. However, regardless of how it is used, proper credit must be given.
-
-These rights of use apply to both commercial and non-commercial purposes.
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
