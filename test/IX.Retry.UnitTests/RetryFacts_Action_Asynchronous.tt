@@ -13,38 +13,38 @@ namespace IX.Retry.UnitTests
 <#
 for (int t = 1; t <= 3; t++)
 {
-	for (int i = 0; i <= 16; i++)
-	{
-		List<string> parameters = new List<string>();
-		List<string> parameterNames = new List<string>();
-		List<string> parameterValues = new List<string>();
-		List<string> actionParameters = new List<string>();
-		for (int j = 1; j <= i; j++)
-		{
-			parameters.Add(string.Format("int param{0}", j));
-			parameterNames.Add(string.Format("param{0}", j));
-			parameterValues.Add(string.Format("int param{0} = r.Next();", j));
-			actionParameters.Add("int");
-		}
+    for (int i = 0; i <= 16; i++)
+    {
+        List<string> parameters = new List<string>();
+        List<string> parameterNames = new List<string>();
+        List<string> parameterValues = new List<string>();
+        List<string> actionParameters = new List<string>();
+        for (int j = 1; j <= i; j++)
+        {
+            parameters.Add(string.Format("int param{0}", j));
+            parameterNames.Add(string.Format("param{0}", j));
+            parameterValues.Add(string.Format("int param{0} = r.Next();", j));
+            actionParameters.Add("int");
+        }
 #>
 
-	public class RetryTest_Action_Asynchronous_<#=i#>_<#=t#>
-	{
-		int retries;
-		int maxRetries;
+    public class RetryTest_Action_Asynchronous_<#=i#>_<#=t#>
+    {
+        int retries;
+        int maxRetries;
 
         [Fact]
         public async Task Test()
         {
-			maxRetries = <#=t#>;
-			retries = 0;
+            maxRetries = <#=t#>;
+            retries = 0;
 
-			Random r = new Random();
-			<#= string.Join("\r\n            ", parameterValues) #>
+            Random r = new Random();
+            <#= string.Join("\r\n            ", parameterValues) #>
 
-            await With.RetryAsync(new Action<#= i == 0 ? "" : "<" #><#= string.Join(", ", actionParameters) #><#= i == 0 ? "" : ">" #>(DelegateMethod_Action_Asynchronous_<#=i#>_<#=t#>), Policy.CountBasedRetryPolicy<InvalidOperationException>(<#=t#>)<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
+            await With.RetryAsync(new Action<#= i == 0 ? "" : "<" #><#= string.Join(", ", actionParameters) #><#= i == 0 ? "" : ">" #>(DelegateMethod_Action_Asynchronous_<#=i#>_<#=t#>), Policy.CountBased<InvalidOperationException>(<#=t#>)<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
 
-			Assert.True(retries == maxRetries);
+            Assert.True(retries == maxRetries);
         }
 
         private void DelegateMethod_Action_Asynchronous_<#=i#>_<#=t#>(<#= string.Join(", ", parameters) #>)
@@ -55,9 +55,9 @@ for (int t = 1; t <= 3; t++)
                 throw new InvalidOperationException();
             }
         }
-	}
+    }
 <#
-	}
+    }
 }
 #>
 }

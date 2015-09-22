@@ -69,6 +69,19 @@ namespace IX.Retry
             return retryInterval;
         }
 
+        /// <summary>
+        /// A constant back-off policy of exactly 100 milliseconds.
+        /// </summary>
+        /// <param name="retryCount">This parameter is ignored.</param>
+        /// <param name="minBackoff">This parameter is ignored.</param>
+        /// <param name="maxBackoff">This parameter is ignored.</param>
+        /// <param name="deltaBackoff">This parameter is ignored.</param>
+        /// <returns>A time-span representing exactly 100 milliseconds.</returns>
+        public static TimeSpan Constant(int retryCount, TimeSpan minBackOff, TimeSpan maxBackOff, TimeSpan deltaBackOff)
+        {
+            return TimeSpan.FromMilliseconds(100);
+        }
+
         [Conditional("DEBUG")]
         private static void BackoffPoliciesContractsRequires(int retryCount, TimeSpan minBackoff, TimeSpan maxBackoff, TimeSpan deltaBackoff)
         {

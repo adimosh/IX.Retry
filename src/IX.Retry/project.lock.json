@@ -511,7 +511,7 @@
           "ref/dotnet/System.Threading.Tasks.dll": {}
         }
       },
-      "System.Threading.Thread/4.0.0-beta-23302": {
+      "System.Threading.Thread/4.0.0-beta-23225": {
         "type": "package",
         "dependencies": {
           "System.Runtime": "4.0.0"
@@ -1303,10 +1303,10 @@
         "System.Threading.Thread.nuspec"
       ]
     },
-    "System.Threading.Thread/4.0.0-beta-23302": {
+    "System.Threading.Thread/4.0.0-beta-23225": {
       "type": "package",
       "serviceable": true,
-      "sha512": "0tn5ET6NNDVjJdpacPXM9lwa3tZeKiIYZHOZPtsbORXop84IN93KenlcqEdPizxPsnOAgauVIgeKftnvwcvlsQ==",
+      "sha512": "ZRcBjGWWC/KBJkobKqs2VLh6WBm1hMwQnY502FYl/2lR2XexzIzkWw1vC5bhNKVJ8jMEK82nSVt775q0i8k1rg==",
       "files": [
         "lib/DNXCore50/System.Threading.Thread.dll",
         "lib/MonoAndroid10/_._",
@@ -1320,8 +1320,8 @@
         "ref/net46/System.Threading.Thread.dll",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
-        "System.Threading.Thread.4.0.0-beta-23302.nupkg",
-        "System.Threading.Thread.4.0.0-beta-23302.nupkg.sha512",
+        "System.Threading.Thread.4.0.0-beta-23225.nupkg",
+        "System.Threading.Thread.4.0.0-beta-23225.nupkg.sha512",
         "System.Threading.Thread.nuspec"
       ]
     }
@@ -1363,7 +1363,7 @@
       "System.Runtime >= 4.0.20",
       "System.Linq >= 4.0.0",
       "System.Threading >= 4.0.10",
-      "System.Threading.Thread >= 4.0.0-beta-23302"
+      "System.Threading.Thread >= 4.0.0-beta-23225"
     ]
   }
 }

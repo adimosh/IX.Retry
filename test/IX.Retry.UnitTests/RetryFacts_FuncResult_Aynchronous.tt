@@ -15,24 +15,24 @@ for (int t = 1; t <= 3; t++)
 {
 #>
 
-	public class RetryTest_FuncResult_Asynchronous_0_<#=t#>
-	{
-		int retries;
-		int maxRetries;
+    public class RetryTest_FuncResult_Asynchronous_0_<#=t#>
+    {
+        int retries;
+        int maxRetries;
 
         [Fact]
         public async Task Test()
         {
-			maxRetries = 1;
-			retries = 0;
+            maxRetries = 1;
+            retries = 0;
 
-			Random r = new Random();
-			int param1 = r.Next();
+            Random r = new Random();
+            int param1 = r.Next();
 
-            int result = await With.RetryAsync(new Func<int>(DelegateMethod_FuncResult_Asynchronous_0_<#=t#>), Policy.CountBasedRetryPolicy<InvalidOperationException>(1));
+            int result = await With.RetryAsync(new Func<int>(DelegateMethod_FuncResult_Asynchronous_0_<#=t#>), Policy.CountBased<InvalidOperationException>(1));
 
-			Assert.True(retries == maxRetries);
-			Assert.Equal(result, -32768);
+            Assert.True(retries == maxRetries);
+            Assert.Equal(result, -32768);
         }
 
         private int DelegateMethod_FuncResult_Asynchronous_0_<#=t#>()
@@ -43,44 +43,44 @@ for (int t = 1; t <= 3; t++)
                 throw new InvalidOperationException();
             }
 
-			return -32768;
+            return -32768;
         }
-	}
+    }
 <#
-	for (int i = 1; i <= 16; i++)
-	{
-		List<string> parameters = new List<string>();
-		List<string> parameterNames = new List<string>();
-		List<string> parameterValues = new List<string>();
-		List<string> actionParameters = new List<string>();
-		for (int j = 1; j <= i; j++)
-		{
-			parameters.Add(string.Format("int param{0}", j));
-			parameterNames.Add(string.Format("param{0}", j));
-			parameterValues.Add(string.Format("int param{0} = r.Next();", j));
-			actionParameters.Add("int");
-		}
+    for (int i = 1; i <= 16; i++)
+    {
+        List<string> parameters = new List<string>();
+        List<string> parameterNames = new List<string>();
+        List<string> parameterValues = new List<string>();
+        List<string> actionParameters = new List<string>();
+        for (int j = 1; j <= i; j++)
+        {
+            parameters.Add(string.Format("int param{0}", j));
+            parameterNames.Add(string.Format("param{0}", j));
+            parameterValues.Add(string.Format("int param{0} = r.Next();", j));
+            actionParameters.Add("int");
+        }
 #>
 
-	public class RetryTest_FuncResult_Asynchronous_<#=i#>_<#=t#>
-	{
-		int retries;
-		int maxRetries;
+    public class RetryTest_FuncResult_Asynchronous_<#=i#>_<#=t#>
+    {
+        int retries;
+        int maxRetries;
 
         [Fact]
         public async Task Test()
         {
-			maxRetries = <#=t#>;
-			retries = 0;
+            maxRetries = <#=t#>;
+            retries = 0;
 
-			Random r = new Random();
-			<#= string.Join("\r\n            ", parameterValues) #>
+            Random r = new Random();
+            <#= string.Join("\r\n            ", parameterValues) #>
 
-            int result = await With.RetryAsync(new Func<<#= string.Join(", ", actionParameters) #><#= i == 0 ? "" : ", " #>int>(DelegateMethod_FuncResult_Asynchronous_<#=i#>_<#=t#>), Policy.CountBasedRetryPolicy<InvalidOperationException>(<#=t#>)<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
-			int expectedResult = <#= string.Join(" + ", parameterNames) #>;
+            int result = await With.RetryAsync(new Func<<#= string.Join(", ", actionParameters) #><#= i == 0 ? "" : ", " #>int>(DelegateMethod_FuncResult_Asynchronous_<#=i#>_<#=t#>), Policy.CountBased<InvalidOperationException>(<#=t#>)<#=parameterNames.Count > 0 ? ", " : ""#><#= string.Join(", ", parameterNames) #>);
+            int expectedResult = <#= string.Join(" + ", parameterNames) #>;
 
-			Assert.True(retries == maxRetries);
-			Assert.Equal(expectedResult, result);
+            Assert.True(retries == maxRetries);
+            Assert.Equal(expectedResult, result);
         }
 
         private int DelegateMethod_FuncResult_Asynchronous_<#=i#>_<#=t#>(<#= string.Join(", ", parameters) #>)
@@ -91,11 +91,11 @@ for (int t = 1; t <= 3; t++)
                 throw new InvalidOperationException();
             }
 
-			return <#= string.Join(" + ", parameterNames) #>;
+            return <#= string.Join(" + ", parameterNames) #>;
         }
-	}
+    }
 <#
-	}
+    }
 }
 #>
 }
