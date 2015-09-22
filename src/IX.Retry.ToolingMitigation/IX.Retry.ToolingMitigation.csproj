@@ -62,6 +62,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TimeBasedRetryPolicy_GenericClasses.tt</DependentUpon>
     </Compile>
+    <Compile Include="With_Action.cs">
+      <DependentUpon>With_Action.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="With_AsyncAction.cs">
       <DependentUpon>With_AsyncAction.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -99,6 +104,10 @@
     <Content Include="TimeBasedRetryPolicy_GenericClasses.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>TimeBasedRetryPolicy_GenericClasses.cs</LastGenOutput>
+    </Content>
+    <Content Include="With_Action.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>With_Action.cs</LastGenOutput>
     </Content>
     <Content Include="With_AsyncAction.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
