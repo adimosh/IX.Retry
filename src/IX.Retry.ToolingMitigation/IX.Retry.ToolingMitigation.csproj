@@ -67,6 +67,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="With_AsyncFunctionReturningTaskOfResult.cs">
+      <DependentUpon>With_AsyncFunctionReturningTaskOfResult.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="With_AsyncFunctionReturningResult.cs">
       <DependentUpon>With_AsyncFunctionReturningResult.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -98,6 +103,10 @@
     <Content Include="With_AsyncAction.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>With_AsyncAction.cs</LastGenOutput>
+    </Content>
+    <Content Include="With_AsyncFunctionReturningTaskOfResult.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>With_AsyncFunctionReturningTaskOfResult.cs</LastGenOutput>
     </Content>
     <Content Include="With_AsyncFunctionReturningResult.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
