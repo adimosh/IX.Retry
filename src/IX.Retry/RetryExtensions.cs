@@ -2,6 +2,13 @@
 using System.Threading;
 using System.Threading.Tasks;
 
+#if NET40
+using static System.Threading.Tasks.TaskEx;
+#else
+using static System.Threading.Tasks.Task;
+#endif
+
+
 namespace IX.Retry
 {
     /// <summary>
@@ -36,13 +43,7 @@ namespace IX.Retry
                         throw;
 
                     if (TimeSpan.Zero < retryInterval)
-                        await
-#if NET40
-                            TaskEx
-#else
-                            Task
-#endif
-                            .Delay(retryInterval, cancellationToken);
+                        await Delay(retryInterval, cancellationToken);
                 }
 
                 cancellationToken.ThrowIfCancellationRequested();
@@ -594,7 +595,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -611,7 +612,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -630,7 +631,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -651,7 +652,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -674,7 +675,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -699,7 +700,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -726,7 +727,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -755,7 +756,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -786,7 +787,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -819,7 +820,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -854,7 +855,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -891,7 +892,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -930,7 +931,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -971,7 +972,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1014,7 +1015,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1059,7 +1060,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1106,7 +1107,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16); return TaskExtensions.EmptyTask; }, retryPolicy, cancellationToken);
+            await DoRetryAsync(p => { action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16); return FromResult(0); }, retryPolicy, cancellationToken);
         }
 
 #endregion
@@ -1137,13 +1138,7 @@ namespace IX.Retry
                         throw;
 
                     if (TimeSpan.Zero < retryInterval)
-                        await
-#if NET40
-                            TaskEx
-#else
-                            Task
-#endif
-                            .Delay(retryInterval, cancellationToken);
+                        await Delay(retryInterval, cancellationToken);
                 }
 
                 cancellationToken.ThrowIfCancellationRequested();
@@ -1165,13 +1160,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action()), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action()), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1189,13 +1178,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1215,13 +1198,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1243,13 +1220,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1273,13 +1244,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1305,13 +1270,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1339,13 +1298,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1375,13 +1328,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1413,13 +1360,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1453,13 +1394,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1495,13 +1430,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1539,13 +1468,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1585,13 +1508,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1633,13 +1550,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1683,13 +1594,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1735,13 +1640,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15)), retryPolicy, cancellationToken);
         }
 
         /// <summary>
@@ -1789,13 +1688,7 @@ namespace IX.Retry
             if (action == null)
                 throw new NullReferenceException(nameof(action));
 
-            return DoRetryAsync(p =>
-#if NET40
-                TaskEx
-#else
-                Task
-#endif
-                .FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16)), retryPolicy, cancellationToken);
+            return DoRetryAsync(p => FromResult(action(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16)), retryPolicy, cancellationToken);
         }
 
 #endregion
