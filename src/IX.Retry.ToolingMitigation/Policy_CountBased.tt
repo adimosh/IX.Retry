@@ -19,63 +19,22 @@ namespace IX.Retry
         /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
         /// <param name="retryForExceptionTypes">Retry for certain exception types.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        public static IRetryPolicy CountBasedRetryPolicy(int maximumRetries, IEnumerable<Type> retryForExceptionTypes)
+        public static IRetryPolicy CountBased(int maximumRetries, IEnumerable<Type> retryForExceptionTypes)
         {
             return new CountBasedRetryPolicy(maximumRetries, retryForExceptionTypes);
         }
 
         /// <summary>
-        /// A count-based, non-linear retry policy that retries on a specific exception.
+        /// A count-based, non-linear retry policy.
         /// </summary>
-        /// <typeparam name="TException">The exception type to capture and retry on.</typeparam>
         /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
+        /// <param name="backOffPolicy">A back-off policy to apply between attempts. This policy is always time-based.</param>
+        /// <param name="retryForExceptionTypes">Retry for certain exception types.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        [Obsolete("Use CountBased instead of this, as these methods will be removed in version 1.0.0")]
-        public static IRetryPolicy CountBasedRetryPolicy<TException>(int maximumRetries)
-            where TException : Exception
+        public static IRetryPolicy CountBased(int maximumRetries, BackOffPolicy backOffPolicy, IEnumerable<Type> retryForExceptionTypes)
         {
-            return new CountBasedRetryPolicy<TException>(maximumRetries);
+            return new CountBasedRetryPolicy(maximumRetries, backOffPolicy, retryForExceptionTypes);
         }
-<#
-for (int i = 2; i <= 16; i++)
-{
-    List<string> exceptionTypeParameters = new List<string>();
-    for (int j = 1; j <= i; j++)
-    {
-        exceptionTypeParameters.Add(string.Format("TException{0}", j));
-    }
-    string exceptionTypeParams = string.Join(", ", exceptionTypeParameters);
-#>
-
-        /// <summary>
-        /// A count-based, non-linear retry policy that retries on a specific set of exceptions.
-        /// </summary>
-<#
-    for (int j = 1; j <= i; j++)
-    {
-#>
-        /// <typeparam name="TException<#=j#>">An exception type to capture and retry on.</typeparam>
-<#
-    }
-#>
-        /// <param name="maximumRetries">The maximum retry count for this count-based policy.</param>
-        /// <returns>A time-based retry policy instance.</returns>
-        [Obsolete("Use CountBased instead of this, as these methods will be removed in version 1.0.0")]
-        public static IRetryPolicy CountBasedRetryPolicy<<#=exceptionTypeParams#>>(int maximumRetries)
-<#
-    for (int j = 1; j <= i; j++)
-    {
-#>
-            where TException<#=j#> : Exception
-<#
-    }
-#>
-        {
-            return new CountBasedRetryPolicy<<#=exceptionTypeParams#>>(maximumRetries);
-        }
-<#
-}
-#>
 
         /// <summary>
         /// A count-based, non-linear retry policy that retries on a specific exception.

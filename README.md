@@ -56,6 +56,14 @@ In order to install this package, please either search for "IX.Retry" in the NuG
 Install-Package IX.Retry
 ```
 
+Starting 0.2.0, a different way of installing and using this library is provided.
+
+On some projects, NuGet packages do not properly install, due to the unavailability of the related NuGet packages. This appears to be by design.
+
+Therefore, only code that can actually run with the "dotnet" targeting and also .NET 4.0 will be available.
+
+A workaround, since most packages are compatible with anything that is .NET 4.5 or later, is to reference all libraries manually. This, however, is to be done at your own risk, as the creator of this library offers no guarantee for such a setup.
+
 License
 -------
 
@@ -65,5 +73,3 @@ Credits
 -------
 
 The project is based on a variety of other open-source projects, with no code copied, but adapted.
-
-_TODO: Add list_

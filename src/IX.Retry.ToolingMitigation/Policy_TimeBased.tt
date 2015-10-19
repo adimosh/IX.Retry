@@ -19,63 +19,22 @@ namespace IX.Retry
         /// <param name="retryDuration">The retry duration for this time-based policy.</param>
         /// <param name="retryForExceptionTypes">Retry for certain exception types.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        public static IRetryPolicy TimeBasedRetryPolicy(TimeSpan retryDuration, IEnumerable<Type> retryForExceptionTypes)
+        public static IRetryPolicy TimeBased(TimeSpan retryDuration, IEnumerable<Type> retryForExceptionTypes)
         {
             return new TimeBasedRetryPolicy(retryDuration, retryForExceptionTypes);
         }
 
         /// <summary>
-        /// A time-based, non-linear retry policy that retries on a specific exception.
+        /// A time-based, non-linear retry policy.
         /// </summary>
-        /// <typeparam name="TException">The exception type to capture and retry on.</typeparam>
         /// <param name="retryDuration">The retry duration for this time-based policy.</param>
+        /// <param name="backOffPolicy">A back-off policy to apply between attempts. This policy is always time-based.</param>
+        /// <param name="retryForExceptionTypes">Retry for certain exception types.</param>
         /// <returns>A time-based retry policy instance.</returns>
-        [Obsolete("Use TimeBased instead of this, as these methods will be removed in version 1.0.0")]
-        public static IRetryPolicy TimeBasedRetryPolicy<TException>(TimeSpan retryDuration)
-            where TException : Exception
+        public static IRetryPolicy TimeBased(TimeSpan retryDuration, BackOffPolicy backOffPolicy, IEnumerable<Type> retryForExceptionTypes)
         {
-            return new TimeBasedRetryPolicy<TException>(retryDuration);
+            return new TimeBasedRetryPolicy(retryDuration, backOffPolicy, retryForExceptionTypes);
         }
-<#
-for (int i = 2; i <= 16; i++)
-{
-    List<string> exceptionTypeParameters = new List<string>();
-    for (int j = 1; j <= i; j++)
-    {
-        exceptionTypeParameters.Add(string.Format("TException{0}", j));
-    }
-    string exceptionTypeParams = string.Join(", ", exceptionTypeParameters);
-#>
-
-        /// <summary>
-        /// A time-based, non-linear retry policy that retries on a specific set of exceptions.
-        /// </summary>
-<#
-    for (int j = 1; j <= i; j++)
-    {
-#>
-        /// <typeparam name="TException<#=j#>">An exception type to capture and retry on.</typeparam>
-<#
-    }
-#>
-        /// <param name="retryDuration">The retry duration for this time-based policy.</param>
-        /// <returns>A time-based retry policy instance.</returns>
-        [Obsolete("Use TimeBased instead of this, as these methods will be removed in version 1.0.0")]
-        public static IRetryPolicy TimeBasedRetryPolicy<<#=exceptionTypeParams#>>(TimeSpan retryDuration)
-<#
-    for (int j = 1; j <= i; j++)
-    {
-#>
-            where TException<#=j#> : Exception
-<#
-    }
-#>
-        {
-            return new TimeBasedRetryPolicy<<#=exceptionTypeParams#>>(retryDuration);
-        }
-<#
-}
-#>
 
         /// <summary>
         /// A time-based, non-linear retry policy that retries on a specific exception.
