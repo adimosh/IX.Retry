@@ -1,6 +1,6 @@
 {
   "locked": false,
-  "version": 1,
+  "version": 2,
   "targets": {
     ".NETFramework,Version=v4.0": {
       "Microsoft.Bcl/1.1.8": {
@@ -40,346 +40,6 @@
       },
       "Microsoft.Bcl.Build/1.0.14": {
         "type": "package"
-      }
-    },
-    "Windows,Version=v8.0": {
-      "System.Collections/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Collections.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Collections.dll": {}
-        }
-      },
-      "System.Linq/4.0.0-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.10-beta-22816",
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Linq.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Linq.dll": {}
-        }
-      },
-      "System.Runtime/4.0.20-beta-22816": {
-        "type": "package",
-        "compile": {
-          "lib/contract/System.Runtime.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.dll": {}
-        }
-      },
-      "System.Runtime.Extensions/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Runtime.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.Extensions.dll": {}
-        }
-      },
-      "System.Threading/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816",
-          "System.Threading.Tasks": "4.0.10-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.dll": {}
-        }
-      },
-      "System.Threading.Tasks/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.Tasks.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Tasks.dll": {}
-        }
-      },
-      "System.Threading.Thread/4.0.0-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.Thread.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Thread.dll": {}
-        }
-      }
-    },
-    "Windows,Version=v8.1": {
-      "System.Collections/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Collections.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Collections.dll": {}
-        }
-      },
-      "System.Linq/4.0.0-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.10-beta-22816",
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Linq.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Linq.dll": {}
-        }
-      },
-      "System.Runtime/4.0.20-beta-22816": {
-        "type": "package",
-        "compile": {
-          "lib/contract/System.Runtime.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.dll": {}
-        }
-      },
-      "System.Runtime.Extensions/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Runtime.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.Extensions.dll": {}
-        }
-      },
-      "System.Threading/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816",
-          "System.Threading.Tasks": "4.0.10-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.dll": {}
-        }
-      },
-      "System.Threading.Tasks/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.Tasks.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Tasks.dll": {}
-        }
-      },
-      "System.Threading.Thread/4.0.0-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.Thread.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Thread.dll": {}
-        }
-      }
-    },
-    "WindowsPhone,Version=v8.0": {
-      "System.Collections/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Collections.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Collections.dll": {}
-        }
-      },
-      "System.Linq/4.0.0-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.10-beta-22816",
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Linq.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Linq.dll": {}
-        }
-      },
-      "System.Runtime/4.0.20-beta-22816": {
-        "type": "package",
-        "compile": {
-          "lib/contract/System.Runtime.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.dll": {}
-        }
-      },
-      "System.Runtime.Extensions/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Runtime.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.Extensions.dll": {}
-        }
-      },
-      "System.Threading/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816",
-          "System.Threading.Tasks": "4.0.10-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.dll": {}
-        }
-      },
-      "System.Threading.Tasks/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.Tasks.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Tasks.dll": {}
-        }
-      },
-      "System.Threading.Thread/4.0.0-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.Thread.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Thread.dll": {}
-        }
-      }
-    },
-    "WindowsPhoneApp,Version=v8.1": {
-      "System.Collections/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Collections.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Collections.dll": {}
-        }
-      },
-      "System.Linq/4.0.0-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Collections": "4.0.10-beta-22816",
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Linq.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Linq.dll": {}
-        }
-      },
-      "System.Runtime/4.0.20-beta-22816": {
-        "type": "package",
-        "compile": {
-          "lib/contract/System.Runtime.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.dll": {}
-        }
-      },
-      "System.Runtime.Extensions/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Runtime.Extensions.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.Extensions.dll": {}
-        }
-      },
-      "System.Threading/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816",
-          "System.Threading.Tasks": "4.0.10-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.dll": {}
-        }
-      },
-      "System.Threading.Tasks/4.0.10-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.Tasks.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Tasks.dll": {}
-        }
-      },
-      "System.Threading.Thread/4.0.0-beta-22816": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.20-beta-22816"
-        },
-        "compile": {
-          "lib/contract/System.Threading.Thread.dll": {}
-        },
-        "runtime": {
-          "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Thread.dll": {}
-        }
       }
     },
     ".NETPlatform,Version=v5.0": {
@@ -511,7 +171,365 @@
           "ref/dotnet/System.Threading.Tasks.dll": {}
         }
       },
-      "System.Threading.Thread/4.0.0-beta-23225": {
+      "System.Threading.Thread/4.0.0-beta-23409": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Threading.Thread.dll": {}
+        }
+      }
+    },
+    ".NETFramework,Version=v4.0/win7-x86": {
+      "Microsoft.Bcl/1.1.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl.Build": "1.0.14"
+        },
+        "compile": {
+          "lib/net40/System.IO.dll": {},
+          "lib/net40/System.Runtime.dll": {},
+          "lib/net40/System.Threading.Tasks.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.IO.dll": {},
+          "lib/net40/System.Runtime.dll": {},
+          "lib/net40/System.Threading.Tasks.dll": {}
+        }
+      },
+      "Microsoft.Bcl.Async/1.0.168": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl": "1.1.8"
+        },
+        "frameworkAssemblies": [
+          "System.Net"
+        ],
+        "compile": {
+          "lib/net40/Microsoft.Threading.Tasks.dll": {},
+          "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll": {},
+          "lib/net40/Microsoft.Threading.Tasks.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Threading.Tasks.dll": {},
+          "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll": {},
+          "lib/net40/Microsoft.Threading.Tasks.Extensions.dll": {}
+        }
+      },
+      "Microsoft.Bcl.Build/1.0.14": {
+        "type": "package"
+      }
+    },
+    ".NETFramework,Version=v4.0/win7-x64": {
+      "Microsoft.Bcl/1.1.8": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl.Build": "1.0.14"
+        },
+        "compile": {
+          "lib/net40/System.IO.dll": {},
+          "lib/net40/System.Runtime.dll": {},
+          "lib/net40/System.Threading.Tasks.dll": {}
+        },
+        "runtime": {
+          "lib/net40/System.IO.dll": {},
+          "lib/net40/System.Runtime.dll": {},
+          "lib/net40/System.Threading.Tasks.dll": {}
+        }
+      },
+      "Microsoft.Bcl.Async/1.0.168": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bcl": "1.1.8"
+        },
+        "frameworkAssemblies": [
+          "System.Net"
+        ],
+        "compile": {
+          "lib/net40/Microsoft.Threading.Tasks.dll": {},
+          "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll": {},
+          "lib/net40/Microsoft.Threading.Tasks.Extensions.dll": {}
+        },
+        "runtime": {
+          "lib/net40/Microsoft.Threading.Tasks.dll": {},
+          "lib/net40/Microsoft.Threading.Tasks.Extensions.Desktop.dll": {},
+          "lib/net40/Microsoft.Threading.Tasks.Extensions.dll": {}
+        }
+      },
+      "Microsoft.Bcl.Build/1.0.14": {
+        "type": "package"
+      }
+    },
+    ".NETPlatform,Version=v5.0/win7-x86": {
+      "System.Collections/4.0.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Collections.dll": {}
+        }
+      },
+      "System.Diagnostics.Debug/4.0.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Diagnostics.Debug.dll": {}
+        }
+      },
+      "System.Globalization/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Globalization.dll": {}
+        }
+      },
+      "System.IO/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0",
+          "System.Text.Encoding": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.IO.dll": {}
+        }
+      },
+      "System.Linq/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.10",
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10"
+        },
+        "compile": {
+          "ref/dotnet/System.Linq.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/System.Linq.dll": {}
+        }
+      },
+      "System.Reflection/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.IO": "4.0.0",
+          "System.Reflection.Primitives": "4.0.0",
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Reflection.dll": {}
+        }
+      },
+      "System.Reflection.Primitives/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Reflection.Primitives.dll": {}
+        }
+      },
+      "System.Resources.ResourceManager/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Globalization": "4.0.0",
+          "System.Reflection": "4.0.0",
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Resources.ResourceManager.dll": {}
+        }
+      },
+      "System.Runtime/4.0.20": {
+        "type": "package",
+        "compile": {
+          "ref/dotnet/System.Runtime.dll": {}
+        }
+      },
+      "System.Runtime.Extensions/4.0.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.20"
+        },
+        "compile": {
+          "ref/dotnet/System.Runtime.Extensions.dll": {}
+        }
+      },
+      "System.Text.Encoding/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Text.Encoding.dll": {}
+        }
+      },
+      "System.Threading/4.0.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Threading.dll": {}
+        }
+      },
+      "System.Threading.Tasks/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Threading.Tasks.dll": {}
+        }
+      },
+      "System.Threading.Thread/4.0.0-beta-23409": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Threading.Thread.dll": {}
+        }
+      }
+    },
+    ".NETPlatform,Version=v5.0/win7-x64": {
+      "System.Collections/4.0.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Collections.dll": {}
+        }
+      },
+      "System.Diagnostics.Debug/4.0.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Diagnostics.Debug.dll": {}
+        }
+      },
+      "System.Globalization/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Globalization.dll": {}
+        }
+      },
+      "System.IO/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0",
+          "System.Text.Encoding": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.IO.dll": {}
+        }
+      },
+      "System.Linq/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.10",
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10"
+        },
+        "compile": {
+          "ref/dotnet/System.Linq.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/System.Linq.dll": {}
+        }
+      },
+      "System.Reflection/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.IO": "4.0.0",
+          "System.Reflection.Primitives": "4.0.0",
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Reflection.dll": {}
+        }
+      },
+      "System.Reflection.Primitives/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Reflection.Primitives.dll": {}
+        }
+      },
+      "System.Resources.ResourceManager/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Globalization": "4.0.0",
+          "System.Reflection": "4.0.0",
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Resources.ResourceManager.dll": {}
+        }
+      },
+      "System.Runtime/4.0.20": {
+        "type": "package",
+        "compile": {
+          "ref/dotnet/System.Runtime.dll": {}
+        }
+      },
+      "System.Runtime.Extensions/4.0.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.20"
+        },
+        "compile": {
+          "ref/dotnet/System.Runtime.Extensions.dll": {}
+        }
+      },
+      "System.Text.Encoding/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Text.Encoding.dll": {}
+        }
+      },
+      "System.Threading/4.0.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0",
+          "System.Threading.Tasks": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Threading.dll": {}
+        }
+      },
+      "System.Threading.Tasks/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.0.0"
+        },
+        "compile": {
+          "ref/dotnet/System.Threading.Tasks.dll": {}
+        }
+      },
+      "System.Threading.Thread/4.0.0-beta-23409": {
         "type": "package",
         "dependencies": {
           "System.Runtime": "4.0.0"
@@ -694,20 +712,6 @@
         "tools/Uninstall.ps1"
       ]
     },
-    "System.Collections/4.0.10-beta-22816": {
-      "type": "package",
-      "sha512": "pFwiLMtcsvAx8ZFsSIDVSuPAXXW2z1gkmE/YqiMELlxPVHKyJGrUZoJCIBfVg1HERxMnd1dyj7ffqj5Nx3mzGQ==",
-      "files": [
-        "lib/aspnetcore50/System.Collections.dll",
-        "lib/contract/System.Collections.dll",
-        "lib/net45/System.Collections.dll",
-        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Collections.dll",
-        "License.rtf",
-        "System.Collections.4.0.10-beta-22816.nupkg",
-        "System.Collections.4.0.10-beta-22816.nupkg.sha512",
-        "System.Collections.nuspec"
-      ]
-    },
     "System.Collections/4.0.10": {
       "type": "package",
       "serviceable": true,
@@ -872,20 +876,6 @@
         "System.IO.nuspec"
       ]
     },
-    "System.Linq/4.0.0-beta-22816": {
-      "type": "package",
-      "sha512": "QlwRD8FTiYAZ7BxEjB5u9vjKaAHZ6KvuZYm+4tjYduTIWpFI3o34UjowJXCaPlLwc8USRshAXLgnsQ3iaOjv8Q==",
-      "files": [
-        "lib/aspnetcore50/System.Linq.dll",
-        "lib/contract/System.Linq.dll",
-        "lib/net45/System.Linq.dll",
-        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Linq.dll",
-        "License.rtf",
-        "System.Linq.4.0.0-beta-22816.nupkg",
-        "System.Linq.4.0.0-beta-22816.nupkg.sha512",
-        "System.Linq.nuspec"
-      ]
-    },
     "System.Linq/4.0.0": {
       "type": "package",
       "serviceable": true,
@@ -1035,20 +1025,6 @@
         "System.Resources.ResourceManager.nuspec"
       ]
     },
-    "System.Runtime/4.0.20-beta-22816": {
-      "type": "package",
-      "sha512": "BEN6F4aNjbBdDxM8Xhb/MCSDhYmtvA29c1HUBvn0aNAVXaIJECLy2w5YkcscdklIieZCrcYeG2UzIgWlr4+GeQ==",
-      "files": [
-        "lib/aspnetcore50/System.Runtime.dll",
-        "lib/contract/System.Runtime.dll",
-        "lib/net45/System.Runtime.dll",
-        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.dll",
-        "License.rtf",
-        "System.Runtime.4.0.20-beta-22816.nupkg",
-        "System.Runtime.4.0.20-beta-22816.nupkg.sha512",
-        "System.Runtime.nuspec"
-      ]
-    },
     "System.Runtime/4.0.20": {
       "type": "package",
       "serviceable": true,
@@ -1081,20 +1057,6 @@
         "System.Runtime.4.0.20.nupkg",
         "System.Runtime.4.0.20.nupkg.sha512",
         "System.Runtime.nuspec"
-      ]
-    },
-    "System.Runtime.Extensions/4.0.10-beta-22816": {
-      "type": "package",
-      "sha512": "b8ymkNB0apTc/FCmyeB/Js1CMg8EBaOlM2biIKA94Dk0sT/yyGd8SyCeuZXiCGCIk6HpSiIsIdX53rXgTWxH0w==",
-      "files": [
-        "lib/aspnetcore50/System.Runtime.Extensions.dll",
-        "lib/contract/System.Runtime.Extensions.dll",
-        "lib/net45/System.Runtime.Extensions.dll",
-        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Runtime.Extensions.dll",
-        "License.rtf",
-        "System.Runtime.Extensions.4.0.10-beta-22816.nupkg",
-        "System.Runtime.Extensions.4.0.10-beta-22816.nupkg.sha512",
-        "System.Runtime.Extensions.nuspec"
       ]
     },
     "System.Runtime.Extensions/4.0.10": {
@@ -1179,20 +1141,6 @@
         "System.Text.Encoding.nuspec"
       ]
     },
-    "System.Threading/4.0.10-beta-22816": {
-      "type": "package",
-      "sha512": "GO4X3FuGlw4DJH+UbbKDXKnyyWiwlPJIX+Ys0UCzSdAPneBA42dPb2+kRakWy+wo6n6Gcv7ckkfa3j8MSSxbhg==",
-      "files": [
-        "lib/aspnetcore50/System.Threading.dll",
-        "lib/contract/System.Threading.dll",
-        "lib/net45/System.Threading.dll",
-        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.dll",
-        "License.rtf",
-        "System.Threading.4.0.10-beta-22816.nupkg",
-        "System.Threading.4.0.10-beta-22816.nupkg.sha512",
-        "System.Threading.nuspec"
-      ]
-    },
     "System.Threading/4.0.10": {
       "type": "package",
       "serviceable": true,
@@ -1275,38 +1223,10 @@
         "System.Threading.Tasks.nuspec"
       ]
     },
-    "System.Threading.Tasks/4.0.10-beta-22816": {
-      "type": "package",
-      "sha512": "KhcVrI2JzX1oHigWTbf4F/2uhPSkhjquLPYbBVCLe9HGxLDJk2WLgmTbJk7fIus6xWWnWJmhOp0rHERU9M2SQw==",
-      "files": [
-        "lib/aspnetcore50/System.Threading.Tasks.dll",
-        "lib/contract/System.Threading.Tasks.dll",
-        "lib/net45/System.Threading.Tasks.dll",
-        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Tasks.dll",
-        "License.rtf",
-        "System.Threading.Tasks.4.0.10-beta-22816.nupkg",
-        "System.Threading.Tasks.4.0.10-beta-22816.nupkg.sha512",
-        "System.Threading.Tasks.nuspec"
-      ]
-    },
-    "System.Threading.Thread/4.0.0-beta-22816": {
-      "type": "package",
-      "sha512": "wOOp9YPzypTTup0HYl4Fl9kekjceKfDirKMjnQ1oKZgdoaycyD8n6bt9d9N/lPWVi2xonr+Rf/WvnzmA7K8eMQ==",
-      "files": [
-        "lib/aspnetcore50/System.Threading.Thread.dll",
-        "lib/contract/System.Threading.Thread.dll",
-        "lib/net45/System.Threading.Thread.dll",
-        "lib/portable-wpa81+wp80+win80+net45+aspnetcore50/System.Threading.Thread.dll",
-        "License.rtf",
-        "System.Threading.Thread.4.0.0-beta-22816.nupkg",
-        "System.Threading.Thread.4.0.0-beta-22816.nupkg.sha512",
-        "System.Threading.Thread.nuspec"
-      ]
-    },
-    "System.Threading.Thread/4.0.0-beta-23225": {
+    "System.Threading.Thread/4.0.0-beta-23409": {
       "type": "package",
       "serviceable": true,
-      "sha512": "ZRcBjGWWC/KBJkobKqs2VLh6WBm1hMwQnY502FYl/2lR2XexzIzkWw1vC5bhNKVJ8jMEK82nSVt775q0i8k1rg==",
+      "sha512": "YZ3FzKGch4QUtp7Uq+mtUBvVbSUpVKQyN0nvXDDReJ7hO8Q9Y6RtFXg5EL7x/Jy+ZIKmuXAHZsJoCXREwYX4Cw==",
       "files": [
         "lib/DNXCore50/System.Threading.Thread.dll",
         "lib/MonoAndroid10/_._",
@@ -1320,8 +1240,8 @@
         "ref/net46/System.Threading.Thread.dll",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
-        "System.Threading.Thread.4.0.0-beta-23225.nupkg",
-        "System.Threading.Thread.4.0.0-beta-23225.nupkg.sha512",
+        "System.Threading.Thread.4.0.0-beta-23409.nupkg",
+        "System.Threading.Thread.4.0.0-beta-23409.nupkg.sha512",
         "System.Threading.Thread.nuspec"
       ]
     }
@@ -1329,41 +1249,16 @@
   "projectFileDependencyGroups": {
     "": [],
     ".NETFramework,Version=v4.0": [
-      "Microsoft.Bcl.Async >= 1.0.168"
-    ],
-    "Windows,Version=v8.0": [
-      "System.Linq >= 4.0.0-beta-22816",
-      "System.Runtime >= 4.0.20-beta-22816",
-      "System.Runtime.Extensions >= 4.0.10-beta-22816",
-      "System.Threading >= 4.0.10-beta-22816",
-      "System.Threading.Thread >= 4.0.0-beta-22816"
-    ],
-    "Windows,Version=v8.1": [
-      "System.Linq >= 4.0.0-beta-22816",
-      "System.Runtime >= 4.0.20-beta-22816",
-      "System.Runtime.Extensions >= 4.0.10-beta-22816",
-      "System.Threading >= 4.0.10-beta-22816",
-      "System.Threading.Thread >= 4.0.0-beta-22816"
-    ],
-    "WindowsPhone,Version=v8.0": [
-      "System.Linq >= 4.0.0-beta-22816",
-      "System.Runtime >= 4.0.20-beta-22816",
-      "System.Runtime.Extensions >= 4.0.10-beta-22816",
-      "System.Threading >= 4.0.10-beta-22816",
-      "System.Threading.Thread >= 4.0.0-beta-22816"
-    ],
-    "WindowsPhoneApp,Version=v8.1": [
-      "System.Linq >= 4.0.0-beta-22816",
-      "System.Runtime >= 4.0.20-beta-22816",
-      "System.Runtime.Extensions >= 4.0.10-beta-22816",
-      "System.Threading >= 4.0.10-beta-22816",
-      "System.Threading.Thread >= 4.0.0-beta-22816"
+      "Microsoft.Bcl.Async >= 1.0.168",
+      "fx/mscorlib >= 4.0.0",
+      "fx/System >= 4.0.0",
+      "fx/System.Core >= 4.0.0"
     ],
     ".NETPlatform,Version=v5.0": [
       "System.Runtime >= 4.0.20",
       "System.Linq >= 4.0.0",
       "System.Threading >= 4.0.10",
-      "System.Threading.Thread >= 4.0.0-beta-23225"
+      "System.Threading.Thread >= 4.0.0-beta-23409"
     ]
   }
 }
