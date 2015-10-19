@@ -2271,9 +2271,6 @@ namespace IX.Retry
                     TimeSpan retryInterval;
                     if (!shouldRetry(i, ex, out retryInterval))
                         return;
-
-                    if (TimeSpan.Zero < retryInterval)
-                        Thread.Sleep(retryInterval);
                 }
 
                 if (cancellationToken.IsCancellationRequested)
@@ -2819,9 +2816,6 @@ namespace IX.Retry
                     TimeSpan retryInterval;
                     if (!shouldRetry(i, ex, out retryInterval))
                         throw;
-
-                    if (TimeSpan.Zero < retryInterval)
-                        Thread.Sleep(retryInterval);
                 }
 
                 cancellationToken.ThrowIfCancellationRequested();

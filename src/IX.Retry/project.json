@@ -17,18 +17,23 @@
       "dependencies": {
         "System.Runtime": "4.0.20",
         "System.Linq": "4.0.0",
-        "System.Threading": "4.0.10",
-        "System.Threading.Thread": "4.0.0-beta-23409"
+        "System.Threading": "4.0.10"
+      }
+    },
+    ".NETPortable,Version=v4.5,Profile=Profile259": {
+      "compileExclude": "*.*",
+      "bin": {
+        "assembly": "..\\IX.Retry.PCL\\bin\\Release\\IX.Retry.dll",
+        "pdb": "..\\IX.Retry.PCL\\bin\\Release\\IX.Retry.pdb"
       }
     }
-
   },
   "licenseUrl": "https://github.com/adimosh/IX.Retry/blob/master/LICENSE.md",
   "owners": [ "Adrian Mos" ],
   "projectUrl": "https://github.com/adimosh/IX.Retry/",
   "tags": [ "" ],
   "title": "IX.Retry",
-  "version": "0.1.9",
+  "version": "0.2.0",
   "configurations": {
     "Test": { }
   }

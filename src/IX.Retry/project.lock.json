@@ -170,17 +170,9 @@
         "compile": {
           "ref/dotnet/System.Threading.Tasks.dll": {}
         }
-      },
-      "System.Threading.Thread/4.0.0-beta-23409": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
-        "compile": {
-          "ref/dotnet/System.Threading.Thread.dll": {}
-        }
       }
     },
+    ".NETPortable,Version=v4.5,Profile=Profile259": {},
     ".NETFramework,Version=v4.0/win7-x86": {
       "Microsoft.Bcl/1.1.8": {
         "type": "package",
@@ -389,15 +381,6 @@
         "compile": {
           "ref/dotnet/System.Threading.Tasks.dll": {}
         }
-      },
-      "System.Threading.Thread/4.0.0-beta-23409": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
-        "compile": {
-          "ref/dotnet/System.Threading.Thread.dll": {}
-        }
       }
     },
     ".NETPlatform,Version=v5.0/win7-x64": {
@@ -528,17 +511,10 @@
         "compile": {
           "ref/dotnet/System.Threading.Tasks.dll": {}
         }
-      },
-      "System.Threading.Thread/4.0.0-beta-23409": {
-        "type": "package",
-        "dependencies": {
-          "System.Runtime": "4.0.0"
-        },
-        "compile": {
-          "ref/dotnet/System.Threading.Thread.dll": {}
-        }
       }
-    }
+    },
+    ".NETPortable,Version=v4.5,Profile=Profile259/win7-x86": {},
+    ".NETPortable,Version=v4.5,Profile=Profile259/win7-x64": {}
   },
   "libraries": {
     "Microsoft.Bcl/1.1.8": {
@@ -1222,28 +1198,6 @@
         "System.Threading.Tasks.4.0.0.nupkg.sha512",
         "System.Threading.Tasks.nuspec"
       ]
-    },
-    "System.Threading.Thread/4.0.0-beta-23409": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "YZ3FzKGch4QUtp7Uq+mtUBvVbSUpVKQyN0nvXDDReJ7hO8Q9Y6RtFXg5EL7x/Jy+ZIKmuXAHZsJoCXREwYX4Cw==",
-      "files": [
-        "lib/DNXCore50/System.Threading.Thread.dll",
-        "lib/MonoAndroid10/_._",
-        "lib/MonoTouch10/_._",
-        "lib/net46/System.Threading.Thread.dll",
-        "lib/xamarinios10/_._",
-        "lib/xamarinmac20/_._",
-        "ref/dotnet/System.Threading.Thread.dll",
-        "ref/MonoAndroid10/_._",
-        "ref/MonoTouch10/_._",
-        "ref/net46/System.Threading.Thread.dll",
-        "ref/xamarinios10/_._",
-        "ref/xamarinmac20/_._",
-        "System.Threading.Thread.4.0.0-beta-23409.nupkg",
-        "System.Threading.Thread.4.0.0-beta-23409.nupkg.sha512",
-        "System.Threading.Thread.nuspec"
-      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -1257,8 +1211,8 @@
     ".NETPlatform,Version=v5.0": [
       "System.Runtime >= 4.0.20",
       "System.Linq >= 4.0.0",
-      "System.Threading >= 4.0.10",
-      "System.Threading.Thread >= 4.0.0-beta-23409"
-    ]
+      "System.Threading >= 4.0.10"
+    ],
+    ".NETPortable,Version=v4.5,Profile=Profile259": []
   }
 }
