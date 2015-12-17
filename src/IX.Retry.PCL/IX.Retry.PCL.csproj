@@ -55,9 +55,6 @@
     <Compile Include="..\IX.Retry\RetryExtensions.cs">
       <Link>RetryExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\IX.Retry\StandardBackoffPolicies.cs">
-      <Link>StandardBackoffPolicies.cs</Link>
-    </Compile>
     <Compile Include="..\IX.Retry\StandardPolicies\CountBasedRetryPolicy.cs">
       <Link>StandardPolicies\CountBasedRetryPolicy.cs</Link>
     </Compile>
@@ -73,9 +70,6 @@
     <Compile Include="..\IX.Retry\With_Action.cs">
       <Link>With_Action.cs</Link>
     </Compile>
-    <Compile Include="..\IX.Retry\With_AsyncAction.cs">
-      <Link>With_AsyncAction.cs</Link>
-    </Compile>
     <Compile Include="..\IX.Retry\With_AsyncFuncReturningResult.cs">
       <Link>With_AsyncFuncReturningResult.cs</Link>
     </Compile>
@@ -84,9 +78,6 @@
     </Compile>
     <Compile Include="..\IX.Retry\With_AsyncFuncReturningTaskOfResult.cs">
       <Link>With_AsyncFuncReturningTaskOfResult.cs</Link>
-    </Compile>
-    <Compile Include="..\IX.Retry\With_FuncReturningResult.cs">
-      <Link>With_FuncReturningResult.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

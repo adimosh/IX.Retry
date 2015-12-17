@@ -8,16 +8,18 @@
 
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace IX.Retry
 {
     public static partial class With
     {
+
         /// <summary>
-        /// Invokes an <see cref="System.Action"/> with a retry policy and a cancellation token.
+        /// Invokes a <see cref="System.Action"/> with a retry policy and a cancellation token.
         /// </summary>
         /// <param name="action">The action to execute with retry.</param>
-        /// <param name="retryPolicy">A retry policy to apply to the action.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry(Action action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -25,12 +27,37 @@ namespace IX.Retry
         }
 
         /// <summary>
-        /// Invokes an <see cref="System.Action{T}"/> with a retry policy and a cancellation token.
+        /// Invokes a <see cref="System.Action"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T">The first action parameter type.</typeparam>
         /// <param name="action">The action to execute with retry.</param>
-        /// <param name="retryPolicy">A retry policy to apply to the action.</param>
-        /// <param name="arg">The first action parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync(Action action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<TResult>(Func<TResult> func, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Action{T}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T">Delegate parameter type.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg">Delegate parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T>(Action<T> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -38,14 +65,43 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T">Delegate parameter type.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg">Delegate parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T>(Action<T> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T">Delegate parameter type.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg">Delegate parameter, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T, TResult>(Func<T, TResult> func, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2>(Action<T1, T2> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -53,16 +109,49 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2>(Action<T1, T2> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, TResult>(Func<T1, T2, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3>(Action<T1, T2, T3> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -70,18 +159,55 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3>(Action<T1, T2, T3> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, TResult>(Func<T1, T2, T3, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -89,20 +215,61 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4>(Action<T1, T2, T3, T4> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, TResult>(Func<T1, T2, T3, T4, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -110,22 +277,67 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5>(Action<T1, T2, T3, T4, T5> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, TResult>(Func<T1, T2, T3, T4, T5, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -133,24 +345,73 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6>(Action<T1, T2, T3, T4, T5, T6> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, TResult>(Func<T1, T2, T3, T4, T5, T6, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -158,26 +419,79 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7>(Action<T1, T2, T3, T4, T5, T6, T7> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -185,28 +499,85 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8>(Action<T1, T2, T3, T4, T5, T6, T7, T8> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <typeparam name="T9">Action parameter type no. 9.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg9">Action parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -214,30 +585,91 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <typeparam name="T9">Action parameter type no. 9.</typeparam>
-        /// <typeparam name="T10">Action parameter type no. 10.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg9">Action parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg10">Action parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -245,32 +677,97 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <typeparam name="T9">Action parameter type no. 9.</typeparam>
-        /// <typeparam name="T10">Action parameter type no. 10.</typeparam>
-        /// <typeparam name="T11">Action parameter type no. 11.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg9">Action parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg10">Action parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg11">Action parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -278,34 +775,103 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <typeparam name="T9">Action parameter type no. 9.</typeparam>
-        /// <typeparam name="T10">Action parameter type no. 10.</typeparam>
-        /// <typeparam name="T11">Action parameter type no. 11.</typeparam>
-        /// <typeparam name="T12">Action parameter type no. 12.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg9">Action parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg10">Action parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg11">Action parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg12">Action parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -313,36 +879,109 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <typeparam name="T9">Action parameter type no. 9.</typeparam>
-        /// <typeparam name="T10">Action parameter type no. 10.</typeparam>
-        /// <typeparam name="T11">Action parameter type no. 11.</typeparam>
-        /// <typeparam name="T12">Action parameter type no. 12.</typeparam>
-        /// <typeparam name="T13">Action parameter type no. 13.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg9">Action parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg10">Action parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg11">Action parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg12">Action parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg13">Action parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -350,38 +989,115 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <typeparam name="T9">Action parameter type no. 9.</typeparam>
-        /// <typeparam name="T10">Action parameter type no. 10.</typeparam>
-        /// <typeparam name="T11">Action parameter type no. 11.</typeparam>
-        /// <typeparam name="T12">Action parameter type no. 12.</typeparam>
-        /// <typeparam name="T13">Action parameter type no. 13.</typeparam>
-        /// <typeparam name="T14">Action parameter type no. 14.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg9">Action parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg10">Action parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg11">Action parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg12">Action parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg13">Action parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg14">Action parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -389,40 +1105,121 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <typeparam name="T9">Action parameter type no. 9.</typeparam>
-        /// <typeparam name="T10">Action parameter type no. 10.</typeparam>
-        /// <typeparam name="T11">Action parameter type no. 11.</typeparam>
-        /// <typeparam name="T12">Action parameter type no. 12.</typeparam>
-        /// <typeparam name="T13">Action parameter type no. 13.</typeparam>
-        /// <typeparam name="T14">Action parameter type no. 14.</typeparam>
-        /// <typeparam name="T15">Action parameter type no. 15.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <typeparam name="T15">Delegate parameter type no. 15.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg9">Action parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg10">Action parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg11">Action parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg12">Action parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg13">Action parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg14">Action parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg15">Action parameter no. 15, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg15">Delegate parameter no. 15, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -430,46 +1227,220 @@ namespace IX.Retry
         }
 
         /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <typeparam name="T15">Delegate parameter type no. 15.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg15">Delegate parameter no. 15, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <typeparam name="T15">Delegate parameter type no. 15.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg15">Delegate parameter no. 15, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, cancellationToken);
+        }
+
+        /// <summary>
         /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16}"/> with a retry policy and a cancellation token.
         /// </summary>
-        /// <typeparam name="T1">Action parameter type no. 1.</typeparam>
-        /// <typeparam name="T2">Action parameter type no. 2.</typeparam>
-        /// <typeparam name="T3">Action parameter type no. 3.</typeparam>
-        /// <typeparam name="T4">Action parameter type no. 4.</typeparam>
-        /// <typeparam name="T5">Action parameter type no. 5.</typeparam>
-        /// <typeparam name="T6">Action parameter type no. 6.</typeparam>
-        /// <typeparam name="T7">Action parameter type no. 7.</typeparam>
-        /// <typeparam name="T8">Action parameter type no. 8.</typeparam>
-        /// <typeparam name="T9">Action parameter type no. 9.</typeparam>
-        /// <typeparam name="T10">Action parameter type no. 10.</typeparam>
-        /// <typeparam name="T11">Action parameter type no. 11.</typeparam>
-        /// <typeparam name="T12">Action parameter type no. 12.</typeparam>
-        /// <typeparam name="T13">Action parameter type no. 13.</typeparam>
-        /// <typeparam name="T14">Action parameter type no. 14.</typeparam>
-        /// <typeparam name="T15">Action parameter type no. 15.</typeparam>
-        /// <typeparam name="T16">Action parameter type no. 16.</typeparam>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <typeparam name="T15">Delegate parameter type no. 15.</typeparam>
+        /// <typeparam name="T16">Delegate parameter type no. 16.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
-        /// <param name="arg1">Action parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg2">Action parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg3">Action parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg4">Action parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg5">Action parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg6">Action parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg7">Action parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg8">Action parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg9">Action parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg10">Action parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg11">Action parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg12">Action parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg13">Action parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg14">Action parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg15">Action parameter no. 15, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
-        /// <param name="arg16">Action parameter no. 16, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg15">Delegate parameter no. 15, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg16">Delegate parameter no. 16, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
         public static void Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
         {
             action.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Action{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <typeparam name="T15">Delegate parameter type no. 15.</typeparam>
+        /// <typeparam name="T16">Delegate parameter type no. 16.</typeparam>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg15">Delegate parameter no. 15, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg16">Delegate parameter no. 16, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>(Action<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16> action, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+        /// <typeparam name="T1">Delegate parameter type no. 1.</typeparam>
+        /// <typeparam name="T2">Delegate parameter type no. 2.</typeparam>
+        /// <typeparam name="T3">Delegate parameter type no. 3.</typeparam>
+        /// <typeparam name="T4">Delegate parameter type no. 4.</typeparam>
+        /// <typeparam name="T5">Delegate parameter type no. 5.</typeparam>
+        /// <typeparam name="T6">Delegate parameter type no. 6.</typeparam>
+        /// <typeparam name="T7">Delegate parameter type no. 7.</typeparam>
+        /// <typeparam name="T8">Delegate parameter type no. 8.</typeparam>
+        /// <typeparam name="T9">Delegate parameter type no. 9.</typeparam>
+        /// <typeparam name="T10">Delegate parameter type no. 10.</typeparam>
+        /// <typeparam name="T11">Delegate parameter type no. 11.</typeparam>
+        /// <typeparam name="T12">Delegate parameter type no. 12.</typeparam>
+        /// <typeparam name="T13">Delegate parameter type no. 13.</typeparam>
+        /// <typeparam name="T14">Delegate parameter type no. 14.</typeparam>
+        /// <typeparam name="T15">Delegate parameter type no. 15.</typeparam>
+        /// <typeparam name="T16">Delegate parameter type no. 16.</typeparam>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+        /// <param name="arg1">Delegate parameter no. 1, of the type specified in <typeparamref name="T1"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg2">Delegate parameter no. 2, of the type specified in <typeparamref name="T2"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg3">Delegate parameter no. 3, of the type specified in <typeparamref name="T3"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg4">Delegate parameter no. 4, of the type specified in <typeparamref name="T4"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg5">Delegate parameter no. 5, of the type specified in <typeparamref name="T5"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg6">Delegate parameter no. 6, of the type specified in <typeparamref name="T6"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg7">Delegate parameter no. 7, of the type specified in <typeparamref name="T7"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg8">Delegate parameter no. 8, of the type specified in <typeparamref name="T8"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg9">Delegate parameter no. 9, of the type specified in <typeparamref name="T9"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg10">Delegate parameter no. 10, of the type specified in <typeparamref name="T10"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg11">Delegate parameter no. 11, of the type specified in <typeparamref name="T11"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg12">Delegate parameter no. 12, of the type specified in <typeparamref name="T12"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg13">Delegate parameter no. 13, of the type specified in <typeparamref name="T13"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg14">Delegate parameter no. 14, of the type specified in <typeparamref name="T14"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg15">Delegate parameter no. 15, of the type specified in <typeparamref name="T15"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg16">Delegate parameter no. 16, of the type specified in <typeparamref name="T16"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult> func, IRetryPolicy retryPolicy, T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, cancellationToken);
         }
     }
 }

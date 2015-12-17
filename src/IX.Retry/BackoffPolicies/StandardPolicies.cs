@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace IX.Retry
+namespace IX.Retry.BackoffPolicies
 {
     /// <summary>
     /// A set of standard back-off policies for retries.
     /// </summary>
-    public static class StandardBackoffPolicies
+    public static class StandardPolicies
     {
         /// <summary>
         /// An exponential back-off policy.
@@ -70,16 +70,37 @@ namespace IX.Retry
         }
 
         /// <summary>
-        /// A constant back-off policy of exactly 100 milliseconds.
+        /// A constant back-off policy.
+        /// </summary>
+        /// <param name="retryCount">This parameter is ignored.</param>
+        /// <param name="minBackoff">This parameter is ignored.</param>
+        /// <param name="maxBackoff">This parameter is ignored.</param>
+        /// <param name="deltaBackoff">The actual constant back-off time.</param>
+        /// <returns>A time-span representing a constant back-off of the value equal to <paramref name="deltaBackOff" />.</returns>
+        public static TimeSpan Constant(int retryCount, TimeSpan minBackOff, TimeSpan maxBackOff, TimeSpan deltaBackOff)
+        {
+            // We don't do parameter validation at this point beyond deltaBackoff.
+            if (deltaBackOff < TimeSpan.Zero || deltaBackOff > TimeSpan.MaxValue)
+            {
+                throw new ArgumentOutOfRangeException(nameof(deltaBackOff));
+            }
+
+            return deltaBackOff;
+        }
+
+        /// <summary>
+        /// An empty back-off policy.
         /// </summary>
         /// <param name="retryCount">This parameter is ignored.</param>
         /// <param name="minBackoff">This parameter is ignored.</param>
         /// <param name="maxBackoff">This parameter is ignored.</param>
         /// <param name="deltaBackoff">This parameter is ignored.</param>
-        /// <returns>A time-span representing exactly 100 milliseconds.</returns>
-        public static TimeSpan Constant(int retryCount, TimeSpan minBackOff, TimeSpan maxBackOff, TimeSpan deltaBackOff)
+        /// <returns>An empty time-span.</returns>
+        public static TimeSpan Empty(int retryCount, TimeSpan minBackOff, TimeSpan maxBackOff, TimeSpan deltaBackOff)
         {
-            return TimeSpan.FromMilliseconds(100);
+            // We don't need parameter validation at all.
+
+            return TimeSpan.Zero;
         }
 
         [Conditional("DEBUG")]

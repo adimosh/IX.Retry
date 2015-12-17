@@ -7,45 +7,24 @@
 <#@ output extension=".cs" #>
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace IX.Retry
 {
     public static partial class With
     {
-        /// <summary>
-        /// Invokes an <see cref="System.Action"/> with a retry policy and a cancellation token.
-        /// </summary>
-        /// <param name="action">The action to execute with retry.</param>
-        /// <param name="retryPolicy">A retry policy to apply to the action.</param>
-        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry(Action action, IRetryPolicy retryPolicy, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            action.WithRetry(retryPolicy, cancellationToken);
-        }
-
-        /// <summary>
-        /// Invokes an <see cref="System.Action{T}"/> with a retry policy and a cancellation token.
-        /// </summary>
-        /// <typeparam name="T">The first action parameter type.</typeparam>
-        /// <param name="action">The action to execute with retry.</param>
-        /// <param name="retryPolicy">A retry policy to apply to the action.</param>
-        /// <param name="arg">The first action parameter, of the type specified in <typeparamref name="T"/>. This parameter is not null-checked and is forwarded directly to the action.</param>
-        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<T>(Action<T> action, IRetryPolicy retryPolicy, T arg, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            action.WithRetry(retryPolicy, arg, cancellationToken);
-        }
 <#
-for (int i = 2; i <= 16; i++)
+for (int i = 0; i <= 16; i++)
 {
     List<string> exceptionTypeParameters = new List<string>();
     List<string> exceptionParameters = new List<string>();
     List<string> exceptionParams = new List<string>();
     for (int j = 1; j <= i; j++)
     {
-        exceptionTypeParameters.Add(string.Format("T{0}", j));
-        exceptionParameters.Add(string.Format("T{0} arg{0}", j));
-        exceptionParams.Add(string.Format("arg{0}", j));
+        string jText = i <= 1 ? string.Empty : j.ToString();
+        exceptionTypeParameters.Add(string.Format("T{0}", jText));
+        exceptionParameters.Add(string.Format("T{0} arg{0}", jText));
+        exceptionParams.Add(string.Format("arg{0}", jText));
     }
     string exceptionTypeParametersString = string.Join(", ", exceptionTypeParameters);
     string exceptionParametersString = string.Join(", ", exceptionParameters);
@@ -53,30 +32,87 @@ for (int i = 2; i <= 16; i++)
 #>
 
         /// <summary>
-        /// Invokes a <see cref="System.Action{<#=exceptionTypeParametersString#>}"/> with a retry policy and a cancellation token.
+        /// Invokes a <see cref="System.Action<# if (i != 0) { #>{<#=exceptionTypeParametersString#>}<# } #>"/> with a retry policy and a cancellation token.
         /// </summary>
 <#
     for (int j = 1; j <= i; j++)
     {
 #>
-        /// <typeparam name="T<#=j#>">Action parameter type no. <#=j#>.</typeparam>
+        /// <typeparam name="T<# if (i != 1) { #><#=j#><# } #>">Delegate parameter type<# if (i != 1) { #> no. <#=j#><# } #>.</typeparam>
 <#
     }
 #>
-        /// <param name="func">The action to execute with retry.</param>
+        /// <param name="action">The action to execute with retry.</param>
         /// <param name="retryPolicy">A retry policy to apply to the function.</param>
 <#
     for (int j = 1; j <= i; j++)
     {
 #>
-        /// <param name="arg<#=j#>">Action parameter no. <#=j#>, of the type specified in <typeparamref name="T<#=j#>"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+        /// <param name="arg<# if (i != 1) { #><#=j#><# } #>">Delegate parameter<# if (i != 1) { #> no. <#=j#><# } #>, of the type specified in <typeparamref name="T<# if (i != 1) { #><#=j#><# } #>"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
 <#
     }
 #>
         /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
-        public static void Retry<<#=exceptionTypeParametersString#>>(Action<<#=exceptionTypeParametersString#>> action, IRetryPolicy retryPolicy, <#=exceptionParametersString#>, CancellationToken cancellationToken = default(CancellationToken))
+        public static void Retry<# if (i != 0) { #><<#=exceptionTypeParametersString#>><# } #>(Action<# if (i != 0) { #><<#=exceptionTypeParametersString#>><# } #> action, IRetryPolicy retryPolicy, <#=exceptionParametersString#><# if (i != 0) { #>, <# } #>CancellationToken cancellationToken = default(CancellationToken))
         {
-            action.WithRetry(retryPolicy, <#=exceptionParamsString#>, cancellationToken);
+            action.WithRetry(retryPolicy, <#=exceptionParamsString#><# if (i != 0) { #>, <# } #>cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Action<# if (i != 0) { #>{<#=exceptionTypeParametersString#>}<# } #>"/> with a retry policy and a cancellation token.
+        /// </summary>
+<#
+    for (int j = 1; j <= i; j++)
+    {
+#>
+        /// <typeparam name="T<# if (i != 1) { #><#=j#><# } #>">Delegate parameter type<# if (i != 1) { #> no. <#=j#><# } #>.</typeparam>
+<#
+    }
+#>
+        /// <param name="action">The action to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+<#
+    for (int j = 1; j <= i; j++)
+    {
+#>
+        /// <param name="arg<# if (i != 1) { #><#=j#><# } #>">Delegate parameter<# if (i != 1) { #> no. <#=j#><# } #>, of the type specified in <typeparamref name="T<# if (i != 1) { #><#=j#><# } #>"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+<#
+    }
+#>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>A <see cref="System.Threading.Tasks.Task"/> that can be awaited.</returns>
+        public static Task RetryAsync<# if (i != 0) { #><<#=exceptionTypeParametersString#>><# } #>(Action<# if (i != 0) { #><<#=exceptionTypeParametersString#>><# } #> action, IRetryPolicy retryPolicy, <#=exceptionParametersString#><# if (i != 0) { #>, <# } #>CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return action.WithRetryAsync(retryPolicy, <#=exceptionParamsString#><# if (i != 0) { #>, <# } #>cancellationToken);
+        }
+
+        /// <summary>
+        /// Invokes a <see cref="System.Func{<#=exceptionTypeParametersString#><# if (i != 0) { #>, <# } #>TResult}"/> with a retry policy and a cancellation token.
+        /// </summary>
+<#
+    for (int j = 1; j <= i; j++)
+    {
+#>
+        /// <typeparam name="T<# if (i != 1) { #><#=j#><# } #>">Delegate parameter type<# if (i != 1) { #> no. <#=j#><# } #>.</typeparam>
+<#
+    }
+#>
+        /// <typeparam name="TResult">The result of the call.</typeparam>
+        /// <param name="func">The function to execute with retry.</param>
+        /// <param name="retryPolicy">A retry policy to apply to the function.</param>
+<#
+    for (int j = 1; j <= i; j++)
+    {
+#>
+        /// <param name="arg<# if (i != 1) { #><#=j#><# } #>">Delegate parameter<# if (i != 1) { #> no. <#=j#><# } #>, of the type specified in <typeparamref name="T<#=j#>"/>. This parameter is not null-checked and is forwarded directly to the function.</param>
+<#
+    }
+#>
+        /// <param name="cancellationToken">The task's (optional) <see cref="System.Threading.CancellationToken"/>.</param>
+        /// <returns>The result of the operation, after retries, of the type <typeparamref name="TResult"/>.</returns>
+        public static TResult Retry<<#=exceptionTypeParametersString#><# if (i != 0) { #>, <# } #>TResult>(Func<<#=exceptionTypeParametersString#><# if (i != 0) { #>, <# } #>TResult> func, IRetryPolicy retryPolicy, <#=exceptionParametersString#><# if (i != 0) { #>, <# } #>CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return func.WithRetry(retryPolicy, <#=exceptionParamsString#><# if (i != 0) { #>, <# } #>cancellationToken);
         }
 <#
 }
