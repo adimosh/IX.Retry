@@ -11,5 +11,17 @@ namespace IX.Retry
         private BackOffPolicy backOffPolicy;
 
         private RetryPolicy retryPolicy;
+
+        public IRetrySessionContainer WithBackoffPolicy(BackOffPolicy backoffPolicy)
+        {
+            backOffPolicy = backoffPolicy;
+            return this;
+        }
+
+        public IRetrySessionContainer WithRetryPolicy(RetryPolicy retryPolicy)
+        {
+            this.retryPolicy = retryPolicy;
+            return this;
+        }
     }
 }

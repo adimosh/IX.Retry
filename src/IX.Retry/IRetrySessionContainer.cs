@@ -8,6 +8,6 @@ namespace IX.Retry
     {
         IRetrySessionContainer WithRetryPolicy(RetryPolicy retryPolicy);
 
-        IRetrySessionContainer WithBackoffPolicy(BackOffPolicy backoffPolicy)
+        IRetrySessionContainer WithBackoffPolicy(BackOffPolicy backoffPolicy);
     }
 }

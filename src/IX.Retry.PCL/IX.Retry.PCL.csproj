@@ -37,6 +37,12 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\IX.Retry\BackoffPolicies\Delegates.cs">
+      <Link>BackoffPolicies\Delegates.cs</Link>
+    </Compile>
+    <Compile Include="..\IX.Retry\BackoffPolicies\StandardPolicies.cs">
+      <Link>BackoffPolicies\StandardPolicies.cs</Link>
+    </Compile>
     <Compile Include="..\IX.Retry\IRetryPolicy.cs">
       <Link>IRetryPolicy.cs</Link>
     </Compile>
