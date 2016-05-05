@@ -1,0 +1,105 @@
+{
+  "authors": [ "Adrian Mos" ],
+  "copyright": "Adrian Mos, 2015",
+  "description": "A library for re-queuing calls that might fail due to recoverable exceptions (such as network connection blips or remote servers too busy).",
+  "frameworks": {
+    "net45": {
+      "frameworkAssemblies": {
+      }
+    },
+    "netcore5.0": {
+      "dependencies": {
+        "System.Runtime": "4.1.0-rc3-24105-00",
+        "System.Linq": "4.1.0-rc3-24105-00",
+        "System.Threading": "4.0.11-rc3-24105-00"
+      }
+    },
+    "netstandard1.0": {
+      "dependencies": {
+        "System.Runtime": "4.1.0-rc3-24105-00",
+        "System.Linq": "4.1.0-rc3-24105-00",
+        "System.Threading": "4.0.11-rc3-24105-00"
+      }
+    },
+    "netstandard1.2": {
+      "dependencies": {
+        "System.Runtime": "4.1.0-rc3-24105-00",
+        "System.Linq": "4.1.0-rc3-24105-00",
+        "System.Threading": "4.0.11-rc3-24105-00"
+      }
+    },
+    "netstandard1.3": {
+      "dependencies": {
+        "System.Runtime": "4.1.0-rc3-24105-00",
+        "System.Linq": "4.1.0-rc3-24105-00",
+        "System.Threading": "4.0.11-rc3-24105-00"
+      }
+    },
+    "netstandard1.5": {
+      "dependencies": {
+        "System.Runtime": "4.1.0-rc3-24105-00",
+        "System.Linq": "4.1.0-rc3-24105-00",
+        "System.Threading": "4.0.11-rc3-24105-00"
+      }
+    }//,
+    // "MonoAndroid1.0": {
+    //   "dependencies": {
+    //     "System.Runtime": "4.1.0-rc3-24105-00",
+    //     "System.Linq": "4.1.0-rc3-24105-00",
+    //     "System.Threading": "4.0.11-rc3-24105-00"
+    //   }
+    // },
+    // "MonoTouch1.0": {
+    //   "dependencies": {
+    //     "System.Runtime": "4.1.0-rc3-24105-00",
+    //     "System.Linq": "4.1.0-rc3-24105-00",
+    //     "System.Threading": "4.0.11-rc3-24105-00"
+    //   }
+    // },
+    // "xamarinios1.0": {
+    //   "dependencies": {
+    //     "System.Runtime": "4.1.0-rc3-24105-00",
+    //     "System.Linq": "4.1.0-rc3-24105-00",
+    //     "System.Threading": "4.0.11-rc3-24105-00"
+    //   }
+    // },
+    // "xamarinmac1.0": {
+    //   "dependencies": {
+    //     "System.Runtime": "4.1.0-rc3-24105-00",
+    //     "System.Linq": "4.1.0-rc3-24105-00",
+    //     "System.Threading": "4.0.11-rc3-24105-00"
+    //   }
+    // },
+    // "xamarintvos1.0": {
+    //   "dependencies": {
+    //     "System.Runtime": "4.1.0-rc3-24105-00",
+    //     "System.Linq": "4.1.0-rc3-24105-00",
+    //     "System.Threading": "4.0.11-rc3-24105-00"
+    //   }
+    // },
+    // "xamarinwatchos1.0": {
+    //   "dependencies": {
+    //     "System.Runtime": "4.1.0-rc3-24105-00",
+    //     "System.Linq": "4.1.0-rc3-24105-00",
+    //     "System.Threading": "4.0.11-rc3-24105-00"
+    //   }
+    // }
+  },
+  "licenseUrl": "https://github.com/adimosh/IX.Retry/blob/master/LICENSE.md",
+  "owners": [ "Adrian Mos" ],
+  "projectUrl": "https://github.com/adimosh/IX.Retry/",
+  "tags": [ "" ],
+  "title": "IX.Retry",
+  "version": "0.3.0",
+  "configurations": {
+    "Debug": {
+      "compilationOptions": {
+        "define": [
+          "DEBUG"
+        ]
+      }
+     },
+    "Release": { },
+    "Test": { }
+  }
+}
