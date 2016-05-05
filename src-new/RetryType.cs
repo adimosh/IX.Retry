@@ -1,7 +1,13 @@
-public enum RetryType
+using System;
+
+namespace IX.Retry
 {
-    Custom = 0,
-    Times = 1,
-    Until = 2,
-    For = 4
+    [Flags]
+    public enum RetryType
+    {
+        None = 0,
+        Times = 1,
+        Until = 2,
+        For = 4
+    }
 }

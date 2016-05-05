@@ -1,7 +1,10 @@
-public class Retry
+namespace IX.Retry
 {
-    public void Now(System.Action action)
+    public class Retry
     {
-        action();
+        public void Now(System.Action action)
+        {
+            action();
+        }
     }
 }
