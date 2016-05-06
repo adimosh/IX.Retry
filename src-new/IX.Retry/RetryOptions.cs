@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace IX.Retry
 {
@@ -105,6 +106,33 @@ namespace IX.Retry
         public RetryOptions ThrowException()
         {
             ThrowExceptionOnLastRetry = true;
+            
+            return this;
+        }
+        
+        #endregion
+        
+        #region Exceptions to watch out for
+        
+        public List<Tuple<Type, Func<Exception, bool>>> RetryOnExceptions { get; } = new List<Tuple<Type, Func<Exception, bool>>>();
+        
+        public RetryOptions OnException<T>() where T : Exception
+        {
+            RetryOnExceptions.RemoveAll(p => p.Item1 == typeof(T));
+            RetryOnExceptions.Add(new Tuple<Type, Func<Exception, bool>>(typeof(T), p => true));
+            
+            return this;
+        }
+        
+        public RetryOptions OnException<T>(Func<Exception, bool> testExceptionFunc) where T : Exception
+        {
+            if (testExceptionFunc == null)
+            {
+                throw new ArgumentNullException(nameof(testExceptionFunc));
+            }
+            
+            RetryOnExceptions.RemoveAll(p => p.Item1 == typeof(T));
+            RetryOnExceptions.Add(new Tuple<Type, Func<Exception, bool>>(typeof(T), testExceptionFunc));
             
             return this;
         }

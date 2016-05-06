@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IX.Retry
 {
@@ -17,7 +19,8 @@ namespace IX.Retry
         {
             DateTime now = DateTime.UtcNow;
             int retries = 0;
-            bool shouldRetry = false;
+            List<Exception> exceptions = new List<Exception>();
+            bool shouldRetry = true;
             
             do
             {
@@ -27,23 +30,37 @@ namespace IX.Retry
                 }
                 catch (Exception ex)
                 {
-                    if (options.Type.HasFlag(RetryType.Times) && retries > options.RetryTimes)
+                    if (options.RetryOnExceptions.Count > 0 &&
+                        !options.RetryOnExceptions.Any(p => p.Item1 == ex.GetType() && p.Item2(ex)))
                     {
-                        if (options.ThrowExceptionOnLastRetry)
-                        {
-                            throw;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        throw;
                     }
                     
-                    // Check other conditions here
+                    exceptions.Add(ex);
+
+                    if (options.Type.HasFlag(RetryType.Times) && retries > options.RetryTimes)
+                    {
+                        shouldRetry = false;
+                    }
+                    
+                    if (shouldRetry && options.Type.HasFlag(RetryType.For) && (DateTime.UtcNow - now) > options.RetryFor)
+                    {
+                        shouldRetry = false;
+                    }
+                    
+                    if (shouldRetry && options.Type.HasFlag(RetryType.Until) && options.RetryUntil(retries, now, exceptions, options))
+                    {
+                        shouldRetry = false;
+                    }
                     
                     retries++;
                 }
-            } while (true);
+            } while (shouldRetry);
+
+            if (!shouldRetry && options.ThrowExceptionOnLastRetry)
+            {
+                throw new AggregateException(exceptions);
+            }
         }
     }
 }
