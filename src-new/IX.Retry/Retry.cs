@@ -33,11 +33,23 @@ namespace IX.Retry
             Run(action, new RetryOptions());
         }
 
+        /// <summary>
+        /// Retry now, with specified options.
+        /// </summary>
+        /// <param name="action">The action to try and retry.</param>
+        /// <param name="options">The retry options.</param>
         public static void Now(Action action, RetryOptions options)
         {
             Run(action, options);
         }
 
+        /// <summary>
+        /// Retry now, asynchronously, with specified options and an optional cancellation token.
+        /// </summary>
+        /// <param name="action">The action to try and retry.</param>
+        /// <param name="options">The retry options.</param>
+        /// <param name="cancellationToken">The current operation's cancellation token.</param>
+        /// <returns>A task that can be awaited on.</returns>
         public static async Task NowAsync(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
         {
             await Task.Yield();
@@ -47,6 +59,11 @@ namespace IX.Retry
             Run(action, options);
         }
 
+        /// <summary>
+        /// Retry now, with a method to build up options.
+        /// </summary>
+        /// <param name="action">The action to try and retry.</param>
+        /// <param name="optionsSetter">A method to build up options on the fly.</param>
         public static void Now(Action action, Action<RetryOptions> optionsSetter)
         {
             if (optionsSetter == null)
@@ -60,6 +77,13 @@ namespace IX.Retry
             Run(action, options);
         }
 
+        /// <summary>
+        /// Retry now, asynchronously, with a method to build up options and an optional cancellation token.
+        /// </summary>
+        /// <param name="action">The action to try and retry.</param>
+        /// <param name="optionsSetter">A method to build up options on the fly.</param>
+        /// <param name="cancellationToken">The current operation's cancellation token.</param>
+        /// <returns>A task that can be awaited on.</returns>
         public static async Task NowAsync(Action action, Action<RetryOptions> optionsSetter, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (optionsSetter == null)
