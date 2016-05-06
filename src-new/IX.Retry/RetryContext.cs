@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace IX.Retry
 {
-    internal class RetryContext
+    internal class RetryContext : IDisposable
     {
         private RetryOptions options;
         private Action actionToRetry;
@@ -17,6 +17,11 @@ namespace IX.Retry
         
         public void BeginRetryProcess()
         {
+            if (disposedValue)
+            {
+                throw new ObjectDisposedException(GetType().FullName);
+            }
+            
             DateTime now = DateTime.UtcNow;
             int retries = 0;
             List<Exception> exceptions = new List<Exception>();
@@ -62,5 +67,41 @@ namespace IX.Retry
                 throw new AggregateException(exceptions);
             }
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false; // To detect redundant calls
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                {
+                    // TODO: dispose managed state (managed objects).
+                }
+
+                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
+                options = null;
+                actionToRetry = null;
+
+                disposedValue = true;
+            }
+        }
+
+        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
+        // ~RetryContext() {
+        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+        //   Dispose(false);
+        // }
+
+        // This code added to correctly implement the disposable pattern.
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
+            Dispose(true);
+            // TODO: uncomment the following line if the finalizer is overridden above.
+            // GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 }
