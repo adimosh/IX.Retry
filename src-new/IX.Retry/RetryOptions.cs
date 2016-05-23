@@ -138,5 +138,54 @@ namespace IX.Retry
         }
         
         #endregion
+
+        public WaitType WaitBetweenRetriesType { get; private set; } 
+        
+        public TimeSpan? WaitForDuration { get; private set; }
+        
+        #region Wait
+        
+        public RetryOptions WaitFor(int milliseconds)
+        {
+            if (milliseconds <= 0)
+            {
+                throw new ArgumentException(nameof(milliseconds));
+            }
+            
+            WaitBetweenRetriesType = WaitType.For;
+            WaitForDuration = TimeSpan.FromMilliseconds(milliseconds);
+            
+            return this;
+        }
+        
+        public RetryOptions WaitFor(TimeSpan timeSpan)
+        {
+            if (timeSpan < TimeSpan.Zero)
+            {
+                throw new ArgumentException(nameof(timeSpan));
+            }
+            
+            WaitBetweenRetriesType = WaitType.For;
+            WaitForDuration = timeSpan;
+            
+            return this;
+        }
+        
+        public RetryWaitDelegate WaitUntilDelegate { get; set; }
+        
+        public RetryOptions WaitUntil(RetryWaitDelegate waitMethod)
+        {
+            if (waitMethod == null)
+            {
+                throw new ArgumentNullException(nameof(waitMethod));
+            }
+            
+            WaitBetweenRetriesType = WaitType.Until;
+            WaitUntilDelegate = waitMethod;
+            
+            return this;
+        }
+        
+        #endregion
     }
 }

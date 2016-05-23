@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace IX.Retry
 {
@@ -15,12 +17,9 @@ namespace IX.Retry
             this.actionToRetry = actionToRetry;
         }
         
-        public void BeginRetryProcess()
+        public async Task BeginRetryProcessAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (disposedValue)
-            {
-                throw new ObjectDisposedException(GetType().FullName);
-            }
+            CheckDisposed();
             
             DateTime now = DateTime.UtcNow;
             int retries = 0;
@@ -29,47 +28,112 @@ namespace IX.Retry
             
             do
             {
-                try
+                shouldRetry = RunOnce(exceptions, now, ref retries);
+                
+                if (shouldRetry && options.WaitBetweenRetriesType != WaitType.None)
                 {
-                    actionToRetry();
-                }
-                catch (Exception ex)
-                {
-                    if (options.RetryOnExceptions.Count > 0 &&
-                        !options.RetryOnExceptions.Any(p => p.Item1 == ex.GetType() && p.Item2(ex)))
-                    {
-                        throw;
-                    }
-                    
-                    exceptions.Add(ex);
-
-                    if (options.Type.HasFlag(RetryType.Times) && retries > options.RetryTimes)
-                    {
-                        shouldRetry = false;
-                    }
-                    
-                    if (shouldRetry && options.Type.HasFlag(RetryType.For) && (DateTime.UtcNow - now) > options.RetryFor)
-                    {
-                        shouldRetry = false;
-                    }
-                    
-                    if (shouldRetry && options.Type.HasFlag(RetryType.Until) && options.RetryUntil(retries, now, exceptions, options))
-                    {
-                        shouldRetry = false;
-                    }
-                    
-                    retries++;
+                    TimeSpan waitFor = GetRetryTimeSpan(retries, now);
+                    await Task.Delay((int)waitFor.TotalMilliseconds, cancellationToken);
                 }
             } while (shouldRetry);
+            
+            ThrowExceptions(shouldRetry, exceptions);
+        }
+        
+        public void BeginRetryProcess()
+        {
+            CheckDisposed();
+            
+            DateTime now = DateTime.UtcNow;
+            int retries = 0;
+            List<Exception> exceptions = new List<Exception>();
+            bool shouldRetry = true;
+            
+            do
+            {
+                shouldRetry = RunOnce(exceptions, now, ref retries);
+                
+                if (shouldRetry && options.WaitBetweenRetriesType != WaitType.None)
+                {
+                    TimeSpan waitFor = GetRetryTimeSpan(retries, now);
+                    Task.Delay((int)waitFor.TotalMilliseconds).Wait();
+                }
+            } while (shouldRetry);
+            
+            ThrowExceptions(shouldRetry, exceptions);
+        }
+        
+        private bool RunOnce(IList<Exception> exceptions, DateTime now, ref int retries)
+        {
+            bool shouldRetry = true;
+            
+            try
+            {
+                actionToRetry();
+            }
+            catch (Exception ex)
+            {
+                if (options.RetryOnExceptions.Count > 0 &&
+                    !options.RetryOnExceptions.Any(p => p.Item1 == ex.GetType() && p.Item2(ex)))
+                {
+                    throw;
+                }
+                
+                exceptions.Add(ex);
 
+                if (options.Type.HasFlag(RetryType.Times) && retries > options.RetryTimes)
+                {
+                    shouldRetry = false;
+                }
+                
+                if (shouldRetry && options.Type.HasFlag(RetryType.For) && (DateTime.UtcNow - now) > options.RetryFor)
+                {
+                    shouldRetry = false;
+                }
+                
+                if (shouldRetry && options.Type.HasFlag(RetryType.Until) && options.RetryUntil(retries, now, exceptions, options))
+                {
+                    shouldRetry = false;
+                }
+                
+                retries++;
+            }
+            
+            return shouldRetry;
+        }
+        
+        private TimeSpan GetRetryTimeSpan(int retries, DateTime now)
+        {
+            TimeSpan waitFor;
+            if (options.WaitBetweenRetriesType == WaitType.For && options.WaitForDuration.HasValue)
+            {
+                waitFor = options.WaitForDuration.Value;
+            }
+            else if (options.WaitBetweenRetriesType == WaitType.Until)
+            {
+                waitFor = options.WaitUntilDelegate.Invoke(retries, now, options);
+            }
+            return waitFor;
+        }
+        
+        private void ThrowExceptions(bool shouldRetry, IEnumerable<Exception> exceptions)
+        {
             if (!shouldRetry && options.ThrowExceptionOnLastRetry)
             {
                 throw new AggregateException(exceptions);
             }
         }
-
+        
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
+        
+        private void CheckDisposed()
+        {
+            if (disposedValue)
+            {
+                throw new ObjectDisposedException(GetType().FullName);
+            }
+        }
 
         protected virtual void Dispose(bool disposing)
         {
@@ -88,19 +152,14 @@ namespace IX.Retry
             }
         }
 
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~RetryContext() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
+        ~RetryContext() {
+          Dispose(false);
+        }
 
-        // This code added to correctly implement the disposable pattern.
         public void Dispose()
         {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
+            GC.SuppressFinalize(this);
         }
         #endregion
     }
