@@ -13,8 +13,17 @@
         {
             "taskName": "restore",
             "args": [],
-            "isBuildCommand": false,
-            "problemMatcher": "$msCompile"
+            "isBuildCommand": false
+        },
+        {
+            "taskName": "publish",
+            "args": [],
+            "isBuildCommand": false
+        },
+        {
+            "taskName": "pack",
+            "args": [],
+            "isBuildCommand": false
         }
     ]
 }
