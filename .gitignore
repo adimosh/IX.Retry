@@ -194,13 +194,3 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
-/src/IX.Retry.ToolingMitigation/Policy_CountBased.cs
-/src/IX.Retry.ToolingMitigation/TimeBasedRetryPolicy_GenericClasses.cs
-/src/IX.Retry.ToolingMitigation/CountBasedRetryPolicy_GenericClasses.cs
-/src/IX.Retry.ToolingMitigation/With_AsyncFunctionReturningTask.cs
-/src/IX.Retry.ToolingMitigation/Policy_TimeBased.cs
-/src/IX.Retry.ToolingMitigation/With_AsyncAction.cs
-/src/IX.Retry.ToolingMitigation/With_AsyncFunctionReturningResult.cs
-/src/IX.Retry.ToolingMitigation/With_AsyncFunctionReturningTaskOfResult.cs
-/src/IX.Retry.ToolingMitigation/With_Action.cs
-/src/IX.Retry.ToolingMitigation/With_FunctionReturningResult.cs
