@@ -1,5 +1,8 @@
 namespace IX.Retry
 {
+    /// <summary>
+    /// The type of wait to use.
+    /// </summary>
     public enum WaitType
     {
         None = 0,

@@ -3,83 +3,29 @@ using System.Collections.Generic;
 
 namespace IX.Retry
 {
+    /// <summary>
+    /// Options for the retrying process.
+    /// </summary>
     public class RetryOptions
     {
-        public RetryType Type { get; private set; }
+        /// <summary>
+        /// The type of the retrying operation.
+        /// </summary>
+        /// <returns>What type of retry porocedure to use.</returns>
+        public RetryType Type { get; internal set; }
         
-        #region Retry by number
+        /// <summary>
+        /// How many times to retry.
+        /// </summary>
+        /// <returns>The number of times to attempt retrying.</returns>
+        public int RetryTimes { get; internal set; }
         
-        public int RetryTimes { get; private set; }
-        
-        public RetryOptions Times(int times)
-        {
-            if (times <= 0)
-            {
-                throw new ArgumentException(nameof(times));
-            }
-            
-            Type |= RetryType.Times;
-            RetryTimes = times;
+        /// <summary>
+        /// For how long to retry.
+        /// </summary>
+        /// <returns>The maxiumum time span to retry.</returns>
+        public TimeSpan RetryFor { get; internal set; }
 
-            return this;
-        }
-        
-        public RetryOptions Once()
-        {
-            Type |= RetryType.Times;
-            RetryTimes = 1;
-
-            return this;
-        }
-        
-        public RetryOptions Twice()
-        {
-            Type |= RetryType.Times;
-            RetryTimes = 2;
-
-            return this;
-        }
-        
-        public RetryOptions ThreeTimes()
-        {
-            Type |= RetryType.Times;
-            RetryTimes = 3;
-
-            return this;
-        }
-        
-        public RetryOptions FiveTimes()
-        {
-            Type |= RetryType.Times;
-            RetryTimes = 5;
-
-            return this;
-        }
-        
-        #endregion
-        
-        #region Retry by timeSpan
-        
-        public TimeSpan RetryFor { get; private set; }
-        
-        public RetryOptions For(TimeSpan timeSpan)
-        {
-            Type |= RetryType.For;
-            RetryFor = timeSpan;
-
-            return this;
-        }
-        
-        public RetryOptions For(int milliseconds)
-        {
-            Type |= RetryType.For;
-            RetryFor = TimeSpan.FromMilliseconds(milliseconds);
-
-            return this;
-        }
-        
-        #endregion
-        
         #region Retry by condition
         
         public RetryConditionDelegate RetryUntil { get; private set; }
@@ -187,5 +133,120 @@ namespace IX.Retry
         }
         
         #endregion
+
+        /// <summary>
+        /// Retry for a number of times.
+        /// </summary>
+        /// <param name="times">The number of times to retry. Has to be greater than 0.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions Times(int times)
+        {
+            if (times <= 0)
+            {
+                throw new ArgumentException(nameof(times));
+            }
+            
+            RetryOptions options = new RetryOptions()
+            {
+                Type = RetryType.Times,
+                RetryTimes = times
+            };
+
+            return options;
+        }
+        
+        /// <summary>
+        /// Retry once.
+        /// </summary>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions Once()
+        {
+            RetryOptions options = new RetryOptions()
+            {
+                Type = RetryType.Times,
+                RetryTimes = 1
+            };
+
+            return options;
+        }
+        
+        /// <summary>
+        /// Retry twice.
+        /// </summary>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions Twice()
+        {
+            RetryOptions options = new RetryOptions()
+            {
+                Type = RetryType.Times,
+                RetryTimes = 2
+            };
+
+            return options;
+        }
+        
+        /// <summary>
+        /// Retry three times.
+        /// </summary>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions ThreeTimes()
+        {
+            RetryOptions options = new RetryOptions()
+            {
+                Type = RetryType.Times,
+                RetryTimes = 3
+            };
+
+            return options;
+        }
+        
+        /// <summary>
+        /// Retry five times.
+        /// </summary>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions FiveTimes()
+        {
+            RetryOptions options = new RetryOptions()
+            {
+                Type = RetryType.Times,
+                RetryTimes = 5
+            };
+
+            return options;
+        }
+
+        /// <summary>
+        /// Retries for a specific time span.
+        /// </summary>
+        /// <param name="options">Retry options to configure.</param>
+        /// <param name="timeSpan">How long to retry, as a time span.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions For(TimeSpan timeSpan)
+        {
+            RetryOptions options = new RetryOptions()
+            {
+                Type = RetryType.For,
+                RetryFor = timeSpan
+            };
+
+            return options;
+        }
+
+        /// <summary>
+        /// Retries for a specific number of milliseconds.
+        /// </summary>
+        /// <param name="options">Retry options to configure.</param>
+        /// <param name="milliseconds">How long to retry, in milliseconds.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions For(int milliseconds)
+        {
+            RetryOptions options = new RetryOptions()
+            {
+                Type = RetryType.For,
+                RetryFor = TimeSpan.FromMilliseconds(milliseconds)
+            };
+
+            return options;
+        }
     }
 }

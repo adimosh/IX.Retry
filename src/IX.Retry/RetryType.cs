@@ -2,6 +2,9 @@ using System;
 
 namespace IX.Retry
 {
+    /// <summary>
+    /// The ntype of retry procedure.
+    /// </summary>
     [Flags]
     public enum RetryType
     {

@@ -23,14 +23,10 @@ namespace IX.Retry
         /// </summary>
         /// <param name="action">The action to try and retry.</param>
         /// <param name="cancellationToken">The current operation's cancellation token.</param>
-        /// <returns>A task that can be awaited on.</returns>
+        /// <returns>A <see cref="System.Threading.Tasks.Task" /> that can be awaited on.</returns>
         public static async Task NowAsync(Action action, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await Task.Yield();
-
-            cancellationToken.ThrowIfCancellationRequested();
-
-            Run(action, new RetryOptions());
+            await RunAsync(action, new RetryOptions(), cancellationToken);
         }
 
         /// <summary>
@@ -49,14 +45,10 @@ namespace IX.Retry
         /// <param name="action">The action to try and retry.</param>
         /// <param name="options">The retry options.</param>
         /// <param name="cancellationToken">The current operation's cancellation token.</param>
-        /// <returns>A task that can be awaited on.</returns>
+        /// <returns>A <see cref="System.Threading.Tasks.Task" /> that can be awaited on.</returns>
         public static async Task NowAsync(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await Task.Yield();
-
-            cancellationToken.ThrowIfCancellationRequested();
-
-            Run(action, options);
+            await RunAsync(action, options, cancellationToken);
         }
 
         /// <summary>
@@ -83,7 +75,7 @@ namespace IX.Retry
         /// <param name="action">The action to try and retry.</param>
         /// <param name="optionsSetter">A method to build up options on the fly.</param>
         /// <param name="cancellationToken">The current operation's cancellation token.</param>
-        /// <returns>A task that can be awaited on.</returns>
+        /// <returns>A <see cref="System.Threading.Tasks.Task" /> that can be awaited on.</returns>
         public static async Task NowAsync(Action action, Action<RetryOptions> optionsSetter, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (optionsSetter == null)
@@ -91,23 +83,39 @@ namespace IX.Retry
                 throw new ArgumentNullException(nameof(optionsSetter));
             }
 
-            await Task.Yield();
+            var options = new RetryOptions();
+            optionsSetter(options);
 
-            cancellationToken.ThrowIfCancellationRequested();
-
-            Now(action, optionsSetter);
+            await RunAsync(action, options, cancellationToken);
         }
 
+        /// <summary>
+        /// Retry an action later.
+        /// </summary>
+        /// <param name="action">The action to retry.</param>
+        /// <returns>An <see cref="System.Action" /> that can be executed whenever required.</returns>
         public static Action Later(Action action)
         {
             return () => Run(action, new RetryOptions());
         }
 
+        /// <summary>
+        /// Retry an action later, with retry options.
+        /// </summary>
+        /// <param name="action">The action to retry.</param>
+        /// <param name="options">The retry options.</param>
+        /// <returns>An <see cref="System.Action" /> that can be executed whenever required.</returns>
         public static Action Later(Action action, RetryOptions options)
         {
             return () => Run(action, options);
         }
 
+        /// <summary>
+        /// Retry an action later, with a method to build up options.
+        /// </summary>
+        /// <param name="action">The action to retry.</param>
+        /// <param name="optionsSetter">A method to build up options on the fly.</param>
+        /// <returns>An <see cref="System.Action" /> that can be executed whenever required.</returns>
         public static Action Later(Action action, Action<RetryOptions> optionsSetter)
         {
             if (optionsSetter == null)
@@ -120,8 +128,28 @@ namespace IX.Retry
             
             return () => Run(action, options);
         }
+        
+        private static async Task RunAsync(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ValidateRunning(action, options, cancellationToken);
+            
+            using (RetryContext context = new RetryContext(options, action))
+            {
+                await context.BeginRetryProcessAsync();
+            }
+        }
 
-        private static void Run(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
+        private static void Run(Action action, RetryOptions options)
+        {
+            ValidateRunning(action, options, default(CancellationToken));
+            
+            using (RetryContext context = new RetryContext(options, action))
+            {
+                context.BeginRetryProcess();
+            }
+        }
+        
+        private static void ValidateRunning(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (action == null)
             {
@@ -133,11 +161,6 @@ namespace IX.Retry
             }
             
             cancellationToken.ThrowIfCancellationRequested();
-            
-            using (RetryContext context = new RetryContext(options, action))
-            {
-                context.BeginRetryProcess();
-            }
         }
     }
 }
