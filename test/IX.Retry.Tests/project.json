@@ -1,53 +1,33 @@
 {
-  "title": "IX.Retry.Tests",
-  "version": "0.3.0-rc2",
+  "version": "1.0.0-*",
+  "testRunner": "xunit",
   
   "buildOptions": {
     "compile": {
-      "include": "*.cs"
-    }
+      "include": ["*.cs", "../../src/IX.Retry/*.cs"]
+    },
+    "define": [
+        "TEST"
+    ]
   },
   
   "dependencies": {
-    "xunit": "2.2.0-beta1-build3239",
-    "dotnet-test-xunit": "1.0.0-rc2-build10025",
-    "IX.Retry":{
-        "target": "project",
-        "type": "build"
-    }
+    "xunit": "2.1.0",
+    "dotnet-test-xunit": "1.0.0-rc2-build10025"
   },
   
   "frameworks": {
-    "netcoreapp10":{
-        "dependencies": {
-          "Microsoft.NETCore.App":{
-              "version": "1.0.0-rc2-3002702",
-              "type":"platform"
-          }
+    "netcoreapp1.0":{
+      "dependencies": {
+        "Microsoft.NETCore.App":{
+          "version": "1.0.0-rc2-3002702",
+          "type":"platform"
         }
+      },
+      "imports": [
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
     }
-  },
-  
-  "configurations": {
-    "Debug": {
-      "buildOptions": {
-        "define": [
-          "DEBUG"
-        ]
-      }
-    },
-    "Release": {
-      "buildOptions": {
-        "warningsAsErrors": true,
-        "optimize": true
-      }
-    },
-    "Test": {
-      "buildOptions": {
-        "define": [
-          "TEST"
-        ]
-      }
-    }
-  }
+  }  
 }
