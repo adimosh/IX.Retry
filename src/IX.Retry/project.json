@@ -67,7 +67,8 @@
      },
     "Release": {
       "buildOptions": {
-        "warningsAsErrors": true
+        "warningsAsErrors": true,
+        "optimize": true
       }
      },
     "Test": {
