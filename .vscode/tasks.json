@@ -12,22 +12,23 @@
         },
         {
             "taskName": "restore",
-            "args": [],
+            "args": [ "src/IX.Retry/project.json" ],
             "isBuildCommand": false
         },
         {
-            "taskName": "publish",
-            "args": [],
+            "taskName": "restore-test",
+            "suppressTaskName": true,
+            "args": [ "restore", "test/IX.Retry.Tests/project.json" ],
             "isBuildCommand": false
         },
         {
             "taskName": "pack",
-            "args": [],
+            "args": [ "--configuration", "Release", "src/IX.Retry/project.json" ],
             "isBuildCommand": false
         },
         {
             "taskName": "test",
-            "args": [ "--configuration", "Test" ],
+            "args": [ "--configuration", "Test", "test/IX.Retry.Tests/project.json" ],
             "isTestCommand": true,
             "isBuildCommand": false
         }
