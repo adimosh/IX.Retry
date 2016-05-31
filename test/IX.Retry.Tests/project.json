@@ -1,5 +1,5 @@
 {
-  "title": "IX.Retry",
+  "title": "IX.Retry.Tests",
   "version": "0.3.0-rc2",
   
   "buildOptions": {
@@ -9,61 +9,45 @@
   },
   
   "dependencies": {
-    "Microsoft.NETCore.App":
-    {
-        "type":"platform",
-        "version": "2.0.0"
-    },
+    "xunit": "2.2.0-beta1-build3239",
+    "dotnet-test-xunit": "1.0.0-rc2-build10025",
     "IX.Retry":{
         "target": "project",
-        "type": "default"
-    },
-    "xunit": "2.2.0-beta1-build3239",
-    "dotnet-test-xunit": "1.0.0-rc2-build10025"
+        "type": "build"
+    }
   },
   
   "frameworks": {
-    "netstandard1.0":{
-      "imports": [
-        "wp81",
-        "wp80"
-      ]
+    "netcoreapp10":{
+        "dependencies": {
+          "Microsoft.NETCore.App":{
+              "version": "1.0.0-rc2-3002702",
+              "type":"platform"
+          }
+        }
+    }
+  },
+  
+  "configurations": {
+    "Debug": {
+      "buildOptions": {
+        "define": [
+          "DEBUG"
+        ]
+      }
     },
-    "netstandard1.1":{
-      "imports":[
-        "net45",
-        "win80"
-      ]
+    "Release": {
+      "buildOptions": {
+        "warningsAsErrors": true,
+        "optimize": true
+      }
     },
-    "netstandard1.2":{
-      "imports":[
-        "net451",
-        "net452",
-        "win81",
-        "wpa81"
-      ]
-    },
-    "netstandard1.3":{
-      "imports":[
-        "net46"
-      ]
-    },
-    "netstandard1.4":{
-      "imports":[
-        "net461",
-        "uap10"
-      ]
-    },
-    "netstandard1.5":{
-      "imports":[
-        "net462"
-      ]
-    },
-    "netstandard1.6":{
-      "imports":[
-        "netcoreapp10",
-        "net463"
-      ]
+    "Test": {
+      "buildOptions": {
+        "define": [
+          "TEST"
+        ]
+      }
     }
   }
 }

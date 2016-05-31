@@ -1,3 +1,4 @@
 {
-    "sources": [ "src", "test" ]
+    "sources": [ "src", "test" ],
+    "projects": [ "IX.Retry", "IX.Retry.Test" ]
 }

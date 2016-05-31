@@ -7,23 +7,35 @@
         {
             "taskName": "build",
             "args": [ "--configuration", "Debug", "src/IX.Retry/project.json" ],
-            "isBuildCommand": true,
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$msCompile",
+            "isTestCommand": false,
+            "isBuildCommand": true
+        },
+        {
+            "taskName": "build-test",
+            "args": [ "build", "--configuration", "Debug", "test/IX.Retry.Tests/project.json" ],
+            "suppressTaskName": true,
+            "problemMatcher": "$msCompile",
+            "isTestCommand": false,
+            "isBuildCommand": false
         },
         {
             "taskName": "restore",
             "args": [ "src/IX.Retry/project.json" ],
+            "isTestCommand": false,
             "isBuildCommand": false
         },
         {
             "taskName": "restore-test",
             "suppressTaskName": true,
             "args": [ "restore", "test/IX.Retry.Tests/project.json" ],
+            "isTestCommand": false,
             "isBuildCommand": false
         },
         {
             "taskName": "pack",
             "args": [ "--configuration", "Release", "src/IX.Retry/project.json" ],
+            "isTestCommand": false,
             "isBuildCommand": false
         },
         {
