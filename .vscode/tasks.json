@@ -6,7 +6,7 @@
     "tasks": [
         {
             "taskName": "build",
-            "args": [],
+            "args": [ "--configuration", "Debug", "src/IX.Retry/project.json" ],
             "isBuildCommand": true,
             "problemMatcher": "$msCompile"
         },
@@ -23,6 +23,12 @@
         {
             "taskName": "pack",
             "args": [],
+            "isBuildCommand": false
+        },
+        {
+            "taskName": "test",
+            "args": [ "--configuration", "Test" ],
+            "isTestCommand": true,
             "isBuildCommand": false
         }
     ]

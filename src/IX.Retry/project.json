@@ -1,9 +1,11 @@
 {
   "title": "IX.Retry",
-  "version": "0.3.0-rc1",
+  "version": "0.3.0-rc2",
   
   "buildOptions": {
-    "compile": "*.cs"
+    "compile": {
+      "include": "*.cs"
+    }
   },
   
   "dependencies": {
@@ -63,8 +65,12 @@
         ]
       }
      },
-    "Release": { },
-    "Test": { 
+    "Release": {
+      "buildOptions": {
+        "warningsAsErrors": true
+      }
+     },
+    "Test": {
       "buildOptions": {
         "define": [
           "TEST"

@@ -1,8 +1,0 @@
-{
-  "projects": [ "src", "test" ],
-  "sdk": {
-    "architecture": "x86",
-    "runtime": "coreclr",
-    "version": "1.0.0-beta8"
-  }
-}
