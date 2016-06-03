@@ -15,10 +15,11 @@ namespace IX.Retry
         /// <returns>The configured retry options.</returns>
         public static RetryOptions Times(this RetryOptions options, int times)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             if (times <= 0)
-            {
                 throw new ArgumentException(nameof(times));
-            }
             
             options.Type |= RetryType.Times;
             options.RetryTimes = times;
@@ -33,6 +34,9 @@ namespace IX.Retry
         /// <returns>The configured retry options.</returns>
         public static RetryOptions Once(this RetryOptions options)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             options.Type |= RetryType.Times;
             options.RetryTimes = 1;
 
@@ -46,6 +50,9 @@ namespace IX.Retry
         /// <returns>The configured retry options.</returns>
         public static RetryOptions Twice(this RetryOptions options)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             options.Type |= RetryType.Times;
             options.RetryTimes = 2;
 
@@ -59,6 +66,9 @@ namespace IX.Retry
         /// <returns>The configured retry options.</returns>
         public static RetryOptions ThreeTimes(this RetryOptions options)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             options.Type |= RetryType.Times;
             options.RetryTimes = 3;
 
@@ -72,6 +82,9 @@ namespace IX.Retry
         /// <returns>The configured retry options.</returns>
         public static RetryOptions FiveTimes(this RetryOptions options)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
             options.Type |= RetryType.Times;
             options.RetryTimes = 5;
 
@@ -86,6 +99,12 @@ namespace IX.Retry
         /// <returns>The configured retry options.</returns>
         public static RetryOptions For(this RetryOptions options, TimeSpan timeSpan)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            if (timeSpan < TimeSpan.Zero)
+                throw new ArgumentException(nameof(timeSpan));
+
             options.Type |= RetryType.For;
             options.RetryFor = timeSpan;
 
@@ -100,9 +119,152 @@ namespace IX.Retry
         /// <returns>The configured retry options.</returns>
         public static RetryOptions For(this RetryOptions options, int milliseconds)
         {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            if (milliseconds <= 0)
+                throw new ArgumentException(nameof(milliseconds));
+
             options.Type |= RetryType.For;
             options.RetryFor = TimeSpan.FromMilliseconds(milliseconds);
 
+            return options;
+        }
+
+        /// <summary>
+        /// Retries until a specific condition is reached.
+        /// </summary>
+        /// <param name="options">Retry options to configure.</param>
+        /// <param name="conditionMethod">The condition method to evaluate.</param>
+        /// <returns>The configured retry options.</returns>
+        /// <remarks>
+        /// <para>Retrying happens while the <paramref name="conditionMethod" /> method, when executed, returns <c>true</c>.</para>
+        /// <para>On first instance that the method return is <c>false</c>, retrying stops.</para>
+        /// </remarks>
+        public static RetryOptions Until(this RetryOptions options, RetryConditionDelegate conditionMethod)
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            if (conditionMethod == null)
+                throw new ArgumentNullException(nameof(conditionMethod));
+            
+            options.Type |= RetryType.Until;
+            options.RetryUntil = conditionMethod;
+            
+            return options;
+        }
+        
+        /// <summary>
+        /// Configures an exception that, when thrown by the code being retried, prompts a retry.
+        /// </summary>
+        /// <typeparam name="T">The exception type to configure.</typeparam>
+        /// <param name="options">Retry options to configure.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions OnException<T>(this RetryOptions options) where T : Exception
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            options.RetryOnExceptions.RemoveAll(p => p.Item1 == typeof(T));
+            options.RetryOnExceptions.Add(new Tuple<Type, Func<Exception, bool>>(typeof(T), p => true));
+            
+            return options;
+        }
+        
+        /// <summary>
+        /// Configures an exception that, when thrown by the code being retried, prompts a retry, if the method to test for it allows it.
+        /// </summary>
+        /// <typeparam name="T">The exception type to configure.</typeparam>
+        /// <param name="options">Retry options to configure.</param>
+        /// <param name="testExceptionFunc">The method to test the exceptions with.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions OnException<T>(this RetryOptions options, Func<Exception, bool> testExceptionFunc) where T : Exception
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            if (testExceptionFunc == null)
+                throw new ArgumentNullException(nameof(testExceptionFunc));
+            
+            options.RetryOnExceptions.RemoveAll(p => p.Item1 == typeof(T));
+            options.RetryOnExceptions.Add(new Tuple<Type, Func<Exception, bool>>(typeof(T), testExceptionFunc));
+            
+            return options;
+        }
+        
+        /// <summary>
+        /// Configures retry options to throw an exception at the end of the retrying process, if it was unsuccessful.
+        /// </summary>
+        /// <param name="options">Retry options to configure.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions ThrowException(this RetryOptions options)
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            options.ThrowExceptionOnLastRetry = true;
+            
+            return options;
+        }
+        
+        /// <summary>
+        /// Waiting time between retries.
+        /// </summary>
+        /// <param name="options">Retry options to configure.</param>
+        /// <param name="milliseconds">The number of milliseconds to wait for.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions WaitFor(this RetryOptions options, int milliseconds)
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            if (milliseconds <= 0)
+                throw new ArgumentException(nameof(milliseconds));
+
+            options.WaitBetweenRetriesType = WaitType.For;
+            options.WaitForDuration = TimeSpan.FromMilliseconds(milliseconds);
+            
+            return options;
+        }
+        
+        /// <summary>
+        /// Waiting time between retries.
+        /// </summary>
+        /// <param name="options">Retry options to configure.</param>
+        /// <param name="timeSpan">The time span to wait between retries.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions WaitFor(this RetryOptions options, TimeSpan timeSpan)
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            if (timeSpan < TimeSpan.Zero)
+                throw new ArgumentException(nameof(timeSpan));
+
+            options.WaitBetweenRetriesType = WaitType.For;
+            options.WaitForDuration = timeSpan;
+            
+            return options;
+        }
+
+        /// <summary>
+        /// Waits a time span that is configured by a given delegate.
+        /// </summary>
+        /// <param name="options">Retry options to configure.</param>
+        /// <param name="waitMethod">The waiting delegate to give the time span.</param>
+        /// <returns>The configured retry options.</returns>
+        public static RetryOptions WaitUntil(this RetryOptions options, RetryWaitDelegate waitMethod)
+        {
+            if (options == null)
+                throw new ArgumentNullException(nameof(options));
+
+            if (waitMethod == null)
+                throw new ArgumentNullException(nameof(waitMethod));
+            
+            options.WaitBetweenRetriesType = WaitType.Until;
+            options.WaitUntilDelegate = waitMethod;
+            
             return options;
         }
     }
