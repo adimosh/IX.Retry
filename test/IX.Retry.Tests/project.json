@@ -6,6 +6,9 @@
     "compile": {
       "include": ["*.cs", "../../src/IX.Retry/*.cs"]
     },
+    "copyToOutput": {
+      "includeFiles": ["xunit.runner.json"]
+    },
     "define": [
         "TEST"
     ]

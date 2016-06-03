@@ -40,7 +40,7 @@
         },
         {
             "taskName": "test",
-            "args": [ "--configuration", "Test", "test/IX.Retry.Tests/project.json" ],
+            "args": [ "--configuration", "Debug", "test/IX.Retry.Tests/project.json" ],
             "isTestCommand": true,
             "isBuildCommand": false
         }

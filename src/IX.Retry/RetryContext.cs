@@ -81,7 +81,7 @@ namespace IX.Retry
                 
                 exceptions.Add(ex);
 
-                if (options.Type.HasFlag(RetryType.Times) && retries > options.RetryTimes)
+                if (options.Type.HasFlag(RetryType.Times) && retries >= options.RetryTimes - 1)
                 {
                     shouldRetry = false;
                 }
