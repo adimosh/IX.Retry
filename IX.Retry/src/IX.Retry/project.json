@@ -1,64 +1,78 @@
-{
+﻿{
   "title": "IX.Retry",
-  "version": "0.3.0-rc3",
-  
-  "buildOptions": {
-    "compile": {
-      "include": "*.cs"
-    }
-  },
-  
+  "version": "0.3.0",
+
   "dependencies": {
-    "System.Linq": "4.1.0-rc2-24027",
-    "System.Threading": "4.0.11-rc2-24027",
-    "System.Threading.Tasks": "4.0.11-rc2-24027"
+    "System.Linq": "4.1.0",
+    "System.Runtime": "4.1.0",
+    "System.Threading": "4.0.11",
+    "System.Threading.Tasks": "4.0.11"
   },
-  
+
   "frameworks": {
-    "netstandard1.0":{
+    "netstandard1.0": {
+      "buildOptions": { "define": [ "NETSTANDARD10" ] },
       "imports": [
         "wp81",
         "wp80"
       ]
     },
-    "netstandard1.1":{
-      "imports":[
+    "netstandard1.1": {
+      "imports": [
         "net45",
         "win80"
-      ]
+      ],
+      "dependencies": {
+        "System.Runtime.InteropServices": "4.1.0"
+      }
     },
-    "netstandard1.2":{
-      "imports":[
+    "netstandard1.2": {
+      "imports": [
         "net451",
         "net452",
         "win81",
         "wpa81"
-      ]
+      ],
+      "dependencies": {
+        "System.Runtime.InteropServices": "4.1.0"
+      }
     },
-    "netstandard1.3":{
-      "imports":[
+    "netstandard1.3": {
+      "imports": [
         "net46"
-      ]
+      ],
+      "dependencies": {
+        "System.Runtime.InteropServices": "4.1.0"
+      }
     },
-    "netstandard1.4":{
-      "imports":[
+    "netstandard1.4": {
+      "imports": [
         "net461",
         "uap10"
-      ]
+      ],
+      "dependencies": {
+        "System.Runtime.InteropServices": "4.1.0"
+      }
     },
-    "netstandard1.5":{
-      "imports":[
+    "netstandard1.5": {
+      "imports": [
         "net462"
-      ]
+      ],
+      "dependencies": {
+        "System.Runtime.InteropServices": "4.1.0"
+      }
     },
-    "netstandard1.6":{
-      "imports":[
+    "netstandard1.6": {
+      "imports": [
         "netcoreapp10",
         "net463"
-      ]
+      ],
+      "dependencies": {
+        "System.Runtime.InteropServices": "4.1.0"
+      }
     }
   },
-  
+
   "configurations": {
     "Debug": {
       "buildOptions": {
@@ -72,16 +86,9 @@
         "warningsAsErrors": true,
         "optimize": true
       }
-    },
-    "Test": {
-      "buildOptions": {
-        "define": [
-          "TEST"
-        ]
-      }
     }
   },
-  
+
   "authors": [ "Adrian Mos" ],
   "copyright": "Adrian Mos, 2015",
   "description": "A library for re-queuing calls that might fail due to recoverable exceptions (such as network connection blips or remote servers too busy).",
