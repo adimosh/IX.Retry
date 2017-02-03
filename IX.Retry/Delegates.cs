@@ -1,3 +1,7 @@
+// <copyright file="Delegates.cs" company="Adrian Mos">
+// Copyright (c) Adrian Mos with all rights reserved. Part of the IX Framework.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 
@@ -12,7 +16,7 @@ namespace IX.Retry
     /// <param name="options">The retry options.</param>
     /// <returns><c>true</c> whether retrying should occur, <c>false</c> otherwise.</returns>
     public delegate bool RetryConditionDelegate(int retriedTimes, DateTime retryingSince, IEnumerable<Exception> exceptions, RetryOptions options);
-    
+
     /// <summary>
     /// A delegate that, when invoked, should tell how much to wait between retry attempts.
     /// </summary>

@@ -30,6 +30,7 @@
     <PackageReference Include="System.Runtime" Version="4.1.0" />
     <PackageReference Include="System.Threading" Version="4.0.11" />
     <PackageReference Include="System.Threading.Tasks" Version="4.0.11" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta001" Type="build" Condition=" '$(Configuration)' == 'Debug' " PrivateAssets="all" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>

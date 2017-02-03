@@ -1,3 +1,7 @@
+// <copyright file="RetryContext.cs" company="Adrian Mos">
+// Copyright (c) Adrian Mos with all rights reserved. Part of the IX Framework.
+// </copyright>
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,136 +12,79 @@ namespace IX.Retry
 {
     internal class RetryContext : IDisposable
     {
+        private bool disposedValue;
+
         private RetryOptions options;
         private Action actionToRetry;
-        
+
         public RetryContext(RetryOptions options, Action actionToRetry)
         {
             this.options = options;
             this.actionToRetry = actionToRetry;
         }
-        
+
+        ~RetryContext()
+        {
+            this.Dispose(false);
+        }
+
         public async Task BeginRetryProcessAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            CheckDisposed();
-            
+            this.CheckDisposed();
+
             DateTime now = DateTime.UtcNow;
-            int retries = 0;
-            List<Exception> exceptions = new List<Exception>();
-            bool shouldRetry = true;
-            
+            var retries = 0;
+            var exceptions = new List<Exception>();
+            var shouldRetry = true;
+
             do
             {
-                shouldRetry = RunOnce(exceptions, now, ref retries);
-                
-                if (shouldRetry && options.WaitBetweenRetriesType != WaitType.None)
+                shouldRetry = this.RunOnce(exceptions, now, ref retries);
+
+                if (shouldRetry && this.options.WaitBetweenRetriesType != WaitType.None)
                 {
-                    TimeSpan waitFor = GetRetryTimeSpan(retries, now);
+                    TimeSpan waitFor = this.GetRetryTimeSpan(retries, now);
                     await Task.Delay((int)waitFor.TotalMilliseconds, cancellationToken);
                 }
-            } while (shouldRetry);
-            
-            ThrowExceptions(shouldRetry, exceptions);
+            }
+            while (shouldRetry);
+
+            this.ThrowExceptions(shouldRetry, exceptions);
         }
-        
+
+        public void Dispose()
+        {
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
         public void BeginRetryProcess()
         {
-            CheckDisposed();
-            
+            this.CheckDisposed();
+
             DateTime now = DateTime.UtcNow;
-            int retries = 0;
-            List<Exception> exceptions = new List<Exception>();
-            bool shouldRetry = true;
-            
+            var retries = 0;
+            var exceptions = new List<Exception>();
+            var shouldRetry = true;
+
             do
             {
-                shouldRetry = RunOnce(exceptions, now, ref retries);
-                
-                if (shouldRetry && options.WaitBetweenRetriesType != WaitType.None)
+                shouldRetry = this.RunOnce(exceptions, now, ref retries);
+
+                if (shouldRetry && this.options.WaitBetweenRetriesType != WaitType.None)
                 {
-                    TimeSpan waitFor = GetRetryTimeSpan(retries, now);
+                    TimeSpan waitFor = this.GetRetryTimeSpan(retries, now);
                     Task.Delay((int)waitFor.TotalMilliseconds).Wait();
                 }
-            } while (shouldRetry);
-            
-            ThrowExceptions(shouldRetry, exceptions);
-        }
-        
-        private bool RunOnce(IList<Exception> exceptions, DateTime now, ref int retries)
-        {
-            bool shouldRetry = true;
-            
-            try
-            {
-                actionToRetry();
             }
-            catch (Exception ex)
-            {
-                if (options.RetryOnExceptions.Count > 0 &&
-                    !options.RetryOnExceptions.Any(p => p.Item1 == ex.GetType() && p.Item2(ex)))
-                {
-                    throw;
-                }
-                
-                exceptions.Add(ex);
+            while (shouldRetry);
 
-                if (options.Type.HasFlag(RetryType.Times) && retries >= options.RetryTimes - 1)
-                {
-                    shouldRetry = false;
-                }
-                
-                if (shouldRetry && options.Type.HasFlag(RetryType.For) && (DateTime.UtcNow - now) > options.RetryFor)
-                {
-                    shouldRetry = false;
-                }
-                
-                if (shouldRetry && options.Type.HasFlag(RetryType.Until) && options.RetryUntil(retries, now, exceptions, options))
-                {
-                    shouldRetry = false;
-                }
-                
-                retries++;
-            }
-            
-            return shouldRetry;
-        }
-        
-        private TimeSpan GetRetryTimeSpan(int retries, DateTime now)
-        {
-            TimeSpan waitFor;
-            if (options.WaitBetweenRetriesType == WaitType.For && options.WaitForDuration.HasValue)
-            {
-                waitFor = options.WaitForDuration.Value;
-            }
-            else if (options.WaitBetweenRetriesType == WaitType.Until)
-            {
-                waitFor = options.WaitUntilDelegate.Invoke(retries, now, options);
-            }
-            return waitFor;
-        }
-        
-        private void ThrowExceptions(bool shouldRetry, IEnumerable<Exception> exceptions)
-        {
-            if (!shouldRetry && options.ThrowExceptionOnLastRetry)
-            {
-                throw new AggregateException(exceptions);
-            }
-        }
-        
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-        
-        private void CheckDisposed()
-        {
-            if (disposedValue)
-            {
-                throw new ObjectDisposedException(GetType().FullName);
-            }
+            this.ThrowExceptions(shouldRetry, exceptions);
         }
 
         protected virtual void Dispose(bool disposing)
         {
-            if (!disposedValue)
+            if (!this.disposedValue)
             {
                 if (disposing)
                 {
@@ -145,22 +92,81 @@ namespace IX.Retry
                 }
 
                 // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                options = null;
-                actionToRetry = null;
+                this.options = null;
+                this.actionToRetry = null;
 
-                disposedValue = true;
+                this.disposedValue = true;
             }
         }
 
-        ~RetryContext() {
-          Dispose(false);
+        private bool RunOnce(IList<Exception> exceptions, DateTime now, ref int retries)
+        {
+            var shouldRetry = true;
+
+            try
+            {
+                this.actionToRetry();
+            }
+            catch (Exception ex)
+            {
+                if (this.options.RetryOnExceptions.Count > 0 &&
+                    !this.options.RetryOnExceptions.Any(p => p.Item1 == ex.GetType() && p.Item2(ex)))
+                {
+                    throw;
+                }
+
+                exceptions.Add(ex);
+
+                if (this.options.Type.HasFlag(RetryType.Times) && retries >= this.options.RetryTimes - 1)
+                {
+                    shouldRetry = false;
+                }
+
+                if (shouldRetry && this.options.Type.HasFlag(RetryType.For) && (DateTime.UtcNow - now) > this.options.RetryFor)
+                {
+                    shouldRetry = false;
+                }
+
+                if (shouldRetry && this.options.Type.HasFlag(RetryType.Until) && this.options.RetryUntil(retries, now, exceptions, this.options))
+                {
+                    shouldRetry = false;
+                }
+
+                retries++;
+            }
+
+            return shouldRetry;
         }
 
-        public void Dispose()
+        private TimeSpan GetRetryTimeSpan(int retries, DateTime now)
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            TimeSpan waitFor;
+            if (this.options.WaitBetweenRetriesType == WaitType.For && this.options.WaitForDuration.HasValue)
+            {
+                waitFor = this.options.WaitForDuration.Value;
+            }
+            else if (this.options.WaitBetweenRetriesType == WaitType.Until)
+            {
+                waitFor = this.options.WaitUntilDelegate.Invoke(retries, now, this.options);
+            }
+
+            return waitFor;
         }
-        #endregion
+
+        private void ThrowExceptions(bool shouldRetry, IEnumerable<Exception> exceptions)
+        {
+            if (!shouldRetry && this.options.ThrowExceptionOnLastRetry)
+            {
+                throw new AggregateException(exceptions);
+            }
+        }
+
+        private void CheckDisposed()
+        {
+            if (this.disposedValue)
+            {
+                throw new ObjectDisposedException(typeof(RetryContext).FullName);
+            }
+        }
     }
 }

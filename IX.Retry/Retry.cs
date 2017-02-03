@@ -1,3 +1,7 @@
+// <copyright file="Retry.cs" company="Adrian Mos">
+// Copyright (c) Adrian Mos with all rights reserved. Part of the IX Framework.
+// </copyright>
+
 using System;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,10 +17,7 @@ namespace IX.Retry
         /// Retry now, with a default set of options.
         /// </summary>
         /// <param name="action">The action to try and retry.</param>
-        public static void Now(Action action)
-        {
-            Run(action, new RetryOptions());
-        }
+        public static void Now(Action action) => Run(action, new RetryOptions());
 
         /// <summary>
         /// Retry now, asynchronously, with an optional cancellation token.
@@ -24,20 +25,14 @@ namespace IX.Retry
         /// <param name="action">The action to try and retry.</param>
         /// <param name="cancellationToken">The current operation's cancellation token.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task" /> that can be awaited on.</returns>
-        public static async Task NowAsync(Action action, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            await RunAsync(action, new RetryOptions(), cancellationToken);
-        }
+        public static Task NowAsync(Action action, CancellationToken cancellationToken = default(CancellationToken)) => RunAsync(action, new RetryOptions(), cancellationToken);
 
         /// <summary>
         /// Retry now, with specified options.
         /// </summary>
         /// <param name="action">The action to try and retry.</param>
         /// <param name="options">The retry options.</param>
-        public static void Now(Action action, RetryOptions options)
-        {
-            Run(action, options);
-        }
+        public static void Now(Action action, RetryOptions options) => Run(action, options);
 
         /// <summary>
         /// Retry now, asynchronously, with specified options and an optional cancellation token.
@@ -46,10 +41,7 @@ namespace IX.Retry
         /// <param name="options">The retry options.</param>
         /// <param name="cancellationToken">The current operation's cancellation token.</param>
         /// <returns>A <see cref="System.Threading.Tasks.Task" /> that can be awaited on.</returns>
-        public static async Task NowAsync(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            await RunAsync(action, options, cancellationToken);
-        }
+        public static Task NowAsync(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken)) => RunAsync(action, options, cancellationToken);
 
         /// <summary>
         /// Retry now, with a method to build up options.
@@ -65,7 +57,7 @@ namespace IX.Retry
 
             var options = new RetryOptions();
             optionsSetter(options);
-            
+
             Run(action, options);
         }
 
@@ -94,10 +86,7 @@ namespace IX.Retry
         /// </summary>
         /// <param name="action">The action to retry.</param>
         /// <returns>An <see cref="System.Action" /> that can be executed whenever required.</returns>
-        public static Action Later(Action action)
-        {
-            return () => Run(action, new RetryOptions());
-        }
+        public static Action Later(Action action) => () => Run(action, new RetryOptions());
 
         /// <summary>
         /// Retry an action later, with retry options.
@@ -105,10 +94,7 @@ namespace IX.Retry
         /// <param name="action">The action to retry.</param>
         /// <param name="options">The retry options.</param>
         /// <returns>An <see cref="System.Action" /> that can be executed whenever required.</returns>
-        public static Action Later(Action action, RetryOptions options)
-        {
-            return () => Run(action, options);
-        }
+        public static Action Later(Action action, RetryOptions options) => () => Run(action, options);
 
         /// <summary>
         /// Retry an action later, with a method to build up options.
@@ -125,45 +111,9 @@ namespace IX.Retry
 
             var options = new RetryOptions();
             optionsSetter(options);
-            
+
             return () => Run(action, options);
         }
-        
-        private static async Task RunAsync(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            ValidateRunning(action, options, cancellationToken);
-            
-            using (RetryContext context = new RetryContext(options, action))
-            {
-                await context.BeginRetryProcessAsync();
-            }
-        }
-
-        private static void Run(Action action, RetryOptions options)
-        {
-            ValidateRunning(action, options, default(CancellationToken));
-            
-            using (RetryContext context = new RetryContext(options, action))
-            {
-                context.BeginRetryProcess();
-            }
-        }
-        
-        private static void ValidateRunning(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            if (action == null)
-            {
-                throw new ArgumentNullException(nameof(action));
-            }
-            if (options == null)
-            {
-                throw new ArgumentNullException(nameof(options));
-            }
-            
-            cancellationToken.ThrowIfCancellationRequested();
-        }
-
-        #region Initialized options
 
         /// <summary>
         /// Retry for a number of times.
@@ -176,11 +126,11 @@ namespace IX.Retry
             {
                 throw new ArgumentException(nameof(times));
             }
-            
+
             return new RetryOptions()
             {
                 Type = RetryType.Times,
-                RetryTimes = times
+                RetryTimes = times,
             };
         }
 
@@ -188,53 +138,41 @@ namespace IX.Retry
         /// Retry once.
         /// </summary>
         /// <returns>The configured retry options.</returns>
-        public static RetryOptions Once()
-        {
-            return new RetryOptions()
+        public static RetryOptions Once() => new RetryOptions()
             {
                 Type = RetryType.Times,
-                RetryTimes = 1
+                RetryTimes = 1,
             };
-        }
 
         /// <summary>
         /// Retry twice.
         /// </summary>
         /// <returns>The configured retry options.</returns>
-        public static RetryOptions Twice()
-        {
-            return new RetryOptions()
+        public static RetryOptions Twice() => new RetryOptions()
             {
                 Type = RetryType.Times,
-                RetryTimes = 2
+                RetryTimes = 2,
             };
-        }
 
         /// <summary>
         /// Retry three times.
         /// </summary>
         /// <returns>The configured retry options.</returns>
-        public static RetryOptions ThreeTimes()
-        {
-            return new RetryOptions()
+        public static RetryOptions ThreeTimes() => new RetryOptions()
             {
                 Type = RetryType.Times,
-                RetryTimes = 3
+                RetryTimes = 3,
             };
-        }
 
         /// <summary>
         /// Retry five times.
         /// </summary>
         /// <returns>The configured retry options.</returns>
-        public static RetryOptions FiveTimes()
-        {
-            return new RetryOptions()
+        public static RetryOptions FiveTimes() => new RetryOptions()
             {
                 Type = RetryType.Times,
-                RetryTimes = 5
+                RetryTimes = 5,
             };
-        }
 
         /// <summary>
         /// Retries for a specific time span.
@@ -244,12 +182,14 @@ namespace IX.Retry
         public static RetryOptions For(TimeSpan timeSpan)
         {
             if (timeSpan < TimeSpan.Zero)
+            {
                 throw new ArgumentException(nameof(timeSpan));
+            }
 
             return new RetryOptions()
             {
                 Type = RetryType.For,
-                RetryFor = timeSpan
+                RetryFor = timeSpan,
             };
         }
 
@@ -261,12 +201,14 @@ namespace IX.Retry
         public static RetryOptions For(int milliseconds)
         {
             if (milliseconds <= 0)
+            {
                 throw new ArgumentException(nameof(milliseconds));
+            }
 
             return new RetryOptions()
             {
                 Type = RetryType.For,
-                RetryFor = TimeSpan.FromMilliseconds(milliseconds)
+                RetryFor = TimeSpan.FromMilliseconds(milliseconds),
             };
         }
 
@@ -285,11 +227,11 @@ namespace IX.Retry
             {
                 throw new ArgumentNullException(nameof(conditionMethod));
             }
-            
+
             return new RetryOptions()
             {
                 Type = RetryType.Until,
-                RetryUntil = conditionMethod
+                RetryUntil = conditionMethod,
             };
         }
 
@@ -298,27 +240,29 @@ namespace IX.Retry
         /// </summary>
         /// <typeparam name="T">The exception type to configure.</typeparam>
         /// <returns>The configured retry options.</returns>
-        public static RetryOptions OnException<T>() where T : Exception
+        public static RetryOptions OnException<T>()
+            where T : Exception
         {
-            RetryOptions options = new RetryOptions();
+            var options = new RetryOptions();
             options.RetryOnExceptions.Add(new Tuple<Type, Func<Exception, bool>>(typeof(T), p => true));
             return options;
         }
 
-         /// <summary>
+        /// <summary>
         /// Configures an exception that, when thrown by the code being retried, prompts a retry, if the method to test for it allows it.
         /// </summary>
         /// <typeparam name="T">The exception type to configure.</typeparam>
         /// <param name="testExceptionFunc">The method to test the exceptions with.</param>
         /// <returns>The configured retry options.</returns>
-       public static RetryOptions OnException<T>(Func<Exception, bool> testExceptionFunc) where T : Exception
+        public static RetryOptions OnException<T>(Func<Exception, bool> testExceptionFunc)
+            where T : Exception
         {
             if (testExceptionFunc == null)
             {
                 throw new ArgumentNullException(nameof(testExceptionFunc));
             }
-            
-            RetryOptions options = new RetryOptions();
+
+            var options = new RetryOptions();
             options.RetryOnExceptions.Add(new Tuple<Type, Func<Exception, bool>>(typeof(T), testExceptionFunc));
             return options;
         }
@@ -327,13 +271,10 @@ namespace IX.Retry
         /// Configures retry options to throw an exception at the end of the retrying process, if it was unsuccessful.
         /// </summary>
         /// <returns>The configured retry options.</returns>
-        public static RetryOptions ThrowException()
-        {
-            return new RetryOptions()
+        public static RetryOptions ThrowException() => new RetryOptions()
             {
-                ThrowExceptionOnLastRetry = true
+                ThrowExceptionOnLastRetry = true,
             };
-        }
 
         /// <summary>
         /// Waiting time between retries.
@@ -346,11 +287,11 @@ namespace IX.Retry
             {
                 throw new ArgumentException(nameof(milliseconds));
             }
-            
+
             return new RetryOptions()
             {
                 WaitBetweenRetriesType = WaitType.For,
-                WaitForDuration = TimeSpan.FromMilliseconds(milliseconds)
+                WaitForDuration = TimeSpan.FromMilliseconds(milliseconds),
             };
         }
 
@@ -365,11 +306,11 @@ namespace IX.Retry
             {
                 throw new ArgumentException(nameof(timeSpan));
             }
-            
+
             return new RetryOptions()
             {
                 WaitBetweenRetriesType = WaitType.For,
-                WaitForDuration = timeSpan
+                WaitForDuration = timeSpan,
             };
         }
 
@@ -381,15 +322,50 @@ namespace IX.Retry
         public static RetryOptions WaitUntil(RetryWaitDelegate waitMethod)
         {
             if (waitMethod == null)
+            {
                 throw new ArgumentNullException(nameof(waitMethod));
-            
+            }
+
             return new RetryOptions()
             {
                 WaitBetweenRetriesType = WaitType.Until,
-                WaitUntilDelegate = waitMethod
+                WaitUntilDelegate = waitMethod,
             };
         }
-        
-        #endregion Initialized options
+
+        private static async Task RunAsync(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ValidateRunning(action, options, cancellationToken);
+
+            using (var context = new RetryContext(options, action))
+            {
+                await context.BeginRetryProcessAsync();
+            }
+        }
+
+        private static void Run(Action action, RetryOptions options)
+        {
+            ValidateRunning(action, options, default(CancellationToken));
+
+            using (var context = new RetryContext(options, action))
+            {
+                context.BeginRetryProcess();
+            }
+        }
+
+        private static void ValidateRunning(Action action, RetryOptions options, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            if (action == null)
+            {
+                throw new ArgumentNullException(nameof(action));
+            }
+
+            if (options == null)
+            {
+                throw new ArgumentNullException(nameof(options));
+            }
+
+            cancellationToken.ThrowIfCancellationRequested();
+        }
     }
 }
