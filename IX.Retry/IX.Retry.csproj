@@ -1,59 +1,49 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Description>A library for re-queuing calls that might fail due to recoverable exceptions (such as network connection blips or remote servers too busy).</Description>
-    <Copyright>Adrian Mos, 2015</Copyright>
-    <AssemblyTitle>IX.Retry</AssemblyTitle>
-    <VersionPrefix>0.4.0-alpha1</VersionPrefix>
-    <Authors>Adrian Mos</Authors>
     <TargetFramework>netstandard1.0</TargetFramework>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <AssemblyName>IX.Retry</AssemblyName>
-    <PackageId>IX.Retry</PackageId>
-    <PackageProjectUrl>https://github.com/adimosh/IX.Retry/</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/adimosh/IX.Retry/blob/master/LICENSE.md</PackageLicenseUrl>
-    <WarningLevel>4</WarningLevel>
-    <WarningsAsErrors>true</WarningsAsErrors>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Version>0.4.0</Version>
+    <FileVersion>0.4.0.4</FileVersion>
+    <AssemblyVersion>0.4.0</AssemblyVersion>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="System.Linq" Version="4.1.0" />
-    <PackageReference Include="System.Runtime" Version="4.1.0" />
-    <PackageReference Include="System.Threading" Version="4.0.11" />
-    <PackageReference Include="System.Threading.Tasks" Version="4.0.11" />
-    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta001" Type="build" Condition=" '$(Configuration)' == 'Debug' " PrivateAssets="all" />
-  </ItemGroup>
+
+  <PropertyGroup>
+    <Authors>Adrian Mos</Authors>
+    <Company />
+    <Product>IX Framework</Product>
+    <Description>A library with several collection types (dictionary, stack, etc.) that have been made observable.</Description>
+    <Copyright>Adrian Mos, 2016</Copyright>
+    <PackageProjectUrl>https://github.com/adimosh/IX.Retry/</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/adimosh/IX.Retry/blob/master/LICENSE.md</PackageLicenseUrl>
+  </PropertyGroup>
+
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <DefineDebug>true</DefineDebug>
-    <DefineTrace>true</DefineTrace>
+    <DocumentationFile>bin\Debug\netstandard1.0\.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <Optimize>true</Optimize>
-    <DebugType>pdbonly</DebugType>
-    <DefineDebug>false</DefineDebug>
-    <DefineTrace>false</DefineTrace>
+    <WarningsAsErrors>true</WarningsAsErrors>
+    <DefineConstants>RELEASE;NETSTANDARD1_0</DefineConstants>
+    <DocumentationFile>bin\Release\netstandard1.0\.xml</DocumentationFile>
   </PropertyGroup>
+
   <ItemGroup>
     <Compile Remove=".vscode\**" />
     <EmbeddedResource Remove=".vscode\**" />
     <None Remove=".vscode\**" />
   </ItemGroup>
+
   <ItemGroup>
     <AdditionalFiles Include="stylecop.json" />
   </ItemGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <WarningsAsErrors>true</WarningsAsErrors>
-  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Linq" Version="4.3.0" />
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Threading" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.0-beta001" Type="build" Condition=" '$(Configuration)' == 'Debug' " PrivateAssets="all" />
+  </ItemGroup>
+
 </Project>
